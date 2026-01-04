@@ -1,392 +1,507 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>Civil Engineering Hub - Modern Solutions</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Modern civil engineering solutions including hydropower, environmental, water resources, and geological engineering" />
-<link rel="stylesheet" href="css/style.css" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Civil Engineering Hub - Innovation in Infrastructure</title>
+<meta name="description" content="Advanced civil engineering solutions, research papers, projects, and geological exploration">
+
+<!-- CSS Libraries -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
+<!-- Loading Screen -->
+<div id="loading-screen">
+<div class="loader">
+<div class="loader-bar"></div>
+<div class="loader-text">Loading Civil Engineering Hub...</div>
+</div>
+</div>
 
-<header>
-<nav>
-<div class="logo">CE Hub</div>
-<ul class="nav-links">
-<li><a href="#about">About</a></li>
-<li><a href="#hydro">Hydropower</a></li>
-<li><a href="#enviro">Environment</a></li>
-<li><a href="#water">Water</a></li>
-<li><a href="#geo">Geological</a></li>
-<li><a href="#news">News</a></li>
-<li><a href="#gallery">Gallery</a></li>
-<li><a href="#articles">Articles</a></li>
-<li><a href="#research">Research</a></li>
-<li><a href="#projects">Projects</a></li>
-<li><a href="#download">Downloads</a></li>
-<li><a href="#contact">Contact</a></li>
+<!-- Navigation -->
+<nav class="navbar">
+<div class="nav-container">
+<div class="nav-logo">
+<img src="assets/images/logo.png" alt="CE Hub">
+<span>Civil Engineering Hub</span>
+</div>
+<ul class="nav-menu">
+<li><a href="index.html" class="nav-link active">Home</a></li>
+<li class="dropdown">
+<a href="about.html" class="nav-link">About <i class="fas fa-chevron-down"></i></a>
+<ul class="dropdown-menu">
+<li><a href="about.html">About Us</a></li>
+<li><a href="team.html">Our Team</a></li>
+<li><a href="leadership.html">Leadership</a></li>
 </ul>
+</li>
+<li class="dropdown">
+<a href="projects.html" class="nav-link">Projects <i class="fas fa-chevron-down"></i></a>
+<ul class="dropdown-menu">
+<li><a href="projects.html">All Projects</a></li>
+<li><a href="bridges.html">Bridges</a></li>
+<li><a href="tunnels.html">Tunnels</a></li>
+<li><a href="dams.html">Dams</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="research.html" class="nav-link">Research <i class="fas fa-chevron-down"></i></a>
+<ul class="dropdown-menu">
+<li><a href="research.html">Research Papers</a></li>
+<li><a href="articles.html">Articles</a></li>
+<li><a href="geology.html">Geological Studies</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="environmental.html" class="nav-link">Engineering <i class="fas fa-chevron-down"></i></a>
+<ul class="dropdown-menu">
+<li><a href="environmental.html">Environmental</a></li>
+<li><a href="water-supply.html">Water Supply</a></li>
+<li><a href="hydropower.html">Hydro Power</a></li>
+</ul>
+</li>
+<li><a href="downloads.html" class="nav-link">Downloads</a></li>
+<li><a href="contact.html" class="nav-link">Contact</a></li>
+<li><a href="login.html" class="nav-link login-btn">Login</a></li>
+</ul>
+<div class="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
 </nav>
-</header>
 
-<section id="hero">
-<h1>Modern Civil Engineering Solutions</h1>
-<p>Hydropower | Environmental | Water Resources | Geological Engineering</p>
-<a href="#about" class="btn">Explore Our Work</a>
-</section>
-
-<!-- About Section -->
-<section id="about" class="card-section fade-in">
-<div class="section-header">
-<h2>About CE Hub</h2>
-<p>Leading innovation in civil engineering with sustainable solutions for the modern world</p>
+<!-- Hero Section -->
+<section class="hero">
+<div class="hero-background">
+<div class="particles-container" id="particles-js"></div>
+<div class="hero-overlay"></div>
 </div>
-<div class="card">
-<img src="assets/about.jpg" alt="About CE Hub" />
-<div>
-<h2>Our Mission</h2>
-<p>We are dedicated to providing cutting-edge civil engineering solutions that balance technological advancement with environmental sustainability. Our team of experts combines traditional engineering principles with modern innovation to deliver projects that stand the test of time.</p>
-<a href="#contact" class="btn">Get In Touch</a>
+<div class="hero-content">
+<h1 class="hero-title animate-fade-in-up">
+Building Tomorrow's
+<span class="highlight">Infrastructure</span>
+</h1>
+<p class="hero-subtitle animate-fade-in-up" style="animation-delay: 0.3s;">
+Advanced civil engineering solutions, cutting-edge research, and innovative projects
+shaping the future of our built environment.
+</p>
+<div class="hero-buttons animate-fade-in-up" style="animation-delay: 0.6s;">
+<a href="projects.html" class="btn btn-primary">
+<i class="fas fa-hard-hat"></i> Explore Projects
+</a>
+<a href="research.html" class="btn btn-secondary">
+<i class="fas fa-microscope"></i> View Research
+</a>
 </div>
 </div>
-</section>
-
-<!-- News Section -->
-<section id="news" class="card-section alt fade-in">
-<div class="section-header">
-<h2>Latest News</h2>
-<p>Stay updated with our recent projects and achievements</p>
-</div>
-<div class="news-grid">
-<div class="news-card">
-<div class="news-date">January 2026</div>
-<h3>Sustainable Hydropower Project Completed</h3>
-<p>We successfully completed a major run-of-river hydropower scheme with fish-friendly turbines, generating clean energy for 50,000 homes.</p>
-<a href="#" class="btn">Read More</a>
-</div>
-<div class="news-card">
-<div class="news-date">December 2025</div>
-<h3>Environmental Impact Assessment Award</h3>
-<p>Our team received recognition for excellence in environmental impact assessment for large-scale infrastructure projects.</p>
-<a href="#" class="btn">Read More</a>
-</div>
-<div class="news-card">
-<div class="news-date">November 2025</div>
-<h3>Smart Water Management System</h3>
-<p>Implementation of IoT-based water management system reduces water loss by 30% in urban areas.</p>
-<a href="#" class="btn">Read More</a>
-</div>
+<div class="scroll-indicator">
+<div class="scroll-arrow"></div>
 </div>
 </section>
 
-<!-- Gallery Section -->
-<section id="gallery" class="card-section fade-in">
-<div class="section-header">
-<h2>Project Gallery</h2>
-<p>Visual showcase of our engineering excellence</p>
+<!-- Features Section -->
+<section class="features">
+<div class="container">
+<div class="section-header animate-on-scroll">
+<h2>Comprehensive Engineering Solutions</h2>
+<p>From geological exploration to cutting-edge infrastructure projects</p>
 </div>
-<div class="gallery-grid">
-<div class="gallery-item">
-<img src="assets/gallery1.jpg" alt="Hydropower Dam" />
-<div class="gallery-overlay">
-<span>View Project</span>
+<div class="features-grid">
+<div class="feature-card animate-on-scroll">
+<div class="feature-icon">
+<i class="fas fa-mountain"></i>
 </div>
+<h3>Geological Exploration</h3>
+<p>Advanced geological surveys and earth condition analysis for optimal project planning.</p>
+<a href="geology.html" class="feature-link">Learn More <i class="fas fa-arrow-right"></i></a>
 </div>
-<div class="gallery-item">
-<img src="assets/gallery2.jpg" alt="Water Treatment" />
-<div class="gallery-overlay">
-<span>View Project</span>
+<div class="feature-card animate-on-scroll">
+<div class="feature-icon">
+<i class="fas fa-bridge"></i>
 </div>
+<h3>Bridge Engineering</h3>
+<p>Innovative bridge design and construction solutions for modern transportation needs.</p>
+<a href="bridges.html" class="feature-link">Learn More <i class="fas fa-arrow-right"></i></a>
 </div>
-<div class="gallery-item">
-<img src="assets/gallery3.jpg" alt="Geological Survey" />
-<div class="gallery-overlay">
-<span>View Project</span>
+<div class="feature-card animate-on-scroll">
+<div class="feature-icon">
+<i class="fas fa-water"></i>
 </div>
+<h3>Water Resources</h3>
+<p>Comprehensive water supply and hydropower engineering for sustainable development.</p>
+<a href="water-supply.html" class="feature-link">Learn More <i class="fas fa-arrow-right"></i></a>
 </div>
-<div class="gallery-item">
-<img src="assets/gallery4.jpg" alt="Environmental Site" />
-<div class="gallery-overlay">
-<span>View Project</span>
+<div class="feature-card animate-on-scroll">
+<div class="feature-icon">
+<i class="fas fa-leaf"></i>
 </div>
+<h3>Environmental Engineering</h3>
+<p>Sustainable environmental solutions for infrastructure development and protection.</p>
+<a href="environmental.html" class="feature-link">Learn More <i class="fas fa-arrow-right"></i></a>
 </div>
+<div class="feature-card animate-on-scroll">
+<div class="feature-icon">
+<i class="fas fa-tunnel"></i>
 </div>
-</section>
-
-<!-- Video Section -->
-<section id="videos" class="card-section alt fade-in">
-<div class="section-header">
-<h2>Featured Videos</h2>
-<p>Watch our projects in action</p>
+<h3>Tunnel Construction</h3>
+<p>Advanced tunneling techniques and underground infrastructure development.</p>
+<a href="tunnels.html" class="feature-link">Learn More <i class="fas fa-arrow-right"></i></a>
 </div>
-<div class="video-container">
-<div class="video-player">
-<video controls poster="assets/video-poster.jpg">
-<source src="assets/project-video.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
+<div class="feature-card animate-on-scroll">
+<div class="feature-icon">
+<i class="fas fa-file-alt"></i>
+</div>
+<h3>Research & Publications</h3>
+<p>Peer-reviewed research papers and technical articles on civil engineering innovations.</p>
+<a href="research.html" class="feature-link">Learn More <i class="fas fa-arrow-right"></i></a>
+</div>
 </div>
 </div>
 </section>
 
-<!-- Hydropower -->
-<section id="hydro" class="card-section fade-in">
-<div class="card">
-<img src="assets/hydropower.jpg" alt="Hydropower" />
-<div>
-<h2>Hydropower Engineering</h2>
-<p>Design and optimisation of run-of-river schemes, pumped-storage plants, fish-friendly turbines & digital twins. Our sustainable approach ensures minimal environmental impact while maximizing energy output.</p>
-<a href="#download" class="btn">Download Brochure</a>
+<!-- Latest Projects Section -->
+<section class="latest-projects">
+<div class="container">
+<div class="section-header animate-on-scroll">
+<h2>Featured Projects</h2>
+<p>Showcasing our latest engineering achievements</p>
+</div>
+<div class="projects-carousel">
+<div class="project-card animate-on-scroll">
+<div class="project-image">
+<img src="assets/images/project1.jpg" alt="Suspension Bridge Project">
+<div class="project-overlay">
+<span class="project-category">Bridge Engineering</span>
 </div>
 </div>
-</section>
-
-<!-- Environmental -->
-<section id="enviro" class="card-section alt fade-in">
-<div class="card">
-<div>
-<h2>Environmental Engineering</h2>
-<p>Air-quality modelling, EIA, wastewater-treatment reactors, landfill drainage & life-cycle assessment. We help clients meet environmental regulations while promoting sustainable practices.</p>
-<a href="#research" class="btn">View Research</a>
+<div class="project-content">
+<h3>Golden Gate Suspension Bridge Extension</h3>
+<p>Advanced seismic-resistant design extending the iconic bridge's lifespan by 50 years.</p>
+<div class="project-stats">
+<span><i class="fas fa-ruler"></i> 2.7km span</span>
+<span><i class="fas fa-calendar"></i> 2024</span>
 </div>
-<img src="assets/enviro.jpg" alt="Environmental" />
-</div>
-</section>
-
-<!-- Water -->
-<section id="water" class="card-section fade-in">
-<div class="card">
-<img src="assets/water.jpg" alt="Water" />
-<div>
-<h2>Water Resources Engineering</h2>
-<p>Catchment hydrology, flood-risk mapping, storm-water networks, IoT sensing & real-time control. Smart water management for sustainable urban development.</p>
-<a href="#articles" class="btn">Read Articles</a>
+<a href="project-detail.html" class="btn btn-outline">View Details</a>
 </div>
 </div>
-</section>
-
-<!-- Geological -->
-<section id="geo" class="card-section alt fade-in">
-<div class="card">
-<div>
-<h2>Geological Engineering</h2>
-<p>Rock-mass characterisation, slope stability, tunnel support, dam foundation & 3-D GIS modelling. Advanced geological surveys for safe infrastructure development.</p>
-<a href="#projects" class="btn">Our Projects</a>
+<div class="project-card animate-on-scroll">
+<div class="project-image">
+<img src="assets/images/project2.jpg" alt="Tunnel Project">
+<div class="project-overlay">
+<span class="project-category">Tunnel Engineering</span>
 </div>
-<img src="assets/geo.jpg" alt="Geological" />
-</section>
-
-<!-- Articles Section -->
-<section id="articles" class="card-section fade-in">
-<div class="section-header">
-<h2>Technical Articles</h2>
-<p>In-depth analysis and insights from our experts</p>
 </div>
-<div class="news-grid">
-<article class="news-card">
-<h3>Sustainable Hydropower Design</h3>
-<p>Exploring modern approaches to hydropower design that prioritize environmental sustainability and fish migration patterns.</p>
-<a href="#" class="btn">Read Article</a>
-</article>
-<article class="news-card">
-<h3>Smart Water Management Systems</h3>
-<p>How IoT and real-time monitoring are revolutionizing water resource management in urban environments.</p>
-<a href="#" class="btn">Read Article</a>
-</article>
-<article class="news-card">
-<h3>Geological Risk Assessment</h3>
-<p>Advanced techniques for assessing geological risks in infrastructure development projects.</p>
-<a href="#" class="btn">Read Article</a>
-</article>
+<div class="project-content">
+<h3>Trans-Alpine Railway Tunnel</h3>
+<p>Europe's longest railway tunnel featuring advanced ventilation and safety systems.</p>
+<div class="project-stats">
+<span><i class="fas fa-ruler"></i> 57km length</span>
+<span><i class="fas fa-calendar"></i> 2023</span>
+</div>
+<a href="project-detail.html" class="btn btn-outline">View Details</a>
+</div>
+</div>
+<div class="project-card animate-on-scroll">
+<div class="project-image">
+<img src="assets/images/project3.jpg" alt="Dam Project">
+<div class="project-overlay">
+<span class="project-category">Dam Engineering</span>
+</div>
+</div>
+<div class="project-content">
+<h3>Amazon Hydroelectric Complex</h3>
+<p>Sustainable energy solution providing clean power to 2 million homes.</p>
+<div class="project-stats">
+<span><i class="fas fa-bolt"></i> 11,000 MW</span>
+<span><i class="fas fa-calendar"></i> 2024</span>
+</div>
+<a href="project-detail.html" class="btn btn-outline">View Details</a>
+</div>
+</div>
+</div>
 </div>
 </section>
 
 <!-- Research Section -->
-<section id="research" class="card-section alt fade-in">
-<div class="section-header">
-<h2>Research & Development</h2>
-<p>Innovation driving the future of civil engineering</p>
+<section class="research-preview">
+<div class="container">
+<div class="section-header animate-on-scroll">
+<h2>Latest Research & Publications</h2>
+<p>Peer-reviewed papers and technical articles</p>
 </div>
-<div class="card">
-<div>
-<h2>Current Research Projects</h2>
-<ul style="list-style: none; padding: 0;">
-<li style="margin-bottom: 1rem;"><i class="fas fa-flask" style="color: var(--accent); margin-right: 0.5rem;"></i> Carbon-neutral concrete development</li>
-<li style="margin-bottom: 1rem;"><i class="fas fa-chart-line" style="color: var(--accent); margin-right: 0.5rem;"></i> AI-powered flood prediction systems</li>
-<li style="margin-bottom: 1rem;"><i class="fas fa-leaf" style="color: var(--accent); margin-right: 0.5rem;"></i> Bio-remediation techniques for soil treatment</li>
-<li style="margin-bottom: 1rem;"><i class="fas fa-bolt" style="color: var(--accent); margin-right: 0.5rem;"></i> Next-generation turbine efficiency</li>
+<div class="research-grid">
+<article class="research-card animate-on-scroll">
+<div class="research-type">Journal Article</div>
+<h3>Seismic Performance of High-Performance Concrete Bridges</h3>
+<p class="research-authors">Dr. Sarah Johnson, Prof. Michael Chen</p>
+<p class="research-excerpt">Comprehensive analysis of seismic resistance in modern bridge designs using advanced composite materials...</p>
+<div class="research-meta">
+<span><i class="fas fa-calendar"></i> Jan 2024</span>
+<span><i class="fas fa-download"></i> 1,247 downloads</span>
+<span><i class="fas fa-comment"></i> 23 comments</span>
+</div>
+<div class="research-actions">
+<button class="btn-like"><i class="fas fa-heart"></i> 89</button>
+<button class="btn-comment"><i class="fas fa-comment"></i> Comment</button>
+<a href="#" class="btn-download"><i class="fas fa-download"></i> PDF</a>
+</div>
+</article>
+<article class="research-card animate-on-scroll">
+<div class="research-type">Research Paper</div>
+<h3>AI-Driven Optimization in Tunnel Construction</h3>
+<p class="research-authors">Dr. Alex Rodriguez, Eng. Lisa Wang</p>
+<p class="research-excerpt">Machine learning applications in tunnel boring machine optimization and geological prediction...</p>
+<div class="research-meta">
+<span><i class="fas fa-calendar"></i> Dec 2023</span>
+<span><i class="fas fa-download"></i> 892 downloads</span>
+<span><i class="fas fa-comment"></i> 15 comments</span>
+</div>
+<div class="research-actions">
+<button class="btn-like"><i class="fas fa-heart"></i> 67</button>
+<button class="btn-comment"><i class="fas fa-comment"></i> Comment</button>
+<a href="#" class="btn-download"><i class="fas fa-download"></i> PDF</a>
+</div>
+</article>
+<article class="research-card animate-on-scroll">
+<div class="research-type">Technical Report</div>
+<h3>Sustainable Materials in Dam Construction</h3>
+<p class="research-authors">Prof. James Wilson, Dr. Maria Garcia</p>
+<p class="research-excerpt">Environmental impact assessment of eco-friendly materials in large-scale dam projects...</p>
+<div class="research-meta">
+<span><i class="fas fa-calendar"></i> Nov 2023</span>
+<span><i class="fas fa-download"></i> 756 downloads</span>
+<span><i class="fas fa-comment"></i> 18 comments</span>
+</div>
+<div class="research-actions">
+<button class="btn-like"><i class="fas fa-heart"></i> 52</button>
+<button class="btn-comment"><i class="fas fa-comment"></i> Comment</button>
+<a href="#" class="btn-download"><i class="fas fa-download"></i> PDF</a>
+</div>
+</article>
+</div>
+<div class="text-center animate-on-scroll">
+<a href="research.html" class="btn btn-primary">View All Publications</a>
+</div>
+</div>
+</section>
+
+<!-- Geological Exploration Section -->
+<section class="geology-preview">
+<div class="container">
+<div class="section-header animate-on-scroll">
+<h2>Geological Exploration & Analysis</h2>
+<p>Advanced geological surveys and earth condition monitoring</p>
+</div>
+<div class="geology-content">
+<div class="geology-map animate-on-scroll">
+<div class="map-container">
+<img src="assets/images/geological-map.jpg" alt="Geological Map">
+<div class="map-overlay">
+<div class="map-point" style="top: 30%; left: 40%;" data-location="Project Alpha">
+<div class="map-marker"></div>
+<div class="map-tooltip">
+<h4>Project Alpha</h4>
+<p>Granite bedrock, suitable for foundation</p>
+</div>
+</div>
+<div class="map-point" style="top: 60%; left: 70%;" data-location="Project Beta">
+<div class="map-marker"></div>
+<div class="map-tooltip">
+<h4>Project Beta</h4>
+<p>Limestone formation, requires special treatment</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="geology-info animate-on-scroll">
+<h3>Real-time Geological Monitoring</h3>
+<p>Our advanced geological exploration systems provide real-time data on:</p>
+<ul class="geology-features">
+<li><i class="fas fa-check"></i> Soil composition analysis</li>
+<li><i class="fas fa-check"></i> Seismic activity monitoring</li>
+<li><i class="fas fa-check"></i> Groundwater level tracking</li>
+<li><i class="fas fa-check"></i> Rock stability assessment</li>
+<li><i class="fas fa-check"></i> Environmental impact analysis</li>
 </ul>
-<a href="#contact" class="btn">Collaborate With Us</a>
+<a href="geology.html" class="btn btn-primary">Explore Geological Data</a>
 </div>
-<img src="assets/research.jpg" alt="Research" />
-</div>
-</section>
-
-<!-- Projects Showcase -->
-<section id="projects" class="card-section fade-in">
-<div class="section-header">
-<h2>Featured Projects</h2>
-<p>Showcasing our engineering excellence</p>
-</div>
-<div class="gallery-grid">
-<div class="news-card">
-<h3>Green Valley Dam</h3>
-<p>Multi-purpose dam providing water supply, flood control, and 50MW of clean energy.</p>
-<a href="#" class="btn">View Details</a>
-</div>
-<div class="news-card">
-<h3>Urban Stormwater System</h3>
-<p>Smart stormwater management for a city of 500,000 residents.</p>
-<a href="#" class="btn">View Details</a>
-</div>
-<div class="news-card">
-<h3>Mountain Tunnel Project</h3>
-<p>5km tunnel through challenging geological conditions.</p>
-<a href="#" class="btn">View Details</a>
 </div>
 </div>
 </section>
 
-<!-- Notes Section -->
-<section id="notes" class="card-section alt fade-in">
-<div class="section-header">
-<h2>Engineering Notes</h2>
-<p>Technical notes and documentation</p>
+<!-- Team Section -->
+<section class="team-preview">
+<div class="container">
+<div class="section-header animate-on-scroll">
+<h2>Our Expert Team</h2>
+<p>Leading professionals in civil engineering</p>
 </div>
-<div class="download-grid">
-<div class="download-item">
-<i class="fas fa-file-pdf download-icon"></i>
-<h3>Design Guidelines</h3>
-<p>Comprehensive design guidelines for sustainable infrastructure</p>
-<textarea placeholder="Add your notes here..." rows="3" id="notes-1"></textarea>
-<button class="btn" onclick="saveNote('design-guidelines', document.getElementById('notes-1').value)">Save Notes</button>
+<div class="team-grid">
+<div class="team-member animate-on-scroll">
+<div class="member-photo">
+<img src="assets/images/team1.jpg" alt="Dr. Sarah Johnson">
+<div class="member-overlay">
+<div class="member-social">
+<a href="#"><i class="fab fa-linkedin"></i></a>
+<a href="#"><i class="fas fa-envelope"></i></a>
+<a href="#"><i class="fas fa-user"></i></a>
 </div>
-<div class="download-item">
-<i class="fas fa-file-alt download-icon"></i>
-<h3>Calculation Sheets</h3>
-<p>Standard calculation templates for common engineering problems</p>
-<textarea placeholder="Add your notes here..." rows="3" id="notes-2"></textarea>
-<button class="btn" onclick="saveNote('calc-sheets', document.getElementById('notes-2').value)">Save Notes</button>
 </div>
-<div class="download-item">
-<i class="fas fa-book download-icon"></i>
-<h3>Reference Materials</h3>
-<p>Technical references and industry standards</p>
-<textarea placeholder="Add your notes here..." rows="3" id="notes-3"></textarea>
-<button class="btn" onclick="saveNote('ref-materials', document.getElementById('notes-3').value)">Save Notes</button>
+</div>
+<div class="member-info">
+<h3>Dr. Sarah Johnson</h3>
+<p class="member-title">Chief Structural Engineer</p>
+<p class="member-specialization">Bridge Engineering, Seismic Design</p>
+<div class="member-stats">
+<span><i class="fas fa-graduation-cap"></i> PhD MIT</span>
+<span><i class="fas fa-briefcase"></i> 20+ years</span>
+</div>
+</div>
+</div>
+<div class="team-member animate-on-scroll">
+<div class="member-photo">
+<img src="assets/images/team2.jpg" alt="Prof. Michael Chen">
+<div class="member-overlay">
+<div class="member-social">
+<a href="#"><i class="fab fa-linkedin"></i></a>
+<a href="#"><i class="fas fa-envelope"></i></a>
+<a href="#"><i class="fas fa-user"></i></a>
+</div>
+</div>
+</div>
+<div class="member-info">
+<h3>Prof. Michael Chen</h3>
+<p class="member-title">Senior Geotechnical Engineer</p>
+<p class="member-specialization">Soil Mechanics, Foundation Design</p>
+<div class="member-stats">
+<span><i class="fas fa-graduation-cap"></i> PhD Stanford</span>
+<span><i class="fas fa-briefcase"></i> 25+ years</span>
+</div>
+</div>
+</div>
+<div class="team-member animate-on-scroll">
+<div class="member-photo">
+<img src="assets/images/team3.jpg" alt="Dr. Lisa Wang">
+<div class="member-overlay">
+<div class="member-social">
+<a href="#"><i class="fab fa-linkedin"></i></a>
+<a href="#"><i class="fas fa-envelope"></i></a>
+<a href="#"><i class="fas fa-user"></i></a>
+</div>
+</div>
+</div>
+<div class="member-info">
+<h3>Dr. Lisa Wang</h3>
+<p class="member-title">Environmental Engineering Lead</p>
+<p class="member-specialization">Sustainable Design, Water Resources</p>
+<div class="member-stats">
+<span><i class="fas fa-graduation-cap"></i> PhD Berkeley</span>
+<span><i class="fas fa-briefcase"></i> 15+ years</span>
+</div>
+</div>
+</div>
+</div>
+<div class="text-center animate-on-scroll">
+<a href="team.html" class="btn btn-primary">Meet the Full Team</a>
 </div>
 </div>
 </section>
 
-<!-- Download Section -->
-<section id="download" class="card-section fade-in">
-<div class="section-header">
-<h2>Downloads</h2>
-<p>Resources and documentation</p>
-</div>
-<div class="download-grid">
-<div class="download-item">
-<i class="fas fa-file-pdf download-icon"></i>
-<h3>Company Brochure</h3>
-<p>Complete overview of our services and capabilities</p>
-<button class="btn download-btn" data-file="assets/brochure.pdf" data-name="CE-Hub-Brochure.pdf">Download PDF</button>
-</div>
-<div class="download-item">
-<i class="fas fa-file-excel download-icon"></i>
-<h3>Design Templates</h3>
-<p>Excel templates for engineering calculations</p>
-<button class="btn download-btn" data-file="assets/templates.xlsx" data-name="Design-Templates.xlsx">Download Excel</button>
-</div>
-<div class="download-item">
-<i class="fas fa-file-powerpoint download-icon"></i>
-<h3>Project Presentations</h3>
-<p>Sample project presentations and case studies</p>
-<button class="btn download-btn" data-file="assets/presentations.pptx" data-name="Project-Presentations.pptx">Download PPT</button>
-</div>
-<div class="download-item">
-<i class="fas fa-file-code download-icon"></i>
-<h3>Software Tools</h3>
-<p>Custom engineering software and tools</p>
-<button class="btn download-btn" data-file="assets/tools.zip" data-name="Engineering-Tools.zip">Download ZIP</button>
-</div>
-</div>
-</section>
-
-<!-- Contact Section -->
-<section id="contact" class="fade-in">
-<div class="section-header">
-<h2>Let's build the next project together</h2>
-<p>Contact us for innovative engineering solutions</p>
-</div>
-<div class="contact-container">
-<div>
-<form action="https://formspree.io/f/your-form-id" method="POST">
-<input type="text" name="name" placeholder="Your Name" required />
-<input type="email" name="email" placeholder="Your Email" required />
-<input type="text" name="phone" placeholder="Phone Number" />
-<textarea name="message" rows="5" placeholder="Tell us about your project" required></textarea>
-<button type="submit">Send Message</button>
-</form>
-</div>
-<div class="newsletter">
-<h3>Subscribe to Our Newsletter</h3>
-<p>Stay updated with the latest in civil engineering innovation</p>
+<!-- Newsletter Section -->
+<section class="newsletter">
+<div class="container">
+<div class="newsletter-content animate-on-scroll">
+<h2>Stay Updated with Latest Research</h2>
+<p>Subscribe to our newsletter for the latest engineering insights and project updates</p>
 <form class="newsletter-form">
-<input type="email" placeholder="Enter your email" required />
-<button type="submit">Subscribe</button>
+<input type="email" placeholder="Enter your email address" required>
+<button type="submit" class="btn btn-primary">
+<i class="fas fa-paper-plane"></i> Subscribe
+</button>
 </form>
-<div style="margin-top: 2rem;">
-<h4>Contact Information</h4>
-<p><i class="fas fa-envelope"></i> info@cehub.com</p>
-<p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
-<p><i class="fas fa-map-marker-alt"></i> 123 Engineering Ave, Tech City, TC 12345</p>
-</div>
 </div>
 </div>
 </section>
 
-<!-- Comments Section -->
-<section class="comments-section fade-in">
-<div class="section-header">
-<h2>Client Feedback</h2>
-<p>What our clients say about us</p>
-</div>
-<div class="comment-form">
-<h3>Leave a Comment</h3>
-<form>
-<input type="text" name="name" placeholder="Your Name" required />
-<textarea name="comment" placeholder="Your feedback or comment" rows="4" required></textarea>
-<button type="submit">Post Comment</button>
-</form>
-</div>
-<div class="comments-container">
-<div class="comment">
-<div class="comment-author">Sarah Johnson</div>
-<div class="comment-date">January 2026</div>
-<div class="comment-text">Excellent work on our hydropower project. The team was professional and delivered beyond expectations.</div>
-</div>
-<div class="comment">
-<div class="comment-author">Michael Chen</div>
-<div class="comment-date">December 2025</div>
-<div class="comment-text">Great environmental assessment work. Very thorough and compliant with all regulations.</div>
+<!-- Footer -->
+<footer class="footer">
+<div class="container">
+<div class="footer-content">
+<div class="footer-section">
+<h3>Civil Engineering Hub</h3>
+<p>Advancing infrastructure through innovation, research, and sustainable engineering solutions.</p>
+<div class="social-links">
+<a href="#"><i class="fab fa-linkedin"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
 </div>
 </div>
-</section>
-
-<footer>
-<div style="margin-bottom: 2rem;">
-<a href="#" style="margin: 0 1rem;"><i class="fab fa-linkedin"></i></a>
-<a href="#" style="margin: 0 1rem;"><i class="fab fa-twitter"></i></a>
-<a href="#" style="margin: 0 1rem;"><i class="fab fa-facebook"></i></a>
-<a href="#" style="margin: 0 1rem;"><i class="fab fa-youtube"></i></a>
-<a href="#" style="margin: 0 1rem;"><i class="fas fa-envelope"></i></a>
+<div class="footer-section">
+<h4>Quick Links</h4>
+<ul>
+<li><a href="about.html">About Us</a></li>
+<li><a href="team.html">Our Team</a></li>
+<li><a href="projects.html">Projects</a></li>
+<li><a href="research.html">Research</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
 </div>
-© <span id="yr"></span> Civil Engineering Hub – All rights reserved | Designed with modern engineering principles
+<div class="footer-section">
+<h4>Engineering Services</h4>
+<ul>
+<li><a href="bridges.html">Bridge Engineering</a></li>
+<li><a href="tunnels.html">Tunnel Construction</a></li>
+<li><a href="dams.html">Dam Engineering</a></li>
+<li><a href="environmental.html">Environmental</a></li>
+<li><a href="water-supply.html">Water Resources</a></li>
+</ul>
+</div>
+<div class="footer-section">
+<h4>Resources</h4>
+<ul>
+<li><a href="downloads.html">Downloads</a></li>
+<li><a href="articles.html">Technical Articles</a></li>
+<li><a href="geology.html">Geological Data</a></li>
+<li><a href="login.html">Portal Login</a></li>
+<li><a href="careers.html">Careers</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2024 Civil Engineering Hub. All rights reserved.</p>
+<div class="footer-links">
+<a href="privacy.html">Privacy Policy</a>
+<a href="terms.html">Terms of Service</a>
+<a href="sitemap.html">Sitemap</a>
+</div>
+</div>
+</div>
 </footer>
 
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTop">
+<i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- JavaScript Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+<!-- Custom JavaScript -->
 <script src="js/main.js"></script>
+<script src="js/scroll-animations.js"></script>
+<script src="js/particles.js"></script>
 </body>
 </html>
