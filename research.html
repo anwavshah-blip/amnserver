@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Papers - Civil Engineering Hub</title>
+<meta name="description" content="Peer-reviewed research papers and technical publications in civil engineering">
+
+<!-- CSS Libraries -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<!-- Loading Screen -->
+<div id="loading-screen">
+<div class="loader">
+<div class="loader-bar"></div>
+<div class="loader-text">Loading Research Papers...</div>
+</div>
+</div>
+
+<!-- Navigation -->
+<nav class="navbar">
+<div class="nav-container">
+<div class="nav-logo">
+<img src="assets/images/logo.png" alt="CE Hub">
+<span>Civil Engineering Hub</span>
+</div>
+<ul class="nav-menu">
+<li><a href="index.html" class="nav-link">Home</a></li>
+<li class="dropdown">
+<a href="about.html" class="nav-link">About <i class="fas fa-chevron-down"></i></a>
+<ul class="dropdown-menu">
+<li><a href="about.html">About Us</a></li>
+<li><a href="team.html">Our Team</a></li>
+<li><a href="leadership.html">Leadership</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="projects.html" class="nav-link">Projects <i class="fas fa-chevron-down"></i></a>
+<ul class="dropdown-menu">
+<li><a href="projects.html">All Projects</a></li>
+<li><a href="bridges.html">Bridges</a></li>
+<li><a href="tunnels.html">Tunnels</a></li>
+<li><a href="dams.html">Dams</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="research.html" class="nav-link active">Research <i class="fas fa-chevron-down"></i></a>
+<ul class="dropdown-menu">
+<li><a href="research.html">Research Papers</a></li>
+<li><a href="articles.html">Articles</a></li>
+<li><a href="geology.html">Geological Studies</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="environmental.html" class="nav-link">Engineering <i class="fas fa-chevron-down"></i></a>
+<ul class="dropdown-menu">
+<li><a href="environmental.html">Environmental</a></li>
+<li><a href="water-supply.html">Water Supply</a></li>
+<li><a href="hydropower.html">Hydro Power</a></li>
+</ul>
+</li>
+<li><a href="downloads.html" class="nav-link">Downloads</a></li>
+<li><a href="contact.html" class="nav-link">Contact</a></li>
+<li><a href="login.html" class="nav-link login-btn">Login</a></li>
+</ul>
+<div class="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+</nav>
+
+<!-- Page Header -->
+<section class="page-header">
+<div class="container">
+<h1 class="page-title animate-fade-in-up">Research & Publications</h1>
+<p class="page-subtitle animate-fade-in-up" style="animation-delay: 0.2s;">
+Peer-reviewed research papers, technical articles, and engineering publications
+</p>
+<div class="page-stats animate-fade-in-up" style="animation-delay: 0.4s;">
+<div class="stat-item">
+<span class="stat-number counter" data-target="127">0</span>
+<span class="stat-label">Research Papers</span>
+</div>
+<div class="stat-item">
+<span class="stat-number counter" data-target="892">0</span>
+<span class="stat-label">Total Downloads</span>
+</div>
+<div class="stat-item">
+<span class="stat-number counter" data-target="156">0</span>
+<span class="stat-label">Citations</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Research Filters -->
+<section class="research-filters">
+<div class="container">
+<div class="filters-wrapper">
+<div class="filter-group">
+<label for="category-filter">Category:</label>
+<select id="category-filter" class="filter-select">
+<option value="">All Categories</option>
+<option value="bridge-engineering">Bridge Engineering</option>
+<option value="tunnel-engineering">Tunnel Engineering</option>
+<option value="dam-engineering">Dam Engineering</option>
+<option value="geotechnical">Geotechnical Engineering</option>
+<option value="environmental">Environmental Engineering</option>
+<option value="structural">Structural Engineering</option>
+<option value="transportation">Transportation Engineering</option>
+</select>
+</div>
+<div class="filter-group">
+<label for="year-filter">Year:</label>
+<select id="year-filter" class="filter-select">
+<option value="">All Years</option>
+<option value="2024">2024</option>
+<option value="2023">2023</option>
+<option value="2022">2022</option>
+<option value="2021">2021</option>
+<option value="2020">2020</option>
+</select>
+</div>
+<div class="filter-group">
+<label for="sort-filter">Sort by:</label>
+<select id="sort-filter" class="filter-select">
+<option value="newest">Newest First</option>
+<option value="oldest">Oldest First</option>
+<option value="downloads">Most Downloaded</option>
+<option value="citations">Most Cited</option>
+<option value="likes">Most Liked</option>
+</select>
+</div>
+<div class="filter-group">
+<button class="btn btn-primary" id="apply-filters">
+<i class="fas fa-filter"></i> Apply Filters
+</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Research Papers Grid -->
+<section class="research-papers">
+<div class="container">
+<div class="research-grid">
+<!-- Research Paper 1 -->
+<article class="research-card animate-on-scroll">
+<div class="research-header">
+<div class="research-type">Journal Article</div>
+<div class="research-actions-top">
+<button class="btn-bookmark" title="Bookmark">
+<i class="far fa-bookmark"></i>
+</button>
+<button class="btn-share" title="Share">
+<i class="fas fa-share-alt"></i>
+</button>
+</div>
+</div>
+<h3 class="research-title">Advanced Seismic Analysis of Cable-Stayed Bridges Using Machine Learning</h3>
+<p class="research-authors">Dr. Sarah Johnson, Prof. Michael Chen, Dr. James Wilson</p>
+<div class="research-abstract">
+<p>This paper presents a comprehensive study on the application of machine learning algorithms for seismic analysis of cable-stayed bridges. The research develops novel predictive models that can accurately assess structural response under various seismic conditions...</p>
+</div>
+<div class="research-keywords">
+<span class="keyword">Machine Learning</span>
+<span class="keyword">Seismic Analysis</span>
+<span class="keyword">Cable-Stayed Bridges</span>
+<span class="keyword">Structural Engineering</span>
+</div>
+<div class="research-meta">
+<span><i class="fas fa-calendar"></i> January 2024</span>
+<span><i class="fas fa-file-alt"></i> 24 pages</span>
+<span><i class="fas fa-download"></i> 1,247 downloads</span>
+<span><i class="fas fa-quote-right"></i> 23 citations</span>
+</div>
+<div class="research-metrics">
+<div class="metric">
+<span class="metric-label">Impact Factor</span>
+<span class="metric-value">8.2</span>
+</div>
+<div class="metric">
+<span class="metric-label">Peer Review</span>
+<span class="metric-value">✓</span>
+</div>
+<div class="metric">
+<span class="metric-label">Open Access</span>
+<span class="metric-value">✓</span>
+</div>
+</div>
+<div class="research-actions">
+<button class="btn-like" data-likes="89">
+<i class="far fa-heart"></i> 89
+</button>
+<button class="btn-comment">
+<i class="fas fa-comment"></i> Comment (12)
+</button>
+<a href="#" class="btn-download">
+<i class="fas fa-download"></i> PDF (2.3MB)
+</a>
+<a href="#" class="btn-view">
+<i class="fas fa-eye"></i> View Online
+</a>
+</div>
+</article>
+
+<!-- Research Paper 2 -->
+<article class="research-card animate-on-scroll">
+<div class="research-header">
+<div class="research-type">Research Paper</div>
+<div class="research-actions-top">
+<button class="btn-bookmark" title="Bookmark">
+<i class="far fa-bookmark"></i>
+</button>
+<button class="btn-share" title="Share">
+<i class="fas fa-share-alt"></i>
+</button>
+</div>
+</div>
+<h3 class="research-title">Optimization of Tunnel Boring Machine Performance in Complex Geological Conditions</h3>
+<p class="research-authors">Dr. Alex Rodriguez, Eng. Lisa Wang, Prof. David Brown</p>
+<div class="research-abstract">
+<p>This research investigates the optimization of Tunnel Boring Machine (TBM) performance through real-time data analysis and predictive modeling. The study focuses on complex geological conditions including mixed-face conditions and variable rock hardness...</p>
+</div>
+<div class="research-keywords">
+<span class="keyword">Tunnel Boring Machine</span>
+<span class="keyword">Optimization</span>
+<span class="keyword">Geological Conditions</span>
+<span class="keyword">Predictive Modeling</span>
+</div>
+<div class="research-meta">
+<span><i class="fas fa-calendar"></i> December 2023</span>
+<span><i class="fas fa-file-alt"></i> 18 pages</span>
+<span><i class="fas fa-download"></i> 892 downloads</span>
+<span><i class="fas fa-quote-right"></i> 15 citations</span>
+</div>
+<div class="research-metrics">
+<div class="metric">
+<span class="metric-label">Impact Factor</span>
+<span class="metric-value">7.8</span>
+</div>
+<div class="metric">
+<span class="metric-label">Peer Review</span>
+<span class="metric-value">✓</span>
+</div>
+<div class="metric">
+<span class="metric-label">Open Access</span>
+<span class="metric-value">✓</span>
+</div>
+</div>
+<div class="research-actions">
+<button class="btn-like" data-likes="67">
+<i class="far fa-heart"></i> 67
+</button>
+<button class="btn-comment">
+<i class="fas fa-comment"></i> Comment (8)
+</button>
+<a href="#" class="btn-download">
+<i class="fas fa-download"></i> PDF (1.8MB)
+</a>
+<a href="#" class="btn-view">
+<i class="fas fa-eye"></i> View Online
+</a>
+</div>
+</article>
+
+<!-- Research Paper 3 -->
+<article class="research-card animate-on-scroll">
+<div class="research-header">
+<div class="research-type">Technical Report</div>
+<div class="research-actions-top">
+<button class="btn-bookmark" title="Bookmark">
+<i class="far fa-bookmark"></i>
+</button>
+<button class="btn-share" title="Share">
+<i class="fas fa-share-alt"></i>
+</button>
+</div>
+</div>
+<h3 class="research-title">Sustainable Concrete Mix Design for High-Performance Dam Construction</h3>
+<p class="research-authors">Prof. James Wilson, Dr. Maria Garcia, Eng. Robert Taylor</p>
+<div class="research-abstract">
+<p>This technical report presents the development of sustainable concrete mix designs specifically optimized for high-performance dam construction. The research focuses on incorporating recycled materials and reducing carbon footprint while maintaining structural integrity...</p>
+</div>
+<div class="research-keywords">
+<span class="keyword">Sustainable Concrete</span>
+<span class="keyword">Dam Construction</span>
+<span class="keyword">Mix Design</span>
+<span class="keyword">Recycled Materials</span>
+</div>
+<div class="research-meta">
+<span><i class="fas fa-calendar"></i> November 2023</span>
+<span><i class="fas fa-file-alt"></i> 32 pages</span>
+<span><i class="fas fa-download"></i> 756 downloads</span>
+<span><i class="fas fa-quote-right"></i> 18 citations</span>
+</div>
+<div class="research-metrics">
+<div class="metric">
+<span class="metric-label">Impact Factor</span>
+<span class="metric-value">6.5</span>
+</div>
+<div class="metric">
+<span class="metric-label">Peer Review</span>
+<span class="metric-value">✓</span>
+</div>
+<div class="metric">
+<span class="metric-label">Open Access</span>
+<span class="metric-value">✓</span>
+</div>
+</div>
+<div class="research-actions">
+<button class="btn-like" data-likes="52">
+<i class="far fa-heart"></i> 52
+</button>
+<button class="btn-comment">
+<i class="fas fa-comment"></i> Comment (5)
+</button>
+<a href="#" class="btn-download">
+<i class="fas fa-download"></i> PDF (3.1MB)
+</a>
+<a href="#" class="btn-view">
+<i class="fas fa-eye"></i> View Online
+</a>
+</div>
+</article>
+
+<!-- Add more research papers as needed -->
+</div>
+
+<!-- Pagination -->
+<div class="pagination animate-on-scroll">
+<button class="btn btn-outline" disabled>
+<i class="fas fa-chevron-left"></i> Previous
+</button>
+<div class="page-numbers">
+<button class="page-number active">1</button>
+<button class="page-number">2</button>
+<button class="page-number">3</button>
+<button class="page-number">4</button>
+<button class="page-number">5</button>
+</div>
+<button class="btn btn-outline">
+Next <i class="fas fa-chevron-right"></i>
+</button>
+</div>
+</div>
+</section>
+
+<!-- Submit Research Section -->
+<section class="submit-research">
+<div class="container">
+<div class="submit-content animate-on-scroll">
+<h2>Submit Your Research</h2>
+<p>Share your groundbreaking research with the global civil engineering community</p>
+<div class="submit-features">
+<div class="submit-feature">
+<i class="fas fa-rocket"></i>
+<h3>Fast Review Process</h3>
+<p>Get your research reviewed and published within 4-6 weeks</p>
+</div>
+<div class="submit-feature">
+<i class="fas fa-globe"></i>
+<h3>Global Reach</h3>
+<p>Reach thousands of engineers and researchers worldwide</p>
+</div>
+<div class="submit-feature">
+<i class="fas fa-award"></i>
+<h3>High Impact</h3>
+<p>Publish in a journal with growing citation impact</p>
+</div>
+</div>
+<a href="submit-research.html" class="btn btn-primary">
+<i class="fas fa-upload"></i> Submit Research
+</a>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+<div class="container">
+<div class="footer-content">
+<div class="footer-section">
+<h3>Civil Engineering Hub</h3>
+<p>Advancing infrastructure through innovation, research, and sustainable engineering solutions.</p>
+<div class="social-links">
+<a href="#"><i class="fab fa-linkedin"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+</div>
+</div>
+<div class="footer-section">
+<h4>Quick Links</h4>
+<ul>
+<li><a href="about.html">About Us</a></li>
+<li><a href="team.html">Our Team</a></li>
+<li><a href="projects.html">Projects</a></li>
+<li><a href="research.html">Research</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div class="footer-section">
+<h4>Engineering Services</h4>
+<ul>
+<li><a href="bridges.html">Bridge Engineering</a></li>
+<li><a href="tunnels.html">Tunnel Construction</a></li>
+<li><a href="dams.html">Dam Engineering</a></li>
+<li><a href="environmental.html">Environmental</a></li>
+<li><a href="water-supply.html">Water Resources</a></li>
+</ul>
+</div>
+<div class="footer-section">
+<h4>Resources</h4>
+<ul>
+<li><a href="downloads.html">Downloads</a></li>
+<li><a href="articles.html">Technical Articles</a></li>
+<li><a href="geology.html">Geological Data</a></li>
+<li><a href="login.html">Portal Login</a></li>
+<li><a href="careers.html">Careers</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2024 Civil Engineering Hub. All rights reserved.</p>
+<div class="footer-links">
+<a href="privacy.html">Privacy Policy</a>
+<a href="terms.html">Terms of Service</a>
+<a href="sitemap.html">Sitemap</a>
+</div>
+</div>
+</div>
+</footer>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTop">
+<i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- JavaScript Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script src="js/main.js"></script>
+<script src="js/scroll-animations.js"></script>
+<script src="js/particles.js"></script>
+</body>
+</html>

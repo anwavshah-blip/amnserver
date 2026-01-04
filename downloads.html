@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Downloads - Civil Engineering Hub</title>
+<meta name="description" content="Download technical resources, research papers, software tools, and engineering documents from Civil Engineering Hub">
+
+<!-- CSS Libraries -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<!-- Loading Screen -->
+<div id="loading-screen">
+<div class="loader">
+<div class="loader-bar"></div>
+<div class="loader-text">Loading Downloads Center...</div>
+</div>
+</div>
+
+<!-- Navigation -->
+<nav class="navbar">
+<div class="nav-container">
+<div class="nav-logo">
+<img src="assets/images/logo.png" alt="CE Hub">
+<span>Civil Engineering Hub</span>
+</div>
+<ul class="nav-menu">
+<li><a href="index.html" class="nav-link">Home</a></li>
+<li class="dropdown">
+<a href="about.html" class="nav-link">About <i class="fas fa-chevron-down"></i></a>
+<ul class="dropdown-menu">
+<li><a href="about.html">About Us</a></li>
+<li><a href="team.html">Our Team</a></li>
+<li><a href="leadership.html">Leadership</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="projects.html" class="nav-link">Projects <i class="fas fa-chevron-down"></i></a>
+<ul class="dropdown-menu">
+<li><a href="projects.html">All Projects</a></li>
+<li><a href="bridges.html">Bridges</a></li>
+<li><a href="tunnels.html">Tunnels</a></li>
+<li><a href="dams.html">Dams</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="research.html" class="nav-link">Research <i class="fas fa-chevron-down"></i></a>
+<ul class="dropdown-menu">
+<li><a href="research.html">Research Papers</a></li>
+<li><a href="articles.html">Articles</a></li>
+<li><a href="geology.html">Geological Studies</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="environmental.html" class="nav-link">Engineering <i class="fas fa-chevron-down"></i></a>
+<ul class="dropdown-menu">
+<li><a href="environmental.html">Environmental</a></li>
+<li><a href="water-supply.html">Water Supply</a></li>
+<li><a href="hydropower.html">Hydro Power</a></li>
+</ul>
+</li>
+<li><a href="downloads.html" class="nav-link active">Downloads</a></li>
+<li><a href="contact.html" class="nav-link">Contact</a></li>
+<li><a href="login.html" class="nav-link login-btn">Login</a></li>
+</ul>
+<div class="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+</nav>
+
+<!-- Page Header -->
+<section class="page-header">
+<div class="container">
+<h1 class="page-title animate-fade-in-up">Downloads Center</h1>
+<p class="page-subtitle animate-fade-in-up" style="animation-delay: 0.2s;">
+Access technical resources, research papers, software tools, and engineering documents
+</p>
+<div class="page-stats animate-fade-in-up" style="animation-delay: 0.4s;">
+<div class="stat-item">
+<span class="stat-number counter" data-target="234">0</span>
+<span class="stat-label">Resources Available</span>
+</div>
+<div class="stat-item">
+<span class="stat-number counter" data-target="892">0</span>
+<span class="stat-label">Total Downloads</span>
+</div>
+<div class="stat-item">
+<span class="stat-number counter" data-target="45">0</span>
+<span class="stat-label">Categories</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Download Categories -->
+<section class="download-categories">
+<div class="container">
+<div class="section-header animate-on-scroll">
+<h2>Browse by Category</h2>
+<p>Find the resources you need organized by engineering discipline</p>
+</div>
+<div class="categories-grid">
+<div class="category-card animate-on-scroll">
+<div class="category-icon">
+<i class="fas fa-file-pdf"></i>
+</div>
+<h3>Technical Papers</h3>
+<p>Research papers, technical reports, and white papers</p>
+<span class="download-count">156 Documents</span>
+</div>
+<div class="category-card animate-on-scroll">
+<div class="category-icon">
+<i class="fas fa-drafting-compass"></i>
+</div>
+<h3>Design Standards</h3>
+<p>Engineering codes, standards, and design guidelines</p>
+<span class="download-count">89 Documents</span>
+</div>
+<div class="category-card animate-on-scroll">
+<div class="category-icon">
+<i class="fas fa-calculator"></i>
+</div>
+<h3>Software Tools</h3>
+<p>Engineering calculators, analysis tools, and applications</p>
+<span class="download-count">45 Tools</span>
+</div>
+<div class="category-card animate-on-scroll">
+<div class="category-icon">
+<i class="fas fa-chart-bar"></i>
+</div>
+<h3>Data Sheets</h3>
+<p>Material specifications, product catalogs, and technical data</p>
+<span class="download-count">234 Documents</span>
+</div>
+<div class="category-card animate-on-scroll">
+<div class="category-icon">
+<i class="fas fa-book"></i>
+</div>
+<h3>Training Materials</h3>
+<p>Educational resources, manuals, and learning materials</p>
+<span class="download-count">67 Resources</span>
+</div>
+<div class="category-card animate-on-scroll">
+<div class="category-icon">
+<i class="fas fa-images"></i>
+</div>
+<h3>Multimedia</h3>
+<p>Videos, presentations, and interactive content</p>
+<span class="download-count">123 Items</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Featured Downloads -->
+<section class="featured-downloads">
+<div class="container">
+<div class="section-header animate-on-scroll">
+<h2>Featured Downloads</h2>
+<p>Most popular and essential resources for engineers</p>
+</div>
+<div class="downloads-grid">
+<!-- Download Item 1 -->
+<div class="download-card animate-on-scroll">
+<div class="download-header">
+<div class="file-icon pdf">
+<i class="fas fa-file-pdf"></i>
+</div>
+<div class="download-meta">
+<span class="file-type">PDF</span>
+<span class="file-size">2.3 MB</span>
+</div>
+<div class="download-badge">Featured</div>
+</div>
+<div class="download-content">
+<h3>Bridge Design Handbook 2024</h3>
+<p>Comprehensive guide to modern bridge design principles, including seismic considerations and sustainable materials.</p>
+<div class="download-details">
+<div class="detail-item">
+<i class="fas fa-calendar"></i>
+<span>Updated: Jan 2024</span>
+</div>
+<div class="detail-item">
+<i class="fas fa-download"></i>
+<span>1,234 downloads</span>
+</div>
+<div class="detail-item">
+<i class="fas fa-star"></i>
+<span>4.8/5 (89 reviews)</span>
+</div>
+</div>
+<div class="download-actions">
+<button class="btn btn-primary btn-download" data-file="bridge-design-handbook.pdf">
+<i class="fas fa-download"></i> Download
+</button>
+<button class="btn btn-outline btn-preview">
+<i class="fas fa-eye"></i> Preview
+</button>
+</div>
+</div>
+</div>
+
+<!-- Download Item 2 -->
+<div class="download-card animate-on-scroll">
+<div class="download-header">
+<div class="file-icon excel">
+<i class="fas fa-file-excel"></i>
+</div>
+<div class="download-meta">
+<span class="file-type">Excel</span>
+<span class="file-size">856 KB</span>
+</div>
+<div class="download-badge">Popular</div>
+</div>
+<div class="download-content">
+<h3>Structural Analysis Calculator</h3>
+<p>Advanced Excel-based calculator for structural analysis with built-in formulas and design checks.</p>
+<div class="download-details">
+<div class="detail-item">
+<i class="fas fa-calendar"></i>
+<span>Updated: Dec 2023</span>
+</div>
+<div class="detail-item">
+<i class="fas fa-download"></i>
+<span>892 downloads</span>
+</div>
+<div class="detail-item">
+<i class="fas fa-star"></i>
+<span>4.6/5 (156 reviews)</span>
+</div>
+</div>
+<div class="download-actions">
+<button class="btn btn-primary btn-download" data-file="structural-calculator.xlsx">
+<i class="fas fa-download"></i> Download
+</button>
+<button class="btn btn-outline btn-preview">
+<i class="fas fa-eye"></i> Preview
+</button>
+</div>
+</div>
+</div>
+
+<!-- Download Item 3 -->
+<div class="download-card animate-on-scroll">
+<div class="download-header">
+<div class="file-icon zip">
+<i class="fas fa-file-archive"></i>
+</div>
+<div class="download-meta">
+<span class="file-type">ZIP</span>
+<span class="file-size">15.2 MB</span>
+</div>
+<div class="download-badge">New</div>
+</div>
+<div class="download-content">
+<h3>Geotechnical Investigation Templates</h3>
+<p>Complete set of templates for soil investigation, including boring logs, lab test sheets, and reports.</p>
+<div class="download-details">
+<div class="detail-item">
+<i class="fas fa-calendar"></i>
+<span>Added: Jan 2024</span>
+</div>
+<div class="detail-item">
+<i class="fas fa-download"></i>
+<span>567 downloads</span>
+</div>
+<div class="detail-item">
+<i class="fas fa-star"></i>
+<span>4.9/5 (45 reviews)</span>
+</div>
+</div>
+<div class="download-actions">
+<button class="btn btn-primary btn-download" data-file="geotechnical-templates.zip">
+<i class="fas fa-download"></i> Download
+</button>
+<button class="btn btn-outline btn-preview">
+<i class="fas fa-eye"></i> Preview
+</button>
+</div>
+</div>
+</div>
+
+<!-- Download Item 4 -->
+<div class="download-card animate-on-scroll">
+<div class="download-header">
+<div class="file-icon powerpoint">
+<i class="fas fa-file-powerpoint"></i>
+</div>
+<div class="download-meta">
+<span class="file-type">PPTX</span>
+<span class="file-size">4.7 MB</span>
+</div>
+</div>
+<div class="download-content">
+<h3>Sustainable Construction Practices</h3>
+<p>Comprehensive presentation on green building techniques and environmental considerations in construction.</p>
+<div class="download-details">
+<div class="detail-item">
+<i class="fas fa-calendar"></i>
+<span>Updated: Nov 2023</span>
+</div>
+<div class="detail-item">
+<i class="fas fa-download"></i>
+<span>445 downloads</span>
+</div>
+<div class="detail-item">
+<i class="fas fa-star"></i>
+<span>4.7/5 (78 reviews)</span>
+</div>
+</div>
+<div class="download-actions">
+<button class="btn btn-primary btn-download" data-file="sustainable-construction.pptx">
+<i class="fas fa-download"></i> Download
+</button>
+<button class="btn btn-outline btn-preview">
+<i class="fas fa-eye"></i> Preview
+</button>
+</div>
+</div>
+</div>
+
+<!-- Download Item 5 -->
+<div class="download-card animate-on-scroll">
+<div class="download-header">
+<div class="file-icon cad">
+<i class="fas fa-cube"></i>
+</div>
+<div class="download-meta">
+<span class="file-type">DWG</span>
+<span class="file-size">8.9 MB</span>
+</div>
+</div>
+<div class="download-content">
+<h3>Standard Bridge Details Library</h3>
+<p>Comprehensive CAD library with standard bridge details, sections, and connection details.</p>
+<div class="download-details">
+<div class="detail-item">
+<i class="fas fa-calendar"></i>
+<span>Updated: Oct 2023</span>
+</div>
+<div class="detail-item">
+<i class="fas fa-download"></i>
+<span>723 downloads</span>
+</div>
+<div class="detail-item">
+<i class="fas fa-star"></i>
+<span>4.8/5 (92 reviews)</span>
+</div>
+</div>
+<div class="download-actions">
+<button class="btn btn-primary btn-download" data-file="bridge-details-library.dwg">
+<i class="fas fa-download"></i> Download
+</button>
+<button class="btn btn-outline btn-preview">
+<i class="fas fa-eye"></i> Preview
+</button>
+</div>
+</div>
+</div>
+
+<!-- Download Item 6 -->
+<div class="download-card animate-on-scroll">
+<div class="download-header">
+<div class="file-icon video">
+<i class="fas fa-file-video"></i>
+</div>
+<div class="download-meta">
+<span class="file-type">MP4</span>
+<span class="file-size">125 MB</span>
+</div>
+</div>
+<div class="download-content">
+<h3>Tunnel Construction Training Video</h3>
+<p>Comprehensive training video on modern tunnel construction techniques and safety procedures.</p>
+<div class="download-details">
+<div class="detail-item">
+<i class="fas fa-calendar"></i>
+<span>Duration: 45 min</span>
+</div>
+<div class="detail-item">
+<i class="fas fa-download"></i>
+<span>334 downloads</span>
+</div>
+<div class="detail-item">
+<i class="fas fa-star"></i>
+<span>4.9/5 (67 reviews)</span>
+</div>
+</div>
+<div class="download-actions">
+<button class="btn btn-primary btn-download" data-file="tunnel-construction-training.mp4">
+<i class="fas fa-download"></i> Download
+</button>
+<button class="btn btn-outline btn-preview">
+<i class="fas fa-play"></i> Preview
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Category Downloads -->
+<section class="category-downloads">
+<div class="container">
+<div class="section-header animate-on-scroll">
+<h2>Browse by Engineering Discipline</h2>
+<p>Find resources specific to your area of expertise</p>
+</div>
+
+<!-- Structural Engineering -->
+<div class="category-section animate-on-scroll">
+<h3>Structural Engineering</h3>
+<div class="category-downloads-grid">
+<div class="category-download-item">
+<div class="file-info">
+<div class="file-icon pdf">
+<i class="fas fa-file-pdf"></i>
+</div>
+<div class="file-details">
+<h4>Concrete Design Handbook</h4>
+<p>Comprehensive guide to concrete design principles</p>
+<div class="file-meta">
+<span class="file-size">3.2 MB</span>
+<span class="download-count">1,234 downloads</span>
+</div>
+</div>
+</div>
+<button class="btn btn-primary btn-sm btn-download" data-file="concrete-design-handbook.pdf">
+<i class="fas fa-download"></i> Download
+</button>
+</div>
+
+<div class="category-download-item">
+<div class="file-info">
+<div class="file-icon excel">
+<i class="fas fa-file-excel"></i>
+</div>
+<div class="file-details">
+<h4>Steel Connection Calculator</h4>
+<p>Excel-based calculator for steel connections</p>
+<div class="file-meta">
+<span class="file-size">892 KB</span>
+<span class="download-count">892 downloads</span>
+</div>
+</div>
+</div>
+<button class="btn btn-primary btn-sm btn-download" data-file="steel-connection-calculator.xlsx">
+<i class="fas fa-download"></i> Download
+</button>
+</div>
+
+<div class="category-download-item">
+<div class="file-info">
+<div class="file-icon cad">
+<i class="fas fa-cube"></i>
+</div>
+<div class="file-details">
+<h4>Seismic Design Details</h4>
+<p>CAD drawings for seismic-resistant structures</p>
+<div class="file-meta">
+<span class="file-size">5.7 MB</span>
+<span class="download-count">567 downloads</span>
+</div>
+</div>
+</div>
+<button class="btn btn-primary btn-sm btn-download" data-file="seismic-design-details.dwg">
+<i class="fas fa-download"></i> Download
+</button>
+</div>
+</div>
+</div>
+
+<!-- Geotechnical Engineering -->
+<div class="category-section animate-on-scroll">
+<h3>Geotechnical Engineering</h3>
+<div class="category-downloads-grid">
+<div class="category-download-item">
+<div class="file-info">
+<div class="file-icon pdf">
+<i class="fas fa-file-pdf"></i>
+</div>
+<div class="file-details">
+<h4>Soil Investigation Manual</h4>
+<p>Complete guide to soil investigation procedures</p>
+<div class="file-meta">
+<span class="file-size">4.1 MB</span>
+<span class="download-count">892 downloads</span>
+</div>
+</div>
+</div>
+<button class="btn btn-primary btn-sm btn-download" data-file="soil-investigation-manual.pdf">
+<i class="fas fa-download"></i> Download
+</button>
+</div>
+
+<div class="category-download-item">
+<div class="file-info">
+<div class="file-icon zip">
+<i class="fas fa-file-archive"></i>
+</div>
+<div class="file-details">
+<h4>Foundation Design Templates</h4>
+<p>Collection of foundation design calculation sheets</p>
+<div class="file-meta">
+<span class="file-size">12.3 MB</span>
+<span class="download-count">445 downloads</span>
+</div>
+</div>
+</div>
+<button class="btn btn-primary btn-sm btn-download" data-file="foundation-design-templates.zip">
+<i class="fas fa-download"></i> Download
+</button>
+</div>
+
+<div class="category-download-item">
+<div class="file-info">
+<div class="file-icon excel">
+<i class="fas fa-file-excel"></i>
+</div>
+<div class="file-details">
+<h4>Bearing Capacity Calculator</h4>
+<p>Excel tool for calculating soil bearing capacity</p>
+<div class="file-meta">
+<span class="file-size">1.2 MB</span>
+<span class="download-count">723 downloads</span>
+</div>
+</div>
+</div>
+<button class="btn btn-primary btn-sm btn-download" data-file="bearing-capacity-calculator.xlsx">
+<i class="fas fa-download"></i> Download
+</button>
+</div>
+</div>
+</div>
+
+<!-- Add more categories as needed -->
+</div>
+</section>
+
+<!-- Software Tools -->
+<section class="software-tools">
+<div class="container">
+<div class="section-header animate-on-scroll">
+<h2>Engineering Software Tools</h2>
+<p>Professional software and calculators for engineering analysis</p>
+</div>
+<div class="tools-grid">
+<div class="tool-card animate-on-scroll">
+<div class="tool-header">
+<div class="tool-icon">
+<i class="fas fa-calculator"></i>
+</div>
+<div class="tool-version">v2.1</div>
+</div>
+<h3>Structural Analysis Calculator</h3>
+<p>Advanced calculator for beam analysis, column design, and structural calculations.</p>
+<div class="tool-features">
+<span class="feature-tag">Beam Analysis</span>
+<span class="feature-tag">Column Design</span>
+<span class="feature-tag">Load Calculations</span>
+</div>
+<div class="tool-stats">
+<span><i class="fas fa-download"></i> 2,341 downloads</span>
+<span><i class="fas fa-star"></i> 4.8/5</span>
+</div>
+<div class="tool-actions">
+<button class="btn btn-primary btn-download" data-file="structural-calculator.exe">
+<i class="fas fa-download"></i> Download
+</button>
+<button class="btn btn-outline">Learn More</button>
+</div>
+</div>
+
+<div class="tool-card animate-on-scroll">
+<div class="tool-header">
+<div class="tool-icon">
+<i class="fas fa-water"></i>
+</div>
+<div class="tool-version">v1.8</div>
+</div>
+<h3>Hydraulic Calculator</h3>
+<p>Comprehensive tool for hydraulic analysis and pipe network design.</p>
+<div class="tool-features">
+<span class="feature-tag">Pipe Flow</span>
+<span class="feature-tag">Pump Selection</span>
+<span class="feature-tag">Network Analysis</span>
+</div>
+<div class="tool-stats">
+<span><i class="fas fa-download"></i> 1,892 downloads</span>
+<span><i class="fas fa-star"></i> 4.6/5</span>
+</div>
+<div class="tool-actions">
+<button class="btn btn-primary btn-download" data-file="hydraulic-calculator.exe">
+<i class="fas fa-download"></i> Download
+</button>
+<button class="btn btn-outline">Learn More</button>
+</div>
+</div>
+
+<div class="tool-card animate-on-scroll">
+<div class="tool-header">
+<div class="tool-icon">
+<i class="fas fa-mountain"></i>
+</div>
+<div class="tool-version">v3.0</div>
+</div>
+<h3>Geotechnical Analyzer</h3>
+<p>Professional software for soil analysis and foundation design.</p>
+<div class="tool-features">
+<span class="feature-tag">Soil Analysis</span>
+<span class="feature-tag">Foundation Design</span>
+<span class="feature-tag">Slope Stability</span>
+</div>
+<div class="tool-stats">
+<span><i class="fas fa-download"></i> 1,567 downloads</span>
+<span><i class="fas fa-star"></i> 4.9/5</span>
+</div>
+<div class="tool-actions">
+<button class="btn btn-primary btn-download" data-file="geotechnical-analyzer.exe">
+<i class="fas fa-download"></i> Download
+</button>
+<button class="btn btn-outline">Learn More</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Download Process -->
+<section class="download-process">
+<div class="container">
+<div class="section-header animate-on-scroll">
+<h2>How to Download</h2>
+<p>Simple steps to access our resources</p>
+</div>
+<div class="process-steps animate-on-scroll">
+<div class="process-step">
+<div class="step-number">1</div>
+<div class="step-icon">
+<i class="fas fa-search"></i>
+</div>
+<h4>Browse Resources</h4>
+<p>Explore our collection by category or use the search function to find specific materials.</p>
+</div>
+
+<div class="process-step">
+<div class="step-number">2</div>
+<div class="step-icon">
+<i class="fas fa-file-alt"></i>
+</div>
+<h4>Preview Content</h4>
+<p>Review the resource details, preview if available, and check compatibility with your software.</p>
+</div>
+
+<div class="process-step">
+<div class="step-number">3</div>
+<div class="step-icon">
+<i class="fas fa-download"></i>
+</div>
+<h4>Download File</h4>
+<p>Click the download button. Some resources may require free registration or login.</p>
+</div>
+
+<div class="process-step">
+<div class="step-number">4</div>
+<div class="step-icon">
+<i class="fas fa-check"></i>
+</div>
+<h4>Use Resource</h4>
+<p>Access your downloaded file and start using it for your engineering projects.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Upload Your Resources -->
+<section class="upload-resources">
+<div class="container">
+<div class="upload-content animate-on-scroll">
+<h2>Contribute to Our Library</h2>
+<p>Share your expertise by uploading your own engineering resources and help the community grow.</p>
+<div class="upload-benefits">
+<div class="benefit">
+<i class="fas fa-globe"></i>
+<h4>Global Reach</h4>
+<p>Reach thousands of engineers worldwide</p>
+</div>
+<div class="benefit">
+<i class="fas fa-award"></i>
+<h4>Recognition</h4>
+<p>Get credited for your contributions</p>
+</div>
+<div class="benefit">
+<i class="fas fa-network-wired"></i>
+<h4>Network Building</h4>
+<p>Connect with other professionals</p>
+</div>
+</div>
+<div class="upload-buttons">
+<button class="btn btn-primary">Upload Resource</button>
+<button class="btn btn-outline">Upload Guidelines</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter-signup">
+<div class="container">
+<div class="newsletter-content animate-on-scroll">
+<h2>Get New Resources First</h2>
+<p>Subscribe to receive notifications about new downloads, software updates, and exclusive content.</p>
+<form class="newsletter-form">
+<input type="email" placeholder="Enter your email address" required>
+<button type="submit" class="btn btn-primary">
+<i class="fas fa-paper-plane"></i> Subscribe
+</button>
+</form>
+<p class="newsletter-disclaimer">Free subscription • Unsubscribe anytime • No spam</p>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+<div class="container">
+<div class="footer-content">
+<div class="footer-section">
+<h3>Civil Engineering Hub</h3>
+<p>Advancing infrastructure through innovation, research, and sustainable engineering solutions.</p>
+<div class="social-links">
+<a href="#"><i class="fab fa-linkedin"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+</div>
+</div>
+<div class="footer-section">
+<h4>Quick Links</h4>
+<ul>
+<li><a href="about.html">About Us</a></li>
+<li><a href="team.html">Our Team</a></li>
+<li><a href="projects.html">Projects</a></li>
+<li><a href="research.html">Research</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div class="footer-section">
+<h4>Engineering Services</h4>
+<ul>
+<li><a href="bridges.html">Bridge Engineering</a></li>
+<li><a href="tunnels.html">Tunnel Construction</a></li>
+<li><a href="dams.html">Dam Engineering</a></li>
+<li><a href="environmental.html">Environmental</a></li>
+<li><a href="water-supply.html">Water Resources</a></li>
+</ul>
+</div>
+<div class="footer-section">
+<h4>Resources</h4>
+<ul>
+<li><a href="downloads.html">Downloads</a></li>
+<li><a href="articles.html">Technical Articles</a></li>
+<li><a href="geology.html">Geological Data</a></li>
+<li><a href="login.html">Portal Login</a></li>
+<li><a href="careers.html">Careers</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2024 Civil Engineering Hub. All rights reserved.</p>
+<div class="footer-links">
+<a href="privacy.html">Privacy Policy</a>
+<a href="terms.html">Terms of Service</a>
+<a href="sitemap.html">Sitemap</a>
+</div>
+</div>
+</div>
+</footer>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTop">
+<i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- JavaScript Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script src="js/main.js"></script>
+<script src="js/scroll-animations.js"></script>
+<script src="js/particles.js"></script>
+</body>
+</html>
