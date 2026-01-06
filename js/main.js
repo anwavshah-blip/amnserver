@@ -1,657 +1,483 @@
-// ==========================================
-// Civil Engineering Hub - Main JavaScript
-// ==========================================
-
-// DOM Content Loaded
-document.addEventListener('DOMContentLoaded', function() {
-// Initialize all components
-initLoadingScreen();
-initNavigation();
-initScrollEffects();
-initBackToTop();
-initForms();
-initInteractiveElements();
-initAnimations();
-initParticles();
-initGeologyMap();
-initResearchActions();
-});
-
-// Loading Screen
-function initLoadingScreen() {
-const loadingScreen = document.getElementById('loading-screen');
-const loader = document.querySelector('.loader-bar');
-
-// Simulate loading progress
-let progress = 0;
-const loadingInterval = setInterval(() => {
-progress += Math.random() * 15;
-if (progress >= 100) {
-progress = 100;
-clearInterval(loadingInterval);
-
-// Hide loading screen
-setTimeout(() => {
-loadingScreen.style.opacity = '0';
-setTimeout(() => {
-loadingScreen.style.display = 'none';
-document.body.classList.add('loaded');
-}, 500);
-}, 500);
-}
-loader.style.width = progress + '%';
-}, 200);
-}
-
-// Navigation
-function initNavigation() {
-const navbar = document.querySelector('.navbar');
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-const dropdowns = document.querySelectorAll('.dropdown');
-
-// Mobile menu toggle
-hamburger?.addEventListener('click', function() {
-hamburger.classList.toggle('active');
-navMenu.classList.toggle('active');
-document.body.classList.toggle('menu-open');
-});
-
-// Close mobile menu when clicking on links
-document.querySelectorAll('.nav-link').forEach(link => {
-link.addEventListener('click', () => {
-hamburger?.classList.remove('active');
-navMenu?.classList.remove('active');
-document.body.classList.remove('menu-open');
-});
-});
-
-// Dropdown menu for mobile
-dropdowns.forEach(dropdown => {
-const link = dropdown.querySelector('.nav-link');
-link?.addEventListener('click', function(e) {
-if (window.innerWidth <= 991) {
-e.preventDefault();
-dropdown.classList.toggle('active');
-}
-});
-});
-
-// Navbar scroll effect
-let lastScroll = 0;
-window.addEventListener('scroll', function() {
-const currentScroll = window.pageYOffset;
-
-if (currentScroll > 100) {
-navbar.classList.add('scrolled');
-if (currentScroll > lastScroll && currentScroll > 200) {
-navbar.classList.add('hidden');
-} else {
-navbar.classList.remove('hidden');
-}
-} else {
-navbar.classList.remove('scrolled', 'hidden');
-}
-
-lastScroll = currentScroll;
-});
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-anchor.addEventListener('click', function(e) {
-e.preventDefault();
-const target = document.querySelector(this.getAttribute('href'));
-if (target) {
-target.scrollIntoView({
-behavior: 'smooth',
-block: 'start'
-});
-}
-});
-});
-}
-
-// Scroll Effects
-function initScrollEffects() {
-// Scroll progress bar
-const scrollProgress = document.createElement('div');
-scrollProgress.className = 'scroll-progress';
-document.body.appendChild(scrollProgress);
-
-window.addEventListener('scroll', function() {
-const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-scrollProgress.style.width = scrolled + '%';
-});
-
-// Intersection Observer for animations
-const observerOptions = {
-threshold: 0.1,
-rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver(function(entries) {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('animated');
-
-// Special animations for specific elements
-if (entry.target.classList.contains('counter')) {
-animateCounter(entry.target);
-}
-
-if (entry.target.classList.contains('progress-bar')) {
-animateProgressBar(entry.target);
-}
-}
-});
-}, observerOptions);
-
-// Observe elements
-document.querySelectorAll('.animate-on-scroll, .slide-in-left, .slide-in-right, .fade-in-up, .fade-in-down, .fade-in-left, .fade-in-right, .scale-in, .rotate-in, .bounce-in, .flip-in, .zoom-in, .elastic-in').forEach(el => {
-observer.observe(el);
-});
-}
-
-// Back to Top Button
-function initBackToTop() {
-const backToTop = document.getElementById('backToTop');
-
-window.addEventListener('scroll', function() {
-if (window.pageYOffset > 300) {
-backToTop.classList.add('show');
-} else {
-backToTop.classList.remove('show');
-}
-});
-
-backToTop?.addEventListener('click', function() {
-window.scrollTo({
-top: 0,
-behavior: 'smooth'
-});
-});
-}
-
-// Forms
-function initForms() {
-// Newsletter form
-const newsletterForm = document.querySelector('.newsletter-form');
-newsletterForm?.addEventListener('submit', function(e) {
-e.preventDefault();
-const email = this.querySelector('input[type="email"]').value;
-
-// Simulate form submission
-const button = this.querySelector('button');
-const originalText = button.innerHTML;
-button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
-button.disabled = true;
-
-setTimeout(() => {
-button.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
-button.style.background = '#10b981';
-
-setTimeout(() => {
-button.innerHTML = originalText;
-button.disabled = false;
-button.style.background = '';
-this.reset();
-}, 2000);
-}, 1500);
-});
-
-// Contact form (if exists)
-const contactForm = document.querySelector('.contact-form');
-contactForm?.addEventListener('submit', function(e) {
-e.preventDefault();
-
-// Get form data
-const formData = new FormData(this);
-const data = Object.fromEntries(formData);
-
-// Simulate form submission
-const submitBtn = this.querySelector('button[type="submit"]');
-const originalText = submitBtn.innerHTML;
-
-submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-submitBtn.disabled = true;
-
-setTimeout(() => {
-submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-submitBtn.style.background = '#10b981';
-
-setTimeout(() => {
-submitBtn.innerHTML = originalText;
-submitBtn.disabled = false;
-submitBtn.style.background = '';
-this.reset();
-}, 3000);
-}, 2000);
-});
-}
-
-// Interactive Elements
-function initInteractiveElements() {
-// Ripple effect for buttons
-document.querySelectorAll('.btn').forEach(button => {
-button.addEventListener('click', function(e) {
-const ripple = document.createElement('span');
-const rect = this.getBoundingClientRect();
-const size = Math.max(rect.width, rect.height);
-const x = e.clientX - rect.left - size / 2;
-const y = e.clientY - rect.top - size / 2;
-
-ripple.style.width = ripple.style.height = size + 'px';
-ripple.style.left = x + 'px';
-ripple.style.top = y + 'px';
-ripple.classList.add('ripple-effect');
-
-this.appendChild(ripple);
-
-setTimeout(() => {
-ripple.remove();
-}, 600);
-});
-});
-
-// Interactive map points
-document.querySelectorAll('.map-point').forEach(point => {
-point.addEventListener('click', function() {
-// Remove active class from all points
-document.querySelectorAll('.map-point').forEach(p => p.classList.remove('active'));
-// Add active class to clicked point
-this.classList.add('active');
-
-// Get location data
-const location = this.dataset.location;
-console.log(`Selected location: ${location}`);
-
-// You can add more interactive features here
-// like loading detailed information about the location
-});
-});
-
-// Card hover effects
-document.querySelectorAll('.feature-card, .research-card, .project-card, .team-member').forEach(card => {
-card.addEventListener('mouseenter', function() {
-this.classList.add('hovered');
-});
-
-card.addEventListener('mouseleave', function() {
-this.classList.remove('hovered');
-});
-});
-}
-
-// Animations
-function initAnimations() {
-// Counter animation
-function animateCounter(element) {
-const target = parseInt(element.dataset.target || element.textContent);
-const duration = 2000;
-const increment = target / (duration / 16);
-let current = 0;
-
-const timer = setInterval(() => {
-current += increment;
-if (current >= target) {
-current = target;
-clearInterval(timer);
-}
-element.textContent = Math.floor(current);
-}, 16);
-}
-
-// Progress bar animation
-function animateProgressBar(element) {
-const target = element.dataset.progress || element.style.width;
-element.style.width = '0%';
-
-setTimeout(() => {
-element.style.width = target;
-}, 300);
-}
-
-// Text typing animation
-function typeWriter(element, text, speed = 50) {
-let i = 0;
-element.textContent = '';
-
-function type() {
-if (i < text.length) {
-element.textContent += text.charAt(i);
-i++;
-setTimeout(type, speed);
-}
-}
-
-type();
-}
-
-// Add counters and progress bars to viewport observer
-document.querySelectorAll('.counter').forEach(counter => {
-const observer = new IntersectionObserver(entries => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-animateCounter(entry.target);
-observer.unobserve(entry.target);
-}
-});
-});
-observer.observe(counter);
-});
-
-document.querySelectorAll('.progress-bar').forEach(bar => {
-const observer = new IntersectionObserver(entries => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-animateProgressBar(entry.target);
-observer.unobserve(entry.target);
-}
-});
-});
-observer.observe(bar);
-});
-}
-
-// Particles.js Configuration
-function initParticles() {
-if (typeof particlesJS !== 'undefined') {
-particlesJS('particles-js', {
-particles: {
-number: { value: 80, density: { enable: true, value_area: 800 } },
-color: { value: '#ffffff' },
-shape: { type: 'circle' },
-opacity: { value: 0.5, random: true },
-size: { value: 3, random: true },
-line_linked: {
-enable: true,
-distance: 150,
-color: '#ffffff',
-opacity: 0.4,
-width: 1
-},
-move: {
-enable: true,
-speed: 2,
-direction: 'none',
-random: true,
-straight: false,
-out_mode: 'out',
-bounce: false
-}
-},
-interactivity: {
-detect_on: 'canvas',
-events: {
-onhover: { enable: true, mode: 'grab' },
-onclick: { enable: true, mode: 'push' },
-resize: true
-},
-modes: {
-grab: { distance: 140, line_linked: { opacity: 1 } },
-push: { particles_nb: 4 }
-}
-},
-retina_detect: true
-});
-}
-}
-
-// Geology Map Interactions
-function initGeologyMap() {
-const mapContainer = document.querySelector('.map-container');
-if (!mapContainer) return;
-
-// Add zoom functionality
-let scale = 1;
-let translateX = 0;
-let translateY = 0;
-
-mapContainer.addEventListener('wheel', function(e) {
-e.preventDefault();
-
-const delta = e.deltaY > 0 ? 0.9 : 1.1;
-const rect = this.getBoundingClientRect();
-const x = e.clientX - rect.left;
-const y = e.clientY - rect.top;
-
-scale *= delta;
-scale = Math.min(Math.max(0.5, scale), 3);
-
-this.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
-});
-
-// Add pan functionality
-let isDragging = false;
-let startX, startY;
-
-mapContainer.addEventListener('mousedown', function(e) {
-isDragging = true;
-startX = e.clientX - translateX;
-startY = e.clientY - translateY;
-this.style.cursor = 'grabbing';
-});
-
-document.addEventListener('mousemove', function(e) {
-if (!isDragging) return;
-
-translateX = e.clientX - startX;
-translateY = e.clientY - startY;
-
-mapContainer.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
-});
-
-document.addEventListener('mouseup', function() {
-isDragging = false;
-mapContainer.style.cursor = 'grab';
-});
-}
-
-// Research Actions (Like, Comment, Download)
-function initResearchActions() {
-// Like buttons
-document.querySelectorAll('.btn-like').forEach(button => {
-button.addEventListener('click', function() {
-const icon = this.querySelector('i');
-const count = this.querySelector('span') || this;
-const currentCount = parseInt(count.textContent) || parseInt(count.innerHTML.match(/\d+/)[0]);
-
-if (this.classList.contains('liked')) {
-this.classList.remove('liked');
-icon.classList.remove('fas');
-icon.classList.add('far');
-if (count.tagName === 'SPAN') {
-count.textContent = currentCount - 1;
-} else {
-this.innerHTML = `<i class="far fa-heart"></i> ${currentCount - 1}`;
-}
-} else {
-this.classList.add('liked');
-icon.classList.remove('far');
-icon.classList.add('fas');
-if (count.tagName === 'SPAN') {
-count.textContent = currentCount + 1;
-} else {
-this.innerHTML = `<i class="fas fa-heart"></i> ${currentCount + 1}`;
-}
-
-// Add pulse animation
-this.classList.add('pulse-animation');
-setTimeout(() => {
-this.classList.remove('pulse-animation');
-}, 300);
-}
-});
-});
-
-// Comment buttons
-document.querySelectorAll('.btn-comment').forEach(button => {
-button.addEventListener('click', function() {
-const researchCard = this.closest('.research-card');
-let commentSection = researchCard.querySelector('.comment-section');
-
-if (!commentSection) {
-commentSection = document.createElement('div');
-commentSection.className = 'comment-section';
-commentSection.innerHTML = `
-<div class="comment-form">
-<textarea placeholder="Add your comment..." rows="3"></textarea>
-<div class="comment-actions">
-<button class="btn btn-primary btn-sm">Post Comment</button>
-<button class="btn btn-secondary btn-sm cancel-comment">Cancel</button>
-</div>
-</div>
-`;
-researchCard.appendChild(commentSection);
-
-// Add event listeners for comment form
-const cancelBtn = commentSection.querySelector('.cancel-comment');
-const postBtn = commentSection.querySelector('.btn-primary');
-const textarea = commentSection.querySelector('textarea');
-
-cancelBtn.addEventListener('click', () => {
-commentSection.remove();
-});
-
-postBtn.addEventListener('click', () => {
-const comment = textarea.value.trim();
-if (comment) {
-// Simulate posting comment
-postBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
-postBtn.disabled = true;
-
-setTimeout(() => {
-commentSection.remove();
-// Update comment count
-const commentBtn = researchCard.querySelector('.btn-comment');
-const count = commentBtn.innerHTML.match(/\d+/);
-if (count) {
-commentBtn.innerHTML = `<i class="fas fa-comment"></i> Comment (${parseInt(count[0]) + 1})`;
-}
-}, 1000);
-}
-});
-} else {
-commentSection.remove();
-}
-});
-});
-
-// Download buttons
-document.querySelectorAll('.btn-download').forEach(button => {
-button.addEventListener('click', function(e) {
-e.preventDefault();
-
-const originalText = this.innerHTML;
-this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
-this.classList.add('downloading');
-
-// Simulate download
-setTimeout(() => {
-this.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
-this.style.background = '#10b981';
-this.style.borderColor = '#10b981';
-
-setTimeout(() => {
-this.innerHTML = originalText;
-this.classList.remove('downloading');
-this.style.background = '';
-this.style.borderColor = '';
-}, 2000);
-}, 1500);
-});
-});
+// Main JavaScript File
+class JourneyUniverse {
+    constructor() {
+        this.currentPage = 'home';
+        this.isLoading = false;
+        this.init();
+    }
+
+    init() {
+        this.setupLoadingScreen();
+        this.setupNavigation();
+        this.setupParticles();
+        this.setupStars();
+        this.loadPage('home');
+    }
+
+    setupLoadingScreen() {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loading-screen');
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+    }
+
+    setupNavigation() {
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // Submenu toggle for mobile
+        document.querySelectorAll('.has-submenu').forEach(item => {
+            item.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    item.classList.toggle('active');
+                }
+            });
+        });
+    }
+
+    setupParticles() {
+        const particlesContainer = document.createElement('div');
+        particlesContainer.className = 'particles';
+        document.body.appendChild(particlesContainer);
+
+        // Create floating particles
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+    }
+
+    setupStars() {
+        const starsContainer = document.createElement('div');
+        starsContainer.className = 'stars';
+        document.body.appendChild(starsContainer);
+
+        // Create twinkling stars
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+    }
+
+    async loadPage(pageName) {
+        if (this.isLoading) return;
+        
+        this.isLoading = true;
+        this.showLoading();
+
+        try {
+            const pageContent = await this.fetchPageContent(pageName);
+            this.renderPage(pageName, pageContent);
+            this.updateActiveNav(pageName);
+            this.currentPage = pageName;
+            
+            // Initialize page-specific features
+            this.initializePageFeatures(pageName);
+            
+        } catch (error) {
+            console.error('Error loading page:', error);
+            this.showError('Failed to load page. Please try again.');
+        } finally {
+            this.hideLoading();
+            this.isLoading = false;
+        }
+    }
+
+    async fetchPageContent(pageName) {
+        // Simulate API call with local data
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                const content = this.getPageData(pageName);
+                resolve(content);
+            }, 300);
+        });
+    }
+
+    getPageData(pageName) {
+        // This would typically come from an API
+        const pages = {
+            'home': {
+                title: 'Welcome to Journey of Universe',
+                content: `
+                    <section class="hero-section">
+                        <div class="hero-content">
+                            <h1 class="hero-title fade-in-up">Explore the Cosmos</h1>
+                            <p class="hero-subtitle fade-in-up">Discover the wonders of science and technology through interactive experiences</p>
+                            <div class="hero-buttons fade-in-up">
+                                <button class="btn btn-primary" onclick="journeyApp.loadPage('exploring-idea')">Start Exploring</button>
+                                <button class="btn btn-outline" onclick="journeyApp.loadPage('documentation')">View Documentation</button>
+                            </div>
+                        </div>
+                        <div class="hero-image floating">
+                            <i class="fas fa-rocket fa-10x"></i>
+                        </div>
+                    </section>
+                    <section class="features-section">
+                        <div class="container">
+                            <h2 class="section-title">Featured Content</h2>
+                            <div class="grid">
+                                <div class="card card-hover">
+                                    <div class="card-header">
+                                        <i class="fas fa-atom fa-3x"></i>
+                                        <h3 class="card-title">Physics</h3>
+                                    </div>
+                                    <div class="card-content">
+                                        <p>Explore the fundamental laws that govern our universe</p>
+                                    </div>
+                                </div>
+                                <div class="card card-hover">
+                                    <div class="card-header">
+                                        <i class="fas fa-mountain fa-3x"></i>
+                                        <h3 class="card-title">Geology</h3>
+                                    </div>
+                                    <div class="card-content">
+                                        <p>Discover the Earth's structure and geological processes</p>
+                                    </div>
+                                </div>
+                                <div class="card card-hover">
+                                    <div class="card-header">
+                                        <i class="fas fa-water fa-3x"></i>
+                                        <h3 class="card-title">Hydropower</h3>
+                                    </div>
+                                    <div class="card-content">
+                                        <p>Learn about renewable energy from water resources</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `
+            },
+            'exploring-idea': {
+                title: 'Exploring Ideas',
+                content: `
+                    <section class="page-header">
+                        <div class="container">
+                            <h1 class="page-title">Exploring Ideas</h1>
+                            <p class="page-subtitle">Where curiosity meets innovation</p>
+                        </div>
+                    </section>
+                    <section class="content-section">
+                        <div class="container">
+                            <div class="idea-grid">
+                                <div class="idea-card card">
+                                    <div class="idea-icon">
+                                        <i class="fas fa-lightbulb fa-4x"></i>
+                                    </div>
+                                    <h3>Innovation Hub</h3>
+                                    <p>Explore cutting-edge ideas and breakthrough technologies that shape our future</p>
+                                    <button class="btn btn-primary">Learn More</button>
+                                </div>
+                                <div class="idea-card card">
+                                    <div class="idea-icon">
+                                        <i class="fas fa-brain fa-4x"></i>
+                                    </div>
+                                    <h3>Creative Thinking</h3>
+                                    <p>Develop your creative problem-solving skills through interactive challenges</p>
+                                    <button class="btn btn-primary">Start Challenge</button>
+                                </div>
+                                <div class="idea-card card">
+                                    <div class="idea-icon">
+                                        <i class="fas fa-users fa-4x"></i>
+                                    </div>
+                                    <h3>Collaboration Space</h3>
+                                    <p>Connect with like-minded individuals and build amazing projects together</p>
+                                    <button class="btn btn-primary">Join Community</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `
+            },
+            'about': {
+                title: 'About the Creator',
+                content: `
+                    <section class="about-hero">
+                        <div class="about-background">
+                            <div class="stars"></div>
+                        </div>
+                        <div class="container">
+                            <div class="about-content">
+                                <div class="owner-profile">
+                                    <div class="owner-image floating">
+                                        <img src="assets/images/owner.jpg" alt="Owner" class="avatar avatar-large">
+                                    </div>
+                                    <div class="owner-info">
+                                        <h1 class="owner-name">Your Name</h1>
+                                        <p class="owner-title">Creator & Developer</p>
+                                        <p class="owner-bio">
+                                            Passionate about science, technology, and education. 
+                                            Creating interactive experiences to make learning fun and accessible.
+                                        </p>
+                                        <div class="owner-skills">
+                                            <span class="badge">Web Development</span>
+                                            <span class="badge">Science Education</span>
+                                            <span class="badge">UI/UX Design</span>
+                                            <span class="badge">Physics</span>
+                                        </div>
+                                        <div class="owner-contact">
+                                            <button class="btn btn-primary">
+                                                <i class="fas fa-envelope"></i> Contact Me
+                                            </button>
+                                            <button class="btn btn-outline">
+                                                <i class="fab fa-github"></i> GitHub
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="mission-section">
+                        <div class="container">
+                            <h2 class="section-title">Our Mission</h2>
+                            <div class="mission-content">
+                                <div class="mission-card card">
+                                    <i class="fas fa-graduation-cap fa-3x"></i>
+                                    <h3>Education</h3>
+                                    <p>Make complex scientific concepts accessible to everyone</p>
+                                </div>
+                                <div class="mission-card card">
+                                    <i class="fas fa-globe fa-3x"></i>
+                                    <h3>Exploration</h3>
+                                    <p>Inspire curiosity about the universe and our place in it</p>
+                                </div>
+                                <div class="mission-card card">
+                                    <i class="fas fa-handshake fa-3x"></i>
+                                    <h3>Community</h3>
+                                    <p>Build a global community of learners and explorers</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `
+            }
+        };
+
+        return pages[pageName] || pages['home'];
+    }
+
+    renderPage(pageName, pageData) {
+        const mainContent = document.getElementById('main-content');
+        mainContent.innerHTML = `
+            <div class="page-transition">
+                ${pageData.content}
+            </div>
+        `;
+        
+        // Add page-specific title
+        document.title = `${pageData.title} - Journey of Universe`;
+    }
+
+    updateActiveNav(pageName) {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-page') === pageName) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    initializePageFeatures(pageName) {
+        // Initialize interactions for specific pages
+        const interactionPages = ['research', 'projects', 'articles', 'journal', 'physics'];
+        
+        if (interactionPages.includes(pageName)) {
+            this.initializeInteractions();
+        }
+        
+        // Initialize animations
+        this.initializeAnimations();
+    }
+
+    initializeInteractions() {
+        // Like buttons
+        document.querySelectorAll('.like-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handleLike(btn);
+            });
+        });
+
+        // Comment buttons
+        document.querySelectorAll('.comment-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handleComment(btn);
+            });
+        });
+
+        // View counters (simulate)
+        document.querySelectorAll('.view-count').forEach(view => {
+            const currentCount = parseInt(view.textContent) || 0;
+            view.textContent = `${currentCount + 1} views`;
+        });
+    }
+
+    handleLike(button) {
+        button.classList.toggle('active');
+        const count = button.querySelector('.interaction-count');
+        const currentCount = parseInt(count.textContent) || 0;
+        
+        if (button.classList.contains('active')) {
+            count.textContent = currentCount + 1;
+        } else {
+            count.textContent = Math.max(0, currentCount - 1);
+        }
+    }
+
+    handleComment(button) {
+        const modal = document.createElement('div');
+        modal.className = 'modal active';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <button class="modal-close">&times;</button>
+                <h3>Add Comment</h3>
+                <form class="comment-form">
+                    <div class="form-group">
+                        <label class="form-label">Your Name</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Comment</label>
+                        <textarea class="form-textarea" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Post Comment</button>
+                </form>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Close modal
+        modal.querySelector('.modal-close').addEventListener('click', () => {
+            modal.remove();
+        });
+        
+        // Handle form submission
+        modal.querySelector('.comment-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.submitComment(modal);
+        });
+    }
+
+    submitComment(modal) {
+        // Simulate comment submission
+        const formData = new FormData(modal.querySelector('.comment-form'));
+        
+        // Show success message
+        const successMsg = document.createElement('div');
+        successMsg.innerHTML = `
+            <div style="color: #4caf50; text-align: center; padding: 1rem;">
+                <i class="fas fa-check-circle fa-2x"></i>
+                <p>Comment posted successfully!</p>
+            </div>
+        `;
+        
+        modal.querySelector('.modal-content').innerHTML = successMsg.innerHTML;
+        
+        setTimeout(() => {
+            modal.remove();
+        }, 2000);
+    }
+
+    initializeAnimations() {
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.card, .section-title, .idea-card').forEach(el => {
+            observer.observe(el);
+        });
+    }
+
+    showLoading() {
+        const loadingEl = document.createElement('div');
+        loadingEl.className = 'page-loading';
+        loadingEl.innerHTML = '<div class="spinner"></div>';
+        document.getElementById('main-content').appendChild(loadingEl);
+    }
+
+    hideLoading() {
+        const loadingEl = document.querySelector('.page-loading');
+        if (loadingEl) {
+            loadingEl.remove();
+        }
+    }
+
+    showError(message) {
+        const errorEl = document.createElement('div');
+        errorEl.className = 'error-message';
+        errorEl.innerHTML = `
+            <div class="card">
+                <h3>Error</h3>
+                <p>${message}</p>
+                <button class="btn btn-primary" onclick="this.parentElement.parentElement.remove()">OK</button>
+            </div>
+        `;
+        document.getElementById('main-content').appendChild(errorEl);
+    }
 }
 
-// Utility Functions
-function debounce(func, wait) {
-let timeout;
-return function executedFunction(...args) {
-const later = () => {
-clearTimeout(timeout);
-func(...args);
-};
-clearTimeout(timeout);
-timeout = setTimeout(later, wait);
-};
-}
+// Initialize the app
+const journeyApp = new JourneyUniverse();
 
-function throttle(func, limit) {
-let inThrottle;
-return function() {
-const args = arguments;
-const context = this;
-if (!inThrottle) {
-func.apply(context, args);
-inThrottle = true;
-setTimeout(() => inThrottle = false, limit);
-}
-}
-}
-
-// Error Handling
-window.addEventListener('error', function(e) {
-console.error('JavaScript Error:', e.error);
-// You can add error reporting here
-});
-
-// Performance Monitoring
-if ('PerformanceObserver' in window) {
-const perfObserver = new PerformanceObserver((list) => {
-for (const entry of list.getEntries()) {
-console.log(`Performance: ${entry.name} - ${entry.duration}ms`);
-}
-});
-perfObserver.observe({ entryTypes: ['measure', 'navigation'] });
-}
-
-// Add CSS for dynamic elements
-const dynamicStyles = document.createElement('style');
-dynamicStyles.textContent = `
-.pulse-animation {
-animation: pulse 0.3s ease-in-out;
-}
-
-@keyframes pulse {
-0% { transform: scale(1); }
-50% { transform: scale(1.1); }
-100% { transform: scale(1); }
-}
-
-.comment-section {
-margin-top: 1rem;
-padding-top: 1rem;
-border-top: 1px solid var(--border-color);
-}
-
-.comment-form textarea {
-width: 100%;
-padding: 0.5rem;
-border: 1px solid var(--border-color);
-border-radius: 0.5rem;
-resize: vertical;
-margin-bottom: 0.5rem;
-}
-
-.comment-actions {
-display: flex;
-gap: 0.5rem;
-}
-
-.btn-sm {
-padding: 0.25rem 0.75rem;
-font-size: 0.875rem;
-}
-
-.loading-dots::after {
-content: '.';
-animation: loading-dots 1.5s infinite;
-}
-
-@keyframes loading-dots {
-0%, 20% { content: '.'; }
-40% { content: '..'; }
-60%, 100% { content: '...'; }
-}
-`;
-document.head.appendChild(dynamicStyles);
+// Make it globally accessible for HTML onclick handlers
+window.journeyApp = journeyApp;
