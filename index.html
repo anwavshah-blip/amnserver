@@ -3,104 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Journey of Universe - Explore the Cosmos</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Journey the Universe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="loading-screen">
-        <div class="universe-loader">
-            <div class="galaxy-spinner"></div>
-            <h2 class="loading-text">Loading Universe...</h2>
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <h1>Journey The Universe</h1>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.html" class="nav-link">About</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link">Journey</a>
+                <ul class="dropdown-menu">
+                    <li><a href="physics.html">Physics</a></li>
+                    <li><a href="geological.html">Geological</a></li>
+                    <li><a href="hydropower.html">Hydropower</a></li>
+                    <li><a href="watersupply.html">Water Supply</a></li>
+                    <li><a href="irrigation.html">Irrigation</a></li>
+                    <li><a href="structure.html">Structure</a></li>
+                    <li><a href="roads.html">Roads</a></li>
+                    <li><a href="environmental.html">Environmental</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link">Documentation</a>
+                <ul class="dropdown-menu">
+                    <li><a href="publish-article.html">Publish Article</a></li>
+                    <li><a href="journal.html">Journal</a></li>
+                    <li><a href="research-paper.html">Research Paper</a></li>
+                    <li><a href="project.html">Project</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="news.html" class="nav-link">News</a>
+            </li>
+            <li class="nav-item">
+                <a href="download.html" class="nav-link">Download</a>
+            </li>
+            <li class="nav-item">
+                <a href="contacts.html" class="nav-link">Contacts</a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
     </div>
-
-    <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="logo">
-                <i class="fas fa-rocket"></i>
-                <span>Journey of Universe</span>
+</nav>
+    <!-- Home Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Welcome to Journey the Universe</h1>
+                <p class="hero-subtitle">Explore the wonders of civil engineering and beyond</p>
+                <button class="cta-button">Start Journey</button>
             </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link active" data-page="home">Home</a></li>
-                <li><a href="#exploring-idea" class="nav-link" data-page="exploring-idea">Exploring Idea</a></li>
-                <li class="has-submenu">
-                    <a href="#documentation" class="nav-link" data-page="documentation">Documentation</a>
-                    <ul class="submenu">
-                        <li><a href="#articles" data-page="articles">Published Articles</a></li>
-                        <li><a href="#projects" data-page="projects">Projects</a></li>
-                        <li><a href="#research" data-page="research">Research Papers</a></li>
-                        <li><a href="#journal" data-page="journal">Journal</a></li>
-                    </ul>
-                </li>
-                <li class="has-submenu">
-                    <a href="#journey" class="nav-link" data-page="journey">Journey</a>
-                    <ul class="submenu">
-                        <li><a href="#physics" data-page="physics">Physics</a></li>
-                        <li><a href="#hydropower" data-page="hydropower">Hydropower</a></li>
-                        <li><a href="#water-supply" data-page="water-supply">Water Supply</a></li>
-                        <li><a href="#geology" data-page="geology">Geology</a></li>
-                        <li><a href="#environmental" data-page="environmental">Environmental Engineering</a></li>
-                        <li><a href="#irrigation" data-page="irrigation">Irrigation</a></li>
-                        <li><a href="#geotechnical" data-page="geotechnical">Geotechnical</a></li>
-                        <li><a href="#mathematics" data-page="mathematics">Mathematics</a></li>
-                        <li><a href="#gallery" data-page="gallery">Explore Earth Gallery</a></li>
-                    </ul>
-                </li>
-                <li><a href="#about" class="nav-link" data-page="about">About</a></li>
-                <li><a href="#download" class="nav-link" data-page="download">Download</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- Dynamic content will be loaded here -->
-    </main>
-
-    <!-- Footer -->
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Journey of Universe</h3>
-                <p>Exploring the cosmos through science and technology</p>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#download">Download</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Connect</h4>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
+            <div class="hero-image">
+                <div class="floating-card">
+                    <img src="assets/eng-hero.jpg" alt="Engineering Universe">
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Journey of Universe. All rights reserved.</p>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
         </div>
-    </footer>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Explore Our Universe</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="assets/civil-icon.svg" alt="Engineering">
+                    </div>
+                    <h3>Civil Engineering</h3>
+                    <p>Discover the fundamentals and advanced concepts of civil engineering</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="assets/research-icon.svg" alt="Research">
+                    </div>
+                    <h3>Research Papers</h3>
+                    <p>Access cutting-edge research and publications</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="assets/news-icon.svg" alt="News">
+                    </div>
+                    <h3>Latest News</h3>
+                    <p>Stay updated with the latest developments</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script src="js/main.js"></script>
-    <script src="js/navigation.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/interactions.js"></script>
-    <script src="js/data.js"></script>
+<!-- Footer Section -->
+<footer class="footer-section">
+    <div class="footer-content">
+        <!-- Owner Profile Section (Left) -->
+        <div class="owner-profile">
+            <img src="assets/owner-photo.jpg" alt="Website Owner" class="owner-photo">
+            <div class="owner-info">
+                <h3 class="owner-name">Aman Shah</h3>
+                <p class="owner-title">Website Owner & Founder</p>
+                <div class="license-info">
+                    <p>Hi !, I'm Aman shah</p>
+                    <p>& pursuing Civil Eng. (Student).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Information Section -->
+        <div class="footer-contact">
+            <h3 class="footer-section-title">Contact Information</h3>
+            <ul class="contact-list">
+                <li class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <span class="contact-text">amangrownr@outlook.com</span>
+                </li>
+                <li class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <span class="contact-text">Kirtipur, KTM, Nepal</span>
+                </li>
+                <li class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <span class="contact-text">+977 9864164617</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Social Media Section -->
+        <div class="footer-social">
+            <h3 class="footer-section-title">Connect With Us</h3>
+            <div class="social-grid">
+                <a href="https://facebook.com/profile.php?id=61565895314268" target="_blank" class="social-link facebook">
+                    <span class="social-icon">📘</span>
+                    <span class="social-text">Facebook</span>
+                </a>
+                <a href="https://instagram.com/yourprofile" target="_blank" class="social-link instagram">
+                    <span class="social-icon">📷</span>
+                    <span class="social-text">Instagram</span>
+                </a>
+                <a href="https://linkedin.com/in/shree-aman-shah" target="_blank" class="social-link linkedin">
+                    <span class="social-icon">💼</span>
+                    <span class="social-text">LinkedIn</span>
+                </a>
+                <a href="https://twitter.com/yourprofile" target="_blank" class="social-link twitter">
+                    <span class="social-icon">🐦</span>
+                    <span class="social-text">Twitter</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Journey the Universe. Original Licensed to Aman Shah. All rights reserved.</p>
+    </div>
+</footer>
 </body>
 </html>
