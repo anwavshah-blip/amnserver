@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts - Journey the Universe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <h1>Journey the Universe</h1>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.html" class="nav-link">About</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link">Journey</a>
+                <ul class="dropdown-menu">
+                    <li><a href="physics.html">Physics</a></li>
+                    <li><a href="geological.html">Geological</a></li>
+                    <li><a href="hydropower.html">Hydropower</a></li>
+                    <li><a href="watersupply.html">Water Supply</a></li>
+                    <li><a href="irrigation.html">Irrigation</a></li>
+                    <li><a href="structure.html">Structure</a></li>
+                    <li><a href="roads.html">Roads</a></li>
+                    <li><a href="environmental.html">Environmental</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link">Documentation</a>
+                <ul class="dropdown-menu">
+                    <li><a href="publish-article.html">Publish Article</a></li>
+                    <li><a href="journal.html">Journal</a></li>
+                    <li><a href="research-paper.html">Research Paper</a></li>
+                    <li><a href="project.html">Project</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="news.html" class="nav-link">News</a>
+            </li>
+            <li class="nav-item">
+                <a href="download.html" class="nav-link">Download</a>
+            </li>
+            <li class="nav-item">
+                <a href="contacts.html" class="nav-link">Contacts</a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <h1 class="section-title">Get In Touch</h1>
+                <p class="section-subtitle">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <div class="info-item">
+                        <div class="info-icon">📧</div>
+                        <div class="info-content">
+                            <h3>Email</h3>
+                            <p>amangrown@outlook.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">📍</div>
+                        <div class="info-content">
+                            <h3>Kirtipur</h3>
+                            <p>Engineering Building, University Campus<br>123 Innovation Drive, KTM 12345</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">📞</div>
+                        <div class="info-content">
+                            <h3>Phone</h3>
+                            <p>+977 9864164617</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">🕒</div>
+                        <div class="info-content">
+                            <h3>Office Hours</h3>
+                            <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+            
+            // Simulate form submission
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                // Show success message
+                showSuccessMessage();
+                
+                // Reset form
+                this.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        function showSuccessMessage() {
+            const message = document.createElement('div');
+            message.className = 'success-message';
+            message.innerHTML = `
+                <div class="message-content">
+                    <span class="message-icon">✓</span>
+                    <span class="message-text">Message sent successfully!</span>
+                </div>
+            `;
+            
+            document.body.appendChild(message);
+            
+            // Add styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .success-message {
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    background: #10b981;
+                    color: white;
+                    padding: 1rem 1.5rem;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    z-index: 1000;
+                    animation: slideInRight 0.3s ease;
+                }
+                
+                .message-content {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+                
+                .message-icon {
+                    font-weight: bold;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                message.remove();
+                style.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publish Article - Journey the Universe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <h1>Journey the Universe</h1>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.html" class="nav-link">About</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link">Journey</a>
+                <ul class="dropdown-menu">
+                    <li><a href="physics.html">Physics</a></li>
+                    <li><a href="geological.html">Geological</a></li>
+                    <li><a href="hydropower.html">Hydropower</a></li>
+                    <li><a href="watersupply.html">Water Supply</a></li>
+                    <li><a href="irrigation.html">Irrigation</a></li>
+                    <li><a href="structure.html">Structure</a></li>
+                    <li><a href="roads.html">Roads</a></li>
+                    <li><a href="environmental.html">Environmental</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link">Documentation</a>
+                <ul class="dropdown-menu">
+                    <li><a href="publish-article.html">Publish Article</a></li>
+                    <li><a href="journal.html">Journal</a></li>
+                    <li><a href="research-paper.html">Research Paper</a></li>
+                    <li><a href="project.html">Project</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="news.html" class="nav-link">News</a>
+            </li>
+            <li class="nav-item">
+                <a href="download.html" class="nav-link">Download</a>
+            </li>
+            <li class="nav-item">
+                <a href="contacts.html" class="nav-link">Contacts</a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+    <!-- Articles Section -->
+    <section class="articles-section">
+        <div class="container">
+            <h1 class="section-title">Published Articles</h1>
+            <div class="articles-grid">
+                <div class="article-card" onclick="openPDF('assets/articles/sustainable-construction.pdf')">
+                    <div class="article-preview">
+                        <img src="assets/article-previews/sustainable-construction.jpg" alt="Sustainable Construction">
+                        <div class="pdf-overlay">
+                            <span class="pdf-icon">📄</span>
+                            <span class="pdf-text">Click to Preview</span>
+                        </div>
+                    </div>
+                    <div class="article-info">
+                        <h3>Sustainable Construction Materials</h3>
+                        <p class="article-author">Dr. Michael Chen</p>
+                        <p class="article-date">December 15, 2023</p>
+                        <p class="article-description">Exploring eco-friendly materials and their impact on modern construction practices.</p>
+                    </div>
+                </div>
+
+                <div class="article-card" onclick="openPDF('assets/articles/smart-infrastructure.pdf')">
+                    <div class="article-preview">
+                        <img src="assets/article-previews/smart-infrastructure.jpg" alt="Smart Infrastructure">
+                        <div class="pdf-overlay">
+                            <span class="pdf-icon">📄</span>
+                            <span class="pdf-text">Click to Preview</span>
+                        </div>
+                    </div>
+                    <div class="article-info">
+                        <h3>Smart Infrastructure Development</h3>
+                        <p class="article-author">Prof. Sarah Williams</p>
+                        <p class="article-date">November 28, 2023</p>
+                        <p class="article-description">Integration of IoT and AI in civil infrastructure projects.</p>
+                    </div>
+                </div>
+
+                <div class="article-card" onclick="openPDF('assets/articles/bridge-engineering.pdf')">
+                    <div class="article-preview">
+                        <img src="assets/article-previews/bridge-engineering.jpg" alt="Bridge Engineering">
+                        <div class="pdf-overlay">
+                            <span class="pdf-icon">📄</span>
+                            <span class="pdf-text">Click to Preview</span>
+                        </div>
+                    </div>
+                    <div class="article-info">
+                        <h3>Advanced Bridge Engineering</h3>
+                        <p class="article-author">Eng. Robert Johnson</p>
+                        <p class="article-date">October 10, 2023</p>
+                        <p class="article-description">Innovative techniques in modern bridge design and construction.</p>
+                    </div>
+                </div>
+
+                <div class="article-card" onclick="openPDF('assets/articles/water-management.pdf')">
+                    <div class="article-preview">
+                        <img src="assets/article-previews/water-management.jpg" alt="Water Management">
+                        <div class="pdf-overlay">
+                            <span class="pdf-icon">📄</span>
+                            <span class="pdf-text">Click to Preview</span>
+                        </div>
+                    </div>
+                    <div class="article-info">
+                        <h3>Urban Water Management</h3>
+                        <p class="article-author">Dr. Emily Davis</p>
+                        <p class="article-date">September 5, 2023</p>
+                        <p class="article-description">Sustainable approaches to urban water resource management.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PDF Preview Modal -->
+    <div id="pdfModal" class="pdf-modal">
+        <div class="pdf-modal-content">
+            <span class="pdf-close">&times;</span>
+            <div class="pdf-viewer">
+                <iframe id="pdfViewer" src="" frameborder="0"></iframe>
+            </div>
+            <div class="pdf-controls">
+                <button class="pdf-control-btn" onclick="zoomPDF('out')">🔍-</button>
+                <button class="pdf-control-btn" onclick="zoomPDF('in')">🔍+</button>
+                <button class="pdf-control-btn" onclick="closePDF()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // PDF Preview Functions
+        function openPDF(pdfPath) {
+            const modal = document.getElementById('pdfModal');
+            const viewer = document.getElementById('pdfViewer');
+            viewer.src = pdfPath;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePDF() {
+            const modal = document.getElementById('pdfModal');
+            const viewer = document.getElementById('pdfViewer');
+            modal.style.display = 'none';
+            viewer.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        function zoomPDF(action) {
+            const viewer = document.getElementById('pdfViewer');
+            let currentZoom = parseInt(viewer.style.zoom) || 100;
+            
+            if (action === 'in' && currentZoom < 200) {
+                currentZoom += 25;
+            } else if (action === 'out' && currentZoom > 50) {
+                currentZoom -= 25;
+            }
+            
+            viewer.style.zoom = currentZoom + '%';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('pdfModal');
+            if (event.target === modal) {
+                closePDF();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closePDF();
+            }
+        });
+    </script>
+</body>
+</html>

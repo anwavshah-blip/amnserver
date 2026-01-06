@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download - Journey the Universe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <h1>Journey the Universe</h1>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.html" class="nav-link">About</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link">Journey</a>
+                <ul class="dropdown-menu">
+                    <li><a href="physics.html">Physics</a></li>
+                    <li><a href="geological.html">Geological</a></li>
+                    <li><a href="hydropower.html">Hydropower</a></li>
+                    <li><a href="watersupply.html">Water Supply</a></li>
+                    <li><a href="irrigation.html">Irrigation</a></li>
+                    <li><a href="structure.html">Structure</a></li>
+                    <li><a href="roads.html">Roads</a></li>
+                    <li><a href="environmental.html">Environmental</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link">Documentation</a>
+                <ul class="dropdown-menu">
+                    <li><a href="publish-article.html">Publish Article</a></li>
+                    <li><a href="journal.html">Journal</a></li>
+                    <li><a href="research-paper.html">Research Paper</a></li>
+                    <li><a href="project.html">Project</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="news.html" class="nav-link">News</a>
+            </li>
+            <li class="nav-item">
+                <a href="download.html" class="nav-link">Download</a>
+            </li>
+            <li class="nav-item">
+                <a href="contacts.html" class="nav-link">Contacts</a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+    <!-- Download Section -->
+    <section class="download-section">
+        <div class="container">
+            <h1 class="section-title">Download Resources</h1>
+            <p class="section-subtitle">Access our comprehensive collection of engineering resources, documents, and tools</p>
+            
+            <div class="download-categories">
+                <div class="download-category">
+                    <h3>📋 Technical Documents</h3>
+                    <ul class="download-list">
+                        <li class="download-item">
+                            <span>Construction Guidelines 2024</span>
+                            <button class="download-btn" onclick="downloadFile('technical/construction-guidelines.pdf')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Material Specifications Handbook</span>
+                            <button class="download-btn" onclick="downloadFile('technical/material-specs.pdf')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Safety Standards Manual</span>
+                            <button class="download-btn" onclick="downloadFile('technical/safety-manual.pdf')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Quality Control Procedures</span>
+                            <button class="download-btn" onclick="downloadFile('technical/quality-control.pdf')">⬇</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="download-category">
+                    <h3>📊 Design Templates</h3>
+                    <ul class="download-list">
+                        <li class="download-item">
+                            <span>Structural Design Templates</span>
+                            <button class="download-btn" onclick="downloadFile('templates/structural-templates.zip')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Hydraulic Calculation Sheets</span>
+                            <button class="download-btn" onclick="downloadFile('templates/hydraulic-calcs.xlsx')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Project Planning Tools</span>
+                            <button class="download-btn" onclick="downloadFile('templates/project-tools.zip')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Cost Estimation Forms</span>
+                            <button class="download-btn" onclick="downloadFile('templates/cost-forms.xlsx')">⬇</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="download-category">
+                    <h3>📚 Educational Materials</h3>
+                    <ul class="download-list">
+                        <li class="download-item">
+                            <span>Civil Engineering Basics Guide</span>
+                            <button class="download-btn" onclick="downloadFile('education/basics-guide.pdf')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Mathematics Reference Sheet</span>
+                            <button class="download-btn" onclick="downloadFile('education/math-reference.pdf')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Physics Applications Manual</span>
+                            <button class="download-btn" onclick="downloadFile('education/physics-manual.pdf')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Study Guides Collection</span>
+                            <button class="download-btn" onclick="downloadFile('education/study-guides.zip')">⬇</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="download-category">
+                    <h3>💻 Software Tools</h3>
+                    <ul class="download-list">
+                        <li class="download-item">
+                            <span>Structural Analysis Calculator</span>
+                            <button class="download-btn" onclick="downloadFile('software/structural-calc.exe')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>CAD Block Library</span>
+                            <button class="download-btn" onclick="downloadFile('software/cad-blocks.dwg')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Unit Conversion Tool</span>
+                            <button class="download-btn" onclick="downloadFile('software/unit-converter.exe')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Project Management App</span>
+                            <button class="download-btn" onclick="downloadFile('software/project-manager.exe')">⬇</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="download-category">
+                    <h3>📖 Research Papers</h3>
+                    <ul class="download-list">
+                        <li class="download-item">
+                            <span>Sustainable Materials Study</span>
+                            <button class="download-btn" onclick="downloadFile('research/sustainable-materials.pdf')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Smart Infrastructure Report</span>
+                            <button class="download-btn" onclick="downloadFile('research/smart-infrastructure.pdf')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Climate Adaptation Strategies</span>
+                            <button class="download-btn" onclick="downloadFile('research/climate-adaptation.pdf')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Innovation in Construction</span>
+                            <button class="download-btn" onclick="downloadFile('research/construction-innovation.pdf')">⬇</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="download-category">
+                    <h3>🔧 Standards & Codes</h3>
+                    <ul class="download-list">
+                        <li class="download-item">
+                            <span>Building Code 2024</span>
+                            <button class="download-btn" onclick="downloadFile('codes/building-code-2024.pdf')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Structural Design Codes</span>
+                            <button class="download-btn" onclick="downloadFile('codes/structural-codes.pdf')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Environmental Regulations</span>
+                            <button class="download-btn" onclick="downloadFile('codes/environmental-regs.pdf')">⬇</button>
+                        </li>
+                        <li class="download-item">
+                            <span>Safety Compliance Guide</span>
+                            <button class="download-btn" onclick="downloadFile('codes/safety-compliance.pdf')">⬇</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Download function
+        function downloadFile(filePath) {
+            // Create a temporary link element
+            const link = document.createElement('a');
+            link.href = 'assets/' + filePath;
+            link.download = filePath.split('/').pop();
+            link.target = '_blank';
+            
+            // Append to body, click, and remove
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show download notification
+            showDownloadNotification(filePath.split('/').pop());
+        }
+
+        function showDownloadNotification(filename) {
+            const notification = document.createElement('div');
+            notification.className = 'download-notification';
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-icon">✓</span>
+                    <span class="notification-text">Downloading: ${filename}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Add styles dynamically
+            const style = document.createElement('style');
+            style.textContent = `
+                .download-notification {
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    background: #10b981;
+                    color: white;
+                    padding: 1rem 1.5rem;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    z-index: 1000;
+                    animation: slideInRight 0.3s ease;
+                }
+                
+                .notification-content {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+                
+                .notification-icon {
+                    font-weight: bold;
+                }
+                
+                @keyframes slideInRight {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+                style.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

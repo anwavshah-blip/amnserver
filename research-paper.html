@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Papers - Journey the Universe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <h1>Journey the Universe</h1>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.html" class="nav-link">About</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link">Journey</a>
+                <ul class="dropdown-menu">
+                    <li><a href="physics.html">Physics</a></li>
+                    <li><a href="geological.html">Geological</a></li>
+                    <li><a href="hydropower.html">Hydropower</a></li>
+                    <li><a href="watersupply.html">Water Supply</a></li>
+                    <li><a href="irrigation.html">Irrigation</a></li>
+                    <li><a href="structure.html">Structure</a></li>
+                    <li><a href="roads.html">Roads</a></li>
+                    <li><a href="environmental.html">Environmental</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link">Documentation</a>
+                <ul class="dropdown-menu">
+                    <li><a href="publish-article.html">Publish Article</a></li>
+                    <li><a href="journal.html">Journal</a></li>
+                    <li><a href="research-paper.html">Research Paper</a></li>
+                    <li><a href="project.html">Project</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="news.html" class="nav-link">News</a>
+            </li>
+            <li class="nav-item">
+                <a href="download.html" class="nav-link">Download</a>
+            </li>
+            <li class="nav-item">
+                <a href="contacts.html" class="nav-link">Contacts</a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+    <!-- Research Papers Section -->
+    <section class="articles-section">
+        <div class="container">
+            <h1 class="section-title">Research Papers</h1>
+            <div class="articles-grid">
+                <div class="article-card" onclick="openPDF('assets/research/seismic-analysis-2024.pdf')">
+                    <div class="article-preview">
+                        <img src="assets/research-previews/seismic-analysis.jpg" alt="Seismic Analysis Research">
+                        <div class="pdf-overlay">
+                            <span class="pdf-icon">📄</span>
+                            <span class="pdf-text">Click to Preview</span>
+                        </div>
+                    </div>
+                    <div class="article-info">
+                        <h3>Advanced Seismic Analysis of High-Rise Buildings</h3>
+                        <p class="article-author">Dr. Akira Tanaka, Prof. Maria Rodriguez</p>
+                        <p class="article-date">January 2024</p>
+                        <p class="article-description">Comprehensive study on seismic response analysis using finite element modeling and experimental validation.</p>
+                    </div>
+                </div>
+
+                <div class="article-card" onclick="openPDF('assets/research/ai-construction-optimization.pdf')">
+                    <div class="article-preview">
+                        <img src="assets/research-previews/ai-construction.jpg" alt="AI in Construction">
+                        <div class="pdf-overlay">
+                            <span class="pdf-icon">📄</span>
+                            <span class="pdf-text">Click to Preview</span>
+                        </div>
+                    </div>
+                    <div class="article-info">
+                        <h3>AI-Driven Optimization in Construction Management</h3>
+                        <p class="article-author">Prof. David Kim, Dr. Sarah Johnson</p>
+                        <p class="article-date">December 2023</p>
+                        <p class="article-description">Machine learning applications for project scheduling, resource allocation, and cost optimization.</p>
+                    </div>
+                </div>
+
+                <div class="article-card" onclick="openPDF('assets/research/green-concrete-composite.pdf')">
+                    <div class="article-preview">
+                        <img src="assets/research-previews/green-concrete.jpg" alt="Green Concrete">
+                        <div class="pdf-overlay">
+                            <span class="pdf-icon">📄</span>
+                            <span class="pdf-text">Click to Preview</span>
+                        </div>
+                    </div>
+                    <div class="article-info">
+                        <h3>Development of Green Concrete Composites</h3>
+                        <p class="article-author">Dr. Emily Chen, Prof. Robert Brown</p>
+                        <p class="article-date">November 2023</p>
+                        <p class="article-description">Investigation of sustainable concrete alternatives using industrial waste materials and natural fibers.</p>
+                    </div>
+                </div>
+
+                <div class="article-card" onclick="openPDF('assets/research/smart-monitoring-systems.pdf')">
+                    <div class="article-preview">
+                        <img src="assets/research-previews/smart-monitoring.jpg" alt="Smart Monitoring">
+                        <div class="pdf-overlay">
+                            <span class="pdf-icon">📄</span>
+                            <span class="pdf-text">Click to Preview</span>
+                        </div>
+                    </div>
+                    <div class="article-info">
+                        <h3>IoT-Based Structural Health Monitoring Systems</h3>
+                        <p class="article-author">Prof. James Wilson, Dr. Lisa Park</p>
+                        <p class="article-date">October 2023</p>
+                        <p class="article-description">Development of wireless sensor networks for real-time infrastructure monitoring and predictive maintenance.</p>
+                    </div>
+                </div>
+
+                <div class="article-card" onclick="openPDF('assets/research/water-treatment-nanotechnology.pdf')">
+                    <div class="article-preview">
+                        <img src="assets/research-previews/nanotech-water.jpg" alt="Nanotechnology Water Treatment">
+                        <div class="pdf-overlay">
+                            <span class="pdf-icon">📄</span>
+                            <span class="pdf-text">Click to Preview</span>
+                        </div>
+                    </div>
+                    <div class="article-info">
+                        <h3>Nanotechnology Applications in Water Treatment</h3>
+                        <p class="article-author">Dr. Michael Zhang, Prof. Anna Petrova</p>
+                        <p class="article-date">September 2023</p>
+                        <p class="article-description">Revolutionary nanomaterials for efficient water purification and contaminant removal processes.</p>
+                    </div>
+                </div>
+
+                <div class="article-card" onclick="openPDF('assets/research/resilient-infrastructure.pdf')">
+                    <div class="article-preview">
+                        <img src="assets/research-previews/resilient-infrastructure.jpg" alt="Resilient Infrastructure">
+                        <div class="pdf-overlay">
+                            <span class="pdf-icon">📄</span>
+                            <span class="pdf-text">Click to Preview</span>
+                        </div>
+                    </div>
+                    <div class="article-info">
+                        <h3>Climate-Resilient Infrastructure Design</h3>
+                        <p class="article-author">Prof. Carlos Mendez, Dr. Rachel Green</p>
+                        <p class="article-date">August 2023</p>
+                        <p class="article-description">Adaptive design strategies for infrastructure systems facing climate change challenges.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PDF Preview Modal -->
+    <div id="pdfModal" class="pdf-modal">
+        <div class="pdf-modal-content">
+            <span class="pdf-close">&times;</span>
+            <div class="pdf-viewer">
+                <iframe id="pdfViewer" src="" frameborder="0"></iframe>
+            </div>
+            <div class="pdf-controls">
+                <button class="pdf-control-btn" onclick="zoomPDF('out')">🔍-</button>
+                <button class="pdf-control-btn" onclick="zoomPDF('in')">🔍+</button>
+                <button class="pdf-control-btn" onclick="closePDF()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // PDF Preview Functions
+        function openPDF(pdfPath) {
+            const modal = document.getElementById('pdfModal');
+            const viewer = document.getElementById('pdfViewer');
+            viewer.src = pdfPath;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePDF() {
+            const modal = document.getElementById('pdfModal');
+            const viewer = document.getElementById('pdfViewer');
+            modal.style.display = 'none';
+            viewer.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        function zoomPDF(action) {
+            const viewer = document.getElementById('pdfViewer');
+            let currentZoom = parseInt(viewer.style.zoom) || 100;
+            
+            if (action === 'in' && currentZoom < 200) {
+                currentZoom += 25;
+            } else if (action === 'out' && currentZoom > 50) {
+                currentZoom -= 25;
+            }
+            
+            viewer.style.zoom = currentZoom + '%';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('pdfModal');
+            if (event.target === modal) {
+                closePDF();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closePDF();
+            }
+        });
+    </script>
+</body>
+</html>
