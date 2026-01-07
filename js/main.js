@@ -6,47 +6,25 @@ const pageTransition = document.createElement('div');
 pageTransition.className = 'page-transition';
 document.body.appendChild(pageTransition);
 
-// Theme Management
-let currentTheme = localStorage.getItem('theme') || 'light';
-let restrictedItems = new Set(); // Track restricted items
-
-// Initialize
-document.addEventListener('DOMContentLoaded', function() {
-    initializeTheme();
-    initializeNavigation();
-    initializePDFHandling();
-    initializeAnimations();
-    initializeScrollEffects();
-    initializeFooterAnimations();
-    enhanceKeyboardNavigation();
-    initializeRestrictions();
-});
-
-// Theme Management - COMPLETE FIX
-function initializeTheme() {
-    const themeToggle = document.createElement('button');
-    themeToggle.className = 'theme-toggle';
-    themeToggle.innerHTML = currentTheme === 'light' ? '🌙' : '☀️';
-    themeToggle.title = `Switch to ${currentTheme === 'light' ? 'dark' : 'light'} mode`;
-    document.body.appendChild(themeToggle);
-
-    // Apply saved theme
-    applyTheme(currentTheme);
-
-    // Theme toggle event
-    themeToggle.addEventListener('click', function() {
-        currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-        applyTheme(currentTheme);
-        localStorage.setItem('theme', currentTheme);
-        this.innerHTML = currentTheme === 'light' ? '🌙' : '☀️';
-        this.title = `Switch to ${currentTheme === 'light' ? 'dark' : 'light'} mode`;
-    });
+// Auto theme detection - REMOVED TOGGLE BUTTON
+function initializeAutoTheme() {
+    // Check system preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    function setAutoTheme() {
+        const theme = prefersDark.matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+        applyAutoTheme(theme);
+    }
+    
+    // Set initial theme
+    setAutoTheme();
+    
+    // Listen for system theme changes
+    prefersDark.addEventListener('change', setAutoTheme);
 }
 
-function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    
-    // Update CSS custom properties
+function applyAutoTheme(theme) {
     if (theme === 'dark') {
         document.documentElement.style.setProperty('--primary-color', '#3b82f6');
         document.documentElement.style.setProperty('--secondary-color', '#60a5fa');
@@ -68,7 +46,7 @@ function applyTheme(theme) {
     }
 }
 
-// RESTRICTION SYSTEM - NEW FEATURE
+// RESTRICTION SYSTEM - ENHANCED FOR RESEARCH, PROJECTS, JOURNALS, ARTICLES
 function initializeRestrictions() {
     // Add restriction indicators
     addRestrictionIndicators();
@@ -79,15 +57,20 @@ function initializeRestrictions() {
     // Block keyboard shortcuts
     blockKeyboardShortcuts();
     
+    // Remove download/print buttons from restricted content
+    removeDownloadPrintButtons();
+    
     // Add visual restrictions
     addVisualRestrictions();
 }
 
 function addRestrictionIndicators() {
-    const restrictedSelectors = ['.article-card', '.journal .article-card', '.project .article-card', '.research-paper .article-card'];
+    const restrictedPages = ['project', 'journal', 'research-paper', 'publish-article'];
+    const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
     
-    restrictedSelectors.forEach(selector => {
-        document.querySelectorAll(selector).forEach(card => {
+    if (restrictedPages.includes(currentPage)) {
+        // Add restriction badges to all cards on these pages
+        document.querySelectorAll('.article-card, .project-card, .journal-card, .research-card').forEach(card => {
             const restrictionBadge = document.createElement('div');
             restrictionBadge.className = 'restriction-badge';
             restrictionBadge.innerHTML = '🔒 View Only';
@@ -96,16 +79,18 @@ function addRestrictionIndicators() {
             
             // Mark as restricted
             card.classList.add('restricted-content');
-            restrictedItems.add(card);
         });
-    });
+    }
 }
 
 function blockContextMenu() {
     document.addEventListener('contextmenu', function(e) {
-        if (e.target.closest('.restricted-content') || 
-            e.target.closest('.pdf-modal') || 
-            e.target.closest('.pdf-viewer')) {
+        const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
+        const restrictedPages = ['project', 'journal', 'research-paper', 'publish-article'];
+        
+        if (restrictedPages.includes(currentPage) || 
+            e.target.closest('.restricted-content') || 
+            e.target.closest('.pdf-modal')) {
             e.preventDefault();
             showRestrictionMessage('Right-click is disabled for restricted content');
         }
@@ -114,19 +99,19 @@ function blockContextMenu() {
 
 function blockKeyboardShortcuts() {
     document.addEventListener('keydown', function(e) {
-        // Block Ctrl+P, Ctrl+S, Ctrl+Shift+P
-        if ((e.ctrlKey || e.metaKey) && 
-            (e.key === 'p' || e.key === 's' || (e.shiftKey && e.key === 'P'))) {
-            if (document.querySelector('.pdf-modal[style*="block"]') || 
-                document.querySelector('.restricted-content:hover')) {
+        const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
+        const restrictedPages = ['project', 'journal', 'research-paper', 'publish-article'];
+        
+        if (restrictedPages.includes(currentPage)) {
+            // Block Ctrl+P, Ctrl+S, Ctrl+Shift+P
+            if ((e.ctrlKey || e.metaKey) && 
+                (e.key === 'p' || e.key === 's' || (e.shiftKey && e.key === 'P'))) {
                 e.preventDefault();
                 showRestrictionMessage('Printing and saving are restricted for this content');
             }
-        }
-        
-        // Block F12 (Developer Tools)
-        if (e.key === 'F12') {
-            if (document.querySelector('.pdf-modal[style*="block"]')) {
+            
+            // Block F12 (Developer Tools)
+            if (e.key === 'F12') {
                 e.preventDefault();
                 showRestrictionMessage('Developer tools are disabled for restricted content');
             }
@@ -134,14 +119,31 @@ function blockKeyboardShortcuts() {
     });
 }
 
+function removeDownloadPrintButtons() {
+    const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
+    const restrictedPages = ['project', 'journal', 'research-paper', 'publish-article'];
+    
+    if (restrictedPages.includes(currentPage)) {
+        // Remove download buttons from restricted pages
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.style.display = 'none';
+        });
+        
+        // Remove PDF controls from restricted pages
+        document.querySelectorAll('.pdf-controls').forEach(controls => {
+            controls.style.display = 'none';
+        });
+        
+        // Remove download categories from restricted pages
+        document.querySelectorAll('.download-section').forEach(section => {
+            section.style.display = 'none';
+        });
+    }
+}
+
 function addVisualRestrictions() {
     const style = document.createElement('style');
     style.textContent = `
-        .restricted-content {
-            position: relative;
-            filter: brightness(0.95);
-        }
-        
         .restriction-badge {
             position: absolute;
             top: 10px;
@@ -154,6 +156,11 @@ function addVisualRestrictions() {
             font-weight: 600;
             z-index: 10;
             backdrop-filter: blur(4px);
+        }
+        
+        .restricted-content {
+            position: relative;
+            filter: brightness(0.95);
         }
         
         .restricted-content::before {
@@ -187,6 +194,32 @@ function addVisualRestrictions() {
             font-weight: 600;
             z-index: 2002;
             backdrop-filter: blur(4px);
+        }
+        
+        /* FIXED NAVBAR FOR DARK MODE */
+        .navbar {
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+        }
+        
+        [data-theme="dark"] .navbar {
+            background: rgba(15, 23, 42, 0.98) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+        }
+        
+        /* HIDE DOWNLOAD/PRINT SECTIONS ON RESTRICTED PAGES */
+        body.restricted-page .download-section {
+            display: none !important;
+        }
+        
+        body.restricted-page .pdf-controls {
+            display: none !important;
+        }
+        
+        body.restricted-page .download-btn {
+            display: none !important;
         }
     `;
     document.head.appendChild(style);
@@ -385,7 +418,11 @@ function initializePDFHandling() {
 
     // Download handling - PREVENT DIRECT DOWNLOAD ON MOBILE AND RESTRICTED CONTENT
     window.downloadFile = function(filePath, isRestricted = false) {
-        if (isRestricted || window.innerWidth <= 768) {
+        const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
+        const restrictedPages = ['project', 'journal', 'research-paper', 'publish-article'];
+        const isRestrictedPage = restrictedPages.includes(currentPage);
+        
+        if (isRestricted || isRestrictedPage || window.innerWidth <= 768) {
             // On mobile or restricted content, show preview instead of direct download
             showRestrictionMessage('Download is restricted for this content');
             window.openPDF(filePath, true);
@@ -577,7 +614,7 @@ function initializeAnimations() {
     });
 }
 
-// Scroll Effects
+// Scroll Effects - FIXED NAVBAR FOR DARK MODE
 function initializeScrollEffects() {
     let lastScroll = 0;
     const navbar = document.querySelector('.navbar');
@@ -585,12 +622,23 @@ function initializeScrollEffects() {
     window.addEventListener('scroll', function() {
         const currentScroll = window.pageYOffset;
         
-        // Navbar background opacity
+        // FIXED NAVBAR BACKGROUND - STAYS CONSISTENT
         if (navbar) {
             if (currentScroll > 100) {
-                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                // Keep consistent background regardless of theme
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                navbar.style.background = isDark 
+                    ? 'rgba(15, 23, 42, 0.98)' 
+                    : 'rgba(255, 255, 255, 0.98)';
+                navbar.style.backdropFilter = 'blur(10px)';
+                navbar.style.webkitBackdropFilter = 'blur(10px)';
             } else {
-                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                navbar.style.background = isDark 
+                    ? 'rgba(15, 23, 42, 0.95)' 
+                    : 'rgba(255, 255, 255, 0.95)';
+                navbar.style.backdropFilter = 'blur(10px)';
+                navbar.style.webkitBackdropFilter = 'blur(10px)';
             }
         }
 
@@ -760,3 +808,15 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Initialize everything
+document.addEventListener('DOMContentLoaded', function() {
+    initializeAutoTheme(); // Auto theme detection (no toggle button)
+    initializeNavigation();
+    initializePDFHandling();
+    initializeAnimations();
+    initializeScrollEffects();
+    initializeFooterAnimations();
+    enhanceKeyboardNavigation();
+    initializeRestrictions(); // Enhanced restrictions for research/project/journal/article pages
+});
