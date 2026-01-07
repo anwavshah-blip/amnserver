@@ -1765,55 +1765,230 @@ html {
     }
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --primary-color: #3b82f6;
-        --secondary-color: #60a5fa;
-        --accent-color: #93c5fd;
-        --background-color: #0f172a;
-        --surface-color: #1e293b;
-        --text-primary: #f1f5f9;
-        --text-secondary: #cbd5e1;
-        --border-color: #334155;
+/* DARK MODE STYLES - COMPLETE FIX */
+[data-theme="dark"] {
+    --primary-color: #3b82f6;
+    --secondary-color: #60a5fa;
+    --accent-color: #93c5fd;
+    --background-color: #0f172a;
+    --surface-color: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --border-color: #334155;
+}
+
+[data-theme="dark"] .navbar {
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .dropdown-menu {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .mission-card,
+[data-theme="dark"] .article-card,
+[data-theme="dark"] .news-card,
+[data-theme="dark"] .topic-card,
+[data-theme="dark"] .application-card,
+[data-theme="dark"] .download-category,
+[data-theme="dark"] .info-item,
+[data-theme="dark"] .contact-form,
+[data-theme="dark"] .owner-profile,
+[data-theme="dark"] .stat-item,
+[data-theme="dark"] .pdf-modal-content,
+[data-theme="dark"] .profile-card,
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea,
+[data-theme="dark"] .contact-item,
+[data-theme="dark"] .social-link,
+[data-theme="dark"] .download-item,
+[data-theme="dark"] .mission-card,
+[data-theme="dark"] .topic-card {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea {
+    background: #0f172a;
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .form-group input:focus,
+[data-theme="dark"] .form-group textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+[data-theme="dark"] .nav-link:hover {
+    background-color: #334155;
+}
+
+[data-theme="dark"] .dropdown-menu a:hover {
+    background-color: #334155;
+}
+
+[data-theme="dark"] .theme-toggle {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+/* THEME TOGGLE BUTTON */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+/* RESTRICTION STYLES */
+.restriction-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+}
+
+.restricted-content {
+    position: relative;
+    filter: brightness(0.95);
+}
+
+.restricted-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 49%, rgba(239, 68, 68, 0.1) 50%, transparent 51%);
+    background-size: 20px 20px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.restricted-content:hover::before {
+    opacity: 1;
+}
+
+.pdf-modal.restricted::after {
+    content: '🔒 Restricted Content - View Only';
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    z-index: 2002;
+    backdrop-filter: blur(4px);
+}
+
+.restriction-notification {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 3000;
+    animation: slideInRight 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.restriction-notification .notification-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.restriction-notification .notification-icon {
+    font-size: 1.2rem;
+}
+
+/* Print restrictions */
+@media print {
+    .restricted-content,
+    .pdf-modal.restricted {
+        display: none !important;
+    }
+}
+
+/* Enhanced mobile restrictions */
+@media (max-width: 768px) {
+    .restriction-notification {
+        top: auto;
+        bottom: 20px;
+        right: 10px;
+        left: 10px;
+        text-align: center;
     }
     
-    .navbar {
-        background: rgba(15, 23, 42, 0.95);
-        border-bottom-color: #334155;
+    .pdf-modal.restricted::after {
+        top: 50px;
+        font-size: 0.9rem;
+        padding: 6px 12px;
     }
-    
-    .dropdown-menu {
-        background: #1e293b;
-        border-color: #334155;
-    }
-    
-    .feature-card,
-    .mission-card,
-    .article-card,
-    .news-card,
-    .topic-card,
-    .application-card,
-    .download-category,
-    .info-item,
-    .contact-form,
-    .owner-profile,
-    .stat-item,
-    .pdf-modal-content {
-        background: #1e293b;
-        border-color: #334155;
-    }
-    
-    .form-group input,
-    .form-group textarea {
-        background: #0f172a;
-        border-color: #334155;
-        color: #f1f5f9;
-    }
-    
-    .form-group input:focus,
-    .form-group textarea:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
+}
+
+/* Disabled state for restricted buttons */
+.download-btn.restricted,
+.pdf-control-btn.restricted {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Override for restricted PDF viewer */
+.pdf-modal.restricted .pdf-viewer iframe {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Dark mode for restrictions */
+[data-theme="dark"] .restriction-badge {
+    background: rgba(220, 38, 38, 0.9);
+}
+
+[data-theme="dark"] .restriction-notification {
+    background: rgba(220, 38, 38, 0.9);
+}
+
+[data-theme="dark"] .pdf-modal.restricted::after {
+    background: rgba(220, 38, 38, 0.9);
 }
