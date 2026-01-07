@@ -6,7 +6,19 @@ const pageTransition = document.createElement('div');
 pageTransition.className = 'page-transition';
 document.body.appendChild(pageTransition);
 
-// Auto theme detection - REMOVED TOGGLE BUTTON
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeAutoTheme();      // Auto system theme detection
+    initializeNavigation();     // Mobile navigation
+    initializePDFHandling();    // PDF modal handling
+    initializeAnimations();     // Scroll animations
+    initializeScrollEffects();  // Scroll effects
+    initializeFooterAnimations(); // Footer animations
+    enhanceKeyboardNavigation(); // Keyboard navigation
+    initializeRestrictions();   // Content restrictions
+});
+
+// AUTO THEME DETECTION - NO TOGGLE BUTTON
 function initializeAutoTheme() {
     // Check system preference
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
@@ -46,51 +58,46 @@ function applyAutoTheme(theme) {
     }
 }
 
-// RESTRICTION SYSTEM - ENHANCED FOR RESEARCH, PROJECTS, JOURNALS, ARTICLES
+// CONTENT RESTRICTIONS - NO DOWNLOAD/PRINT FOR RESEARCH/PROJECTS/JOURNALS/ARTICLES
 function initializeRestrictions() {
-    // Add restriction indicators
-    addRestrictionIndicators();
-    
-    // Block right-click on restricted items
-    blockContextMenu();
-    
-    // Block keyboard shortcuts
-    blockKeyboardShortcuts();
-    
-    // Remove download/print buttons from restricted content
-    removeDownloadPrintButtons();
-    
-    // Add visual restrictions
-    addVisualRestrictions();
-}
-
-function addRestrictionIndicators() {
-    const restrictedPages = ['project', 'journal', 'research-paper', 'publish-article'];
     const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
+    const restrictedPages = ['project', 'journal', 'research-paper', 'publish-article'];
     
     if (restrictedPages.includes(currentPage)) {
-        // Add restriction badges to all cards on these pages
-        document.querySelectorAll('.article-card, .project-card, .journal-card, .research-card').forEach(card => {
-            const restrictionBadge = document.createElement('div');
-            restrictionBadge.className = 'restriction-badge';
-            restrictionBadge.innerHTML = '🔒 View Only';
-            restrictionBadge.title = 'Download and print are restricted for this content';
-            card.appendChild(restrictionBadge);
-            
-            // Mark as restricted
-            card.classList.add('restricted-content');
-        });
+        document.body.classList.add('restricted-page');
+        document.body.setAttribute('data-page-type', 'restricted');
+        
+        // Add restriction badges
+        addRestrictionBadges();
+        
+        // Block context menu
+        blockContextMenu();
+        
+        // Block keyboard shortcuts
+        blockKeyboardShortcuts();
+        
+        // Hide download/print elements
+        hideRestrictedElements();
+        
+        // Add visual restrictions
+        addVisualRestrictions();
     }
+}
+
+function addRestrictionBadges() {
+    document.querySelectorAll('.article-card, .project-card, .journal-card, .research-card').forEach(card => {
+        const badge = document.createElement('div');
+        badge.className = 'restriction-badge';
+        badge.innerHTML = '🔒 View Only';
+        badge.title = 'Download and print are restricted for this content';
+        card.appendChild(badge);
+        card.classList.add('restricted-content');
+    });
 }
 
 function blockContextMenu() {
     document.addEventListener('contextmenu', function(e) {
-        const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
-        const restrictedPages = ['project', 'journal', 'research-paper', 'publish-article'];
-        
-        if (restrictedPages.includes(currentPage) || 
-            e.target.closest('.restricted-content') || 
-            e.target.closest('.pdf-modal')) {
+        if (e.target.closest('.restricted-content') || e.target.closest('.pdf-modal')) {
             e.preventDefault();
             showRestrictionMessage('Right-click is disabled for restricted content');
         }
@@ -99,46 +106,35 @@ function blockContextMenu() {
 
 function blockKeyboardShortcuts() {
     document.addEventListener('keydown', function(e) {
-        const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
-        const restrictedPages = ['project', 'journal', 'research-paper', 'publish-article'];
+        // Block Ctrl+P, Ctrl+S, Ctrl+Shift+P, F12
+        if ((e.ctrlKey || e.metaKey) && 
+            (e.key === 'p' || e.key === 's' || (e.shiftKey && e.key === 'P'))) {
+            e.preventDefault();
+            showRestrictionMessage('Printing and saving are restricted for this content');
+        }
         
-        if (restrictedPages.includes(currentPage)) {
-            // Block Ctrl+P, Ctrl+S, Ctrl+Shift+P
-            if ((e.ctrlKey || e.metaKey) && 
-                (e.key === 'p' || e.key === 's' || (e.shiftKey && e.key === 'P'))) {
-                e.preventDefault();
-                showRestrictionMessage('Printing and saving are restricted for this content');
-            }
-            
-            // Block F12 (Developer Tools)
-            if (e.key === 'F12') {
-                e.preventDefault();
-                showRestrictionMessage('Developer tools are disabled for restricted content');
-            }
+        if (e.key === 'F12') {
+            e.preventDefault();
+            showRestrictionMessage('Developer tools are disabled for restricted content');
         }
     });
 }
 
-function removeDownloadPrintButtons() {
-    const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
-    const restrictedPages = ['project', 'journal', 'research-paper', 'publish-article'];
+function hideRestrictedElements() {
+    // Hide all download buttons
+    document.querySelectorAll('.download-btn').forEach(btn => {
+        btn.style.display = 'none';
+    });
     
-    if (restrictedPages.includes(currentPage)) {
-        // Remove download buttons from restricted pages
-        document.querySelectorAll('.download-btn').forEach(btn => {
-            btn.style.display = 'none';
-        });
-        
-        // Remove PDF controls from restricted pages
-        document.querySelectorAll('.pdf-controls').forEach(controls => {
-            controls.style.display = 'none';
-        });
-        
-        // Remove download categories from restricted pages
-        document.querySelectorAll('.download-section').forEach(section => {
-            section.style.display = 'none';
-        });
-    }
+    // Hide PDF controls
+    document.querySelectorAll('.pdf-controls').forEach(controls => {
+        controls.style.display = 'none';
+    });
+    
+    // Hide download sections
+    document.querySelectorAll('.download-section').forEach(section => {
+        section.style.display = 'none';
+    });
 }
 
 function addVisualRestrictions() {
@@ -181,6 +177,46 @@ function addVisualRestrictions() {
             opacity: 1;
         }
         
+        .restricted-page .download-btn,
+        .restricted-page .pdf-controls,
+        .restricted-page .download-section {
+            display: none !important;
+        }
+        
+        .restriction-notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 3000;
+            animation: slideInRight 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        
+        .restriction-notification .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .restriction-notification .notification-icon {
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .restriction-notification {
+                top: auto;
+                bottom: 20px;
+                right: 10px;
+                left: 10px;
+                text-align: center;
+            }
+        }
+        
         .pdf-modal.restricted::after {
             content: '🔒 Restricted Content - View Only';
             position: absolute;
@@ -196,30 +232,10 @@ function addVisualRestrictions() {
             backdrop-filter: blur(4px);
         }
         
-        /* FIXED NAVBAR FOR DARK MODE */
-        .navbar {
-            background: rgba(255, 255, 255, 0.98) !important;
-            backdrop-filter: blur(10px) !important;
-            -webkit-backdrop-filter: blur(10px) !important;
-        }
-        
-        [data-theme="dark"] .navbar {
-            background: rgba(15, 23, 42, 0.98) !important;
-            backdrop-filter: blur(10px) !important;
-            -webkit-backdrop-filter: blur(10px) !important;
-        }
-        
-        /* HIDE DOWNLOAD/PRINT SECTIONS ON RESTRICTED PAGES */
-        body.restricted-page .download-section {
-            display: none !important;
-        }
-        
-        body.restricted-page .pdf-controls {
-            display: none !important;
-        }
-        
-        body.restricted-page .download-btn {
-            display: none !important;
+        [data-theme="dark"] .restriction-badge,
+        [data-theme="dark"] .restriction-notification,
+        [data-theme="dark"] .pdf-modal.restricted::after {
+            background: rgba(220, 38, 38, 0.9);
         }
     `;
     document.head.appendChild(style);
@@ -237,50 +253,6 @@ function showRestrictionMessage(message) {
     
     document.body.appendChild(notification);
     
-    // Add styles
-    const notificationStyle = document.createElement('style');
-    notificationStyle.textContent = `
-        .restriction-notification {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: rgba(239, 68, 68, 0.9);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 3000;
-            animation: slideInRight 0.3s ease;
-            backdrop-filter: blur(4px);
-        }
-        
-        .notification-content {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .notification-icon {
-            font-size: 1.2rem;
-        }
-        
-        @media (max-width: 768px) {
-            .restriction-notification {
-                top: auto;
-                bottom: 20px;
-                right: 10px;
-                left: 10px;
-                text-align: center;
-            }
-        }
-    `;
-    
-    if (!document.querySelector('#restriction-notification-styles')) {
-        notificationStyle.id = 'restriction-notification-styles';
-        document.head.appendChild(notificationStyle);
-    }
-    
-    // Remove notification after 3 seconds
     setTimeout(() => {
         notification.remove();
     }, 3000);
@@ -416,20 +388,20 @@ function initializePDFHandling() {
         }
     };
 
-    // Download handling - PREVENT DIRECT DOWNLOAD ON MOBILE AND RESTRICTED CONTENT
+    // Download handling - PREVENT FOR RESTRICTED CONTENT
     window.downloadFile = function(filePath, isRestricted = false) {
         const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
         const restrictedPages = ['project', 'journal', 'research-paper', 'publish-article'];
         const isRestrictedPage = restrictedPages.includes(currentPage);
         
         if (isRestricted || isRestrictedPage || window.innerWidth <= 768) {
-            // On mobile or restricted content, show preview instead of direct download
+            // Show preview instead of download for restricted content
             showRestrictionMessage('Download is restricted for this content');
             window.openPDF(filePath, true);
             return;
         }
         
-        // Desktop behavior - allow download for non-restricted content
+        // Allow download only for non-restricted content
         const link = document.createElement('a');
         link.href = 'assets/' + filePath;
         link.download = filePath.split('/').pop();
@@ -808,15 +780,3 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
-
-// Initialize everything
-document.addEventListener('DOMContentLoaded', function() {
-    initializeAutoTheme(); // Auto theme detection (no toggle button)
-    initializeNavigation();
-    initializePDFHandling();
-    initializeAnimations();
-    initializeScrollEffects();
-    initializeFooterAnimations();
-    enhanceKeyboardNavigation();
-    initializeRestrictions(); // Enhanced restrictions for research/project/journal/article pages
-});
