@@ -9,60 +9,302 @@ document.body.appendChild(pageTransition);
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
+    initializePDFHandling();
     initializeAnimations();
     initializeScrollEffects();
-    initializePageTransitions();
-    initializeEnhancedAnimations();
+    initializeFooterAnimations();
     enhanceKeyboardNavigation();
 });
 
-// Navigation Toggle - FIXED VERSION
+// Navigation Toggle - FIXED FOR MOBILE
 function initializeNavigation() {
     // Mobile menu toggle
-    hamburger.addEventListener('click', function() {
+    hamburger?.addEventListener('click', function(e) {
+        e.stopPropagation();
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
-    });
-
-    // Close mobile menu when clicking on any link
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-        });
-    });
-
-    // Handle dropdown menus properly
-    const dropdowns = document.querySelectorAll('.dropdown');
-    dropdowns.forEach(dropdown => {
-        const link = dropdown.querySelector('.nav-link');
         
-        // Only prevent default for dropdown links that have submenus
-        if (link.getAttribute('href') === '#') {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Close other dropdowns
-                dropdowns.forEach(otherDropdown => {
-                    if (otherDropdown !== dropdown) {
-                        otherDropdown.classList.remove('active');
-                    }
-                });
-                
-                // Toggle current dropdown
-                dropdown.classList.toggle('active');
-            });
+        // Prevent body scroll when menu is open
+        if (navMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
         }
     });
 
-    // Close dropdowns when clicking outside
+    // Close mobile menu when clicking on links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger?.classList.remove('active');
+            navMenu?.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    });
+
+    // Handle dropdown menus for mobile
+    const dropdowns = document.querySelectorAll('.dropdown');
+    
+    dropdowns.forEach(dropdown => {
+        const link = dropdown.querySelector('.nav-link');
+        
+        if (link) {
+            // Remove href for dropdown triggers on mobile
+            if (window.innerWidth <= 768) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Close other dropdowns
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    dropdown.classList.toggle('active');
+                });
+            }
+        }
+    });
+
+    // Close menu when clicking outside
     document.addEventListener('click', function(e) {
-        if (!e.target.closest('.dropdown')) {
+        if (!e.target.closest('.navbar')) {
+            hamburger?.classList.remove('active');
+            navMenu?.classList.remove('active');
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            hamburger?.classList.remove('active');
+            navMenu?.classList.remove('active');
+            document.body.style.overflow = 'auto';
             dropdowns.forEach(dropdown => {
                 dropdown.classList.remove('active');
             });
         }
     });
+}
+
+// PDF Handling - FIXED FOR MOBILE
+function initializePDFHandling() {
+    // PDF Modal Functions
+    window.openPDF = function(pdfPath) {
+        if (window.innerWidth <= 768) {
+            // On mobile, open PDF in new tab instead of modal
+            window.open(pdfPath, '_blank');
+            return;
+        }
+        
+        const modal = document.getElementById('pdfModal');
+        const viewer = document.getElementById('pdfViewer');
+        
+        if (modal && viewer) {
+            viewer.src = pdfPath;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Add mobile-specific controls
+            addMobilePDFControls();
+        }
+    };
+
+    window.closePDF = function() {
+        const modal = document.getElementById('pdfModal');
+        const viewer = document.getElementById('pdfViewer');
+        
+        if (modal && viewer) {
+            modal.style.display = 'none';
+            viewer.src = '';
+            document.body.style.overflow = 'auto';
+        }
+    };
+
+    window.zoomPDF = function(action) {
+        const viewer = document.getElementById('pdfViewer');
+        if (viewer) {
+            let currentZoom = parseInt(viewer.style.zoom) || 100;
+            
+            if (action === 'in' && currentZoom < 200) {
+                currentZoom += 25;
+            } else if (action === 'out' && currentZoom > 50) {
+                currentZoom -= 25;
+            }
+            
+            viewer.style.zoom = currentZoom + '%';
+        }
+    };
+
+    // Download handling - PREVENT DIRECT DOWNLOAD ON MOBILE
+    window.downloadFile = function(filePath) {
+        if (window.innerWidth <= 768) {
+            // On mobile, show preview instead of direct download
+            window.openPDF(filePath);
+            return;
+        }
+        
+        // Desktop behavior - allow download
+        const link = document.createElement('a');
+        link.href = 'assets/' + filePath;
+        link.download = filePath.split('/').pop();
+        link.target = '_blank';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showDownloadNotification(filePath.split('/').pop());
+    };
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        const modal = document.getElementById('pdfModal');
+        if (modal && event.target === modal) {
+            window.closePDF();
+        }
+    };
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            window.closePDF();
+        }
+    });
+
+    // Add close button event listener - FIXED
+    const closeButton = document.querySelector('.pdf-close');
+    if (closeButton) {
+        closeButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.closePDF();
+        });
+    }
+}
+
+// Mobile PDF Controls
+function addMobilePDFControls() {
+    const modal = document.getElementById('pdfModal');
+    if (!modal || window.innerWidth > 768) return;
+
+    // Add touch gestures for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let currentZoom = 100;
+
+    const viewer = document.getElementById('pdfViewer');
+    
+    modal.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    modal.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+            // Swipe left - zoom in
+            currentZoom = Math.min(currentZoom + 25, 200);
+            viewer.style.zoom = currentZoom + '%';
+        }
+        if (touchEndX > touchStartX + 50) {
+            // Swipe right - zoom out
+            currentZoom = Math.max(currentZoom - 25, 50);
+            viewer.style.zoom = currentZoom + '%';
+        }
+    }
+
+    // Add double-tap to zoom
+    let lastTap = 0;
+    modal.addEventListener('touchend', function(e) {
+        const currentTime = new Date().getTime();
+        const tapLength = currentTime - lastTap;
+        if (tapLength < 500 && tapLength > 0) {
+            // Double tap detected
+            currentZoom = currentZoom === 100 ? 150 : 100;
+            viewer.style.zoom = currentZoom + '%';
+        }
+        lastTap = currentTime;
+    });
+}
+
+// Show download notification
+function showDownloadNotification(filename) {
+    const notification = document.createElement('div');
+    notification.className = 'download-notification';
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-icon">✓</span>
+            <span class="notification-text">Downloading: ${filename}</span>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Add styles dynamically
+    const style = document.createElement('style');
+    style.textContent = `
+        .download-notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            animation: slideInRight 0.3s ease;
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .notification-icon {
+            font-weight: bold;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .download-notification {
+                top: auto;
+                bottom: 20px;
+                right: 10px;
+                left: 10px;
+                text-align: center;
+            }
+        }
+    `;
+    
+    if (!document.querySelector('#download-notification-styles')) {
+        style.id = 'download-notification-styles';
+        document.head.appendChild(style);
+    }
+    
+    // Remove notification after 3 seconds
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
 }
 
 // Smooth Animations
@@ -101,10 +343,12 @@ function initializeScrollEffects() {
         const currentScroll = window.pageYOffset;
         
         // Navbar background opacity
-        if (currentScroll > 100) {
-            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        } else {
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        if (navbar) {
+            if (currentScroll > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
         }
 
         // Parallax effect for hero section
@@ -118,17 +362,12 @@ function initializeScrollEffects() {
     });
 }
 
-// Page Transitions - SIMPLIFIED VERSION
-function initializePageTransitions() {
-    // Only handle external links or special cases
-    // Let normal navigation work for internal pages
-    console.log('Navigation initialized - About page should work now');
-}
+// Footer animations and interactions
+function initializeFooterAnimations() {
+    const footer = document.querySelector('.footer-section');
+    if (!footer) return;
 
-// Enhanced scroll animations
-function initializeEnhancedAnimations() {
-    const animatedElements = document.querySelectorAll('.scroll-animate');
-    
+    // Animate footer elements on scroll
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -140,7 +379,32 @@ function initializeEnhancedAnimations() {
         rootMargin: '0px 0px -50px 0px'
     });
 
-    animatedElements.forEach(el => observer.observe(el));
+    // Observe footer elements
+    const footerElements = document.querySelectorAll('.owner-profile, .footer-contact, .footer-social');
+    footerElements.forEach(el => {
+        el.classList.add('scroll-animate');
+        observer.observe(el);
+    });
+
+    // Social media link hover effects
+    const socialLinks = document.querySelectorAll('.social-link');
+    socialLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px) scale(1.02)';
+        });
+        
+        link.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // Contact item animations
+    const contactItems = document.querySelectorAll('.contact-item');
+    contactItems.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.1}s`;
+        item.classList.add('scroll-animate');
+        observer.observe(item);
+    });
 }
 
 // Keyboard navigation enhancement
@@ -156,16 +420,14 @@ function enhanceKeyboardNavigation() {
                 // Close mobile menu
                 const hamburger = document.querySelector('.hamburger');
                 const navMenu = document.querySelector('.nav-menu');
-                if (hamburger.classList.contains('active')) {
+                if (hamburger?.classList.contains('active')) {
                     hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
+                    navMenu?.classList.remove('active');
+                    document.body.style.overflow = 'auto';
                 }
                 
                 // Close PDF modal
-                const pdfModal = document.getElementById('pdfModal');
-                if (pdfModal && pdfModal.style.display === 'block') {
-                    closePDF();
-                }
+                window.closePDF();
             }
         });
     });
@@ -192,16 +454,21 @@ window.addEventListener('load', function() {
     }, 300);
 });
 
-// Feature cards hover effect
-document.querySelectorAll('.feature-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px) scale(1.02)';
+// Enhanced scroll indicator
+const scrollIndicator = document.querySelector('.scroll-indicator');
+if (scrollIndicator) {
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrolled / windowHeight) * 100;
+        
+        if (scrollPercent > 10) {
+            scrollIndicator.style.opacity = '0';
+        } else {
+            scrollIndicator.style.opacity = '1';
+        }
     });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-    });
-});
+}
 
 // CTA button ripple effect
 document.querySelectorAll('.cta-button').forEach(button => {
@@ -250,120 +517,3 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
-
-// Enhanced scroll indicator
-const scrollIndicator = document.querySelector('.scroll-indicator');
-if (scrollIndicator) {
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollPercent = (scrolled / windowHeight) * 100;
-        
-        if (scrollPercent > 10) {
-            scrollIndicator.style.opacity = '0';
-        } else {
-            scrollIndicator.style.opacity = '1';
-        }
-    });
-}
-
-// PDF Functions (if PDF modal exists)
-function openPDF(pdfPath) {
-    const modal = document.getElementById('pdfModal');
-    const viewer = document.getElementById('pdfViewer');
-    if (modal && viewer) {
-        viewer.src = pdfPath;
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closePDF() {
-    const modal = document.getElementById('pdfModal');
-    const viewer = document.getElementById('pdfViewer');
-    if (modal && viewer) {
-        modal.style.display = 'none';
-        viewer.src = '';
-        document.body.style.overflow = 'auto';
-    }
-}
-
-function zoomPDF(action) {
-    const viewer = document.getElementById('pdfViewer');
-    if (viewer) {
-        let currentZoom = parseInt(viewer.style.zoom) || 100;
-        
-        if (action === 'in' && currentZoom < 200) {
-            currentZoom += 25;
-        } else if (action === 'out' && currentZoom > 50) {
-            currentZoom -= 25;
-        }
-        
-        viewer.style.zoom = currentZoom + '%';
-    }
-}
-
-// Close modal when clicking outside
-window.onclick = function(event) {
-    const modal = document.getElementById('pdfModal');
-    if (modal && event.target === modal) {
-        closePDF();
-    }
-}
-
-// Close modal with Escape key
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closePDF();
-    }
-});
-
-// Footer animations and interactions
-function initializeFooterAnimations() {
-    const footer = document.querySelector('.footer-section');
-    if (!footer) return;
-
-    // Animate footer elements on scroll
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('show');
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
-    // Observe footer elements
-    const footerElements = document.querySelectorAll('.owner-profile, .footer-contact, .footer-social, .footer-links');
-    footerElements.forEach(el => {
-        el.classList.add('scroll-animate');
-        observer.observe(el);
-    });
-
-    // Social media link hover effects
-    const socialLinks = document.querySelectorAll('.social-link');
-    socialLinks.forEach(link => {
-        link.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px) scale(1.02)';
-        });
-        
-        link.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-
-    // Contact item animations
-    const contactItems = document.querySelectorAll('.contact-item');
-    contactItems.forEach((item, index) => {
-        item.style.animationDelay = `${index * 0.1}s`;
-        item.classList.add('scroll-animate');
-        observer.observe(item);
-    });
-}
-
-// Initialize footer when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initializeFooterAnimations();
-});
