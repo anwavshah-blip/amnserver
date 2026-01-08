@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - The Journey of Spiny Babbler</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/gallery.css">
+    <link rel="icon" href="assets/icons/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Auto Theme Detection -->
+    <script>
+        const detectTheme = () => {
+            const hour = new Date().getHours();
+            const isDarkMode = hour >= 18 || hour < 6;
+            document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+        };
+        detectTheme();
+    </script>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/icons/logo.png" alt="Spiny Babbler Logo" class="logo-img">
+                <span class="logo-text">The काँडे भ्याकुर Journey</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active">Journey</a>
+                    <div class="dropdown-menu">
+                        <a href="gallery.html" class="dropdown-item active">Gallery</a>
+                        <a href="hydropower.html" class="dropdown-item">Hydropower</a>
+                        <a href="watersupply.html" class="dropdown-item">Water Supply</a>
+                        <a href="irrigation.html" class="dropdown-item">Irrigation</a>
+                        <a href="environmental.html" class="dropdown-item">Environmental</a>
+                        <a href="structure.html" class="dropdown-item">Structure</a>
+                        <a href="geotechnical.html" class="dropdown-item">Geotechnical</a>
+                        <a href="transportation.html" class="dropdown-item">Transportation</a>
+                        <a href="geology.html" class="dropdown-item">Geology</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Documentation</a>
+                    <div class="dropdown-menu">
+                        <a href="article.html" class="dropdown-item">Article</a>
+                        <a href="research.html" class="dropdown-item">Research</a>
+                        <a href="project.html" class="dropdown-item">Project</a>
+                        <a href="journal.html" class="dropdown-item">Journal</a>
+                    </div>
+                </div>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="download.html" class="nav-link">Download</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="theme-toggle">
+                <button class="theme-btn" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-toggle">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="mobile-nav-link">Home</a>
+        <a href="about.html" class="mobile-nav-link">About</a>
+        <div class="mobile-dropdown">
+            <a href="#" class="mobile-nav-link active">Journey</a>
+            <div class="mobile-dropdown-menu">
+                <a href="gallery.html" class="mobile-dropdown-item active">Gallery</a>
+                <a href="hydropower.html" class="mobile-dropdown-item">Hydropower</a>
+                <a href="watersupply.html" class="mobile-dropdown-item">Water Supply</a>
+                <a href="irrigation.html" class="mobile-dropdown-item">Irrigation</a>
+                <a href="environmental.html" class="mobile-dropdown-item">Environmental</a>
+                <a href="structure.html" class="mobile-dropdown-item">Structure</a>
+                <a href="geotechnical.html" class="mobile-dropdown-item">Geotechnical</a>
+                <a href="transportation.html" class="mobile-dropdown-item">Transportation</a>
+                <a href="geology.html" class="mobile-dropdown-item">Geology</a>
+            </div>
+        </div>
+        <div class="mobile-dropdown">
+            <a href="#" class="mobile-nav-link">Documentation</a>
+            <div class="mobile-dropdown-menu">
+                <a href="article.html" class="mobile-dropdown-item">Article</a>
+                <a href="research.html" class="mobile-dropdown-item">Research</a>
+                <a href="project.html" class="mobile-dropdown-item">Project</a>
+                <a href="journal.html" class="mobile-dropdown-item">Journal</a>
+            </div>
+        </div>
+        <a href="news.html" class="mobile-nav-link">News</a>
+        <a href="download.html" class="mobile-nav-link">Download</a>
+        <a href="contact.html" class="mobile-nav-link">Contact</a>
+    </div>
+
+    <!-- Gallery Hero Section -->
+    <section class="gallery-hero">
+        <div class="gallery-particles" id="galleryParticles"></div>
+        <div class="gallery-hero-content">
+            <div class="gallery-badge animate-fade-in">
+                <i class="fas fa-camera"></i>
+                <span>Visual Journey</span>
+            </div>
+            <h1 class="gallery-hero-title animate-fade-in-delay" data-text="Photo Gallery">
+                Photo Gallery
+            </h1>
+            <p class="gallery-hero-subtitle animate-fade-in-delay-2">
+                Capturing the beauty of Nepal's endemic Spiny Babbler through stunning photography
+            </p>
+            <div class="gallery-stats animate-fade-in-delay-3">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="500">0</div>
+                    <div class="stat-label">Photographs</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="25">0</div>
+                    <div class="stat-label">Locations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="5">0</div>
+                    <div class="stat-label">Years</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Gallery Filters -->
+    <section class="gallery-filters">
+        <div class="container">
+            <div class="filter-tabs animate-fade-in">
+                <button class="filter-tab active" data-filter="all">
+                    <i class="fas fa-th"></i>
+                    <span>All Photos</span>
+                </button>
+                <button class="filter-tab" data-filter="habitat">
+                    <i class="fas fa-tree"></i>
+                    <span>Habitat</span>
+                </button>
+                <button class="filter-tab" data-filter="behavior">
+                    <i class="fas fa-dove"></i>
+                    <span>Behavior</span>
+                </button>
+                <button class="filter-tab" data-filter="nesting">
+                    <i class="fas fa-home"></i>
+                    <span>Nesting</span>
+                </button>
+                <button class="filter-tab" data-filter="feeding">
+                    <i class="fas fa-worm"></i>
+                    <span>Feeding</span>
+                </button>
+                <button class="filter-tab" data-filter="portraits">
+                    <i class="fas fa-portrait"></i>
+                    <span>Portraits</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="gallery-grid-section">
+        <div class="container">
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Gallery items will be dynamically loaded -->
+            </div>
+            <div class="load-more-container">
+                <button class="load-more-btn" id="loadMoreBtn">
+                    <i class="fas fa-spinner"></i>
+                    <span>Load More Photos</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal" id="lightboxModal">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="lightbox-nav lightbox-prev" id="lightboxPrev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-nav lightbox-next" id="lightboxNext">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="lightbox-image-container">
+                <img id="lightboxImage" src="" alt="">
+                <div class="lightbox-loading">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+            <div class="lightbox-info">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxDescription"></p>
+                <div class="lightbox-meta">
+                    <span id="lightboxLocation"></span>
+                    <span id="lightboxDate"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-profile">
+                <img src="assets/images/profile.jpg" alt="Owner Profile" class="footer-profile-img">
+                <div class="footer-profile-info">
+                    <h4>John Doe</h4>
+                    <p>Wildlife Researcher & Photographer</p>
+                </div>
+            </div>
+            <div class="footer-contact">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+977-9841-234567</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>john.doe@spinybabbler.org</span>
+                </div>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 The Journey of Spiny Babbler. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/gallery.js"></script>
+</body>
+</html>

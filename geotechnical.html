@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geotechnical - The Journey of Spiny Babbler</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/geotechnical.css">
+    <link rel="icon" href="assets/icons/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/icons/logo.png" alt="Spiny Babbler Logo" class="logo-img">
+                <span class="logo-text">The काँडे भ्याकुर Journey</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active">Journey</a>
+                    <div class="dropdown-menu">
+                        <a href="gallery.html" class="dropdown-item">Gallery</a>
+                        <a href="hydropower.html" class="dropdown-item">Hydropower</a>
+                        <a href="watersupply.html" class="dropdown-item">Water Supply</a>
+                        <a href="irrigation.html" class="dropdown-item">Irrigation</a>
+                        <a href="environmental.html" class="dropdown-item">Environmental</a>
+                        <a href="structure.html" class="dropdown-item">Structure</a>
+                        <a href="geotechnical.html" class="dropdown-item active">Geotechnical</a>
+                        <a href="transportation.html" class="dropdown-item">Transportation</a>
+                        <a href="geology.html" class="dropdown-item">Geology</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Documentation</a>
+                    <div class="dropdown-menu">
+                        <a href="article.html" class="dropdown-item">Article</a>
+                        <a href="research.html" class="dropdown-item">Research</a>
+                        <a href="project.html" class="dropdown-item">Project</a>
+                        <a href="journal.html" class="dropdown-item">Journal</a>
+                    </div>
+                </div>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="download.html" class="nav-link">Download</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="theme-toggle">
+                <button class="theme-btn" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-toggle">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="mobile-nav-link">Home</a>
+        <a href="about.html" class="mobile-nav-link">About</a>
+        <div class="mobile-dropdown">
+            <a href="#" class="mobile-nav-link active">Journey</a>
+            <div class="mobile-dropdown-menu">
+                <a href="gallery.html" class="mobile-dropdown-item">Gallery</a>
+                <a href="hydropower.html" class="mobile-dropdown-item">Hydropower</a>
+                <a href="watersupply.html" class="mobile-dropdown-item">Water Supply</a>
+                <a href="irrigation.html" class="mobile-dropdown-item">Irrigation</a>
+                <a href="environmental.html" class="mobile-dropdown-item">Environmental</a>
+                <a href="structure.html" class="mobile-dropdown-item">Structure</a>
+                <a href="geotechnical.html" class="mobile-dropdown-item active">Geotechnical</a>
+                <a href="transportation.html" class="mobile-dropdown-item">Transportation</a>
+                <a href="geology.html" class="mobile-dropdown-item">Geology</a>
+            </div>
+        </div>
+        <div class="mobile-dropdown">
+            <a href="#" class="mobile-nav-link">Documentation</a>
+            <div class="mobile-dropdown-menu">
+                <a href="article.html" class="mobile-dropdown-item">Article</a>
+                <a href="research.html" class="mobile-dropdown-item">Research</a>
+                <a href="project.html" class="mobile-dropdown-item">Project</a>
+                <a href="journal.html" class="mobile-dropdown-item">Journal</a>
+            </div>
+        </div>
+        <a href="news.html" class="mobile-nav-link">News</a>
+        <a href="download.html" class="mobile-nav-link">Download</a>
+        <a href="contact.html" class="mobile-nav-link">Contact</a>
+    </div>
+
+    <!-- Geotechnical Hero Section -->
+    <section class="geotechnical-hero">
+        <div class="soil-layers" id="soilLayers"></div>
+        <div class="drilling-animation" id="drillingAnimation"></div>
+        <div class="geotechnical-hero-content">
+            <div class="geotechnical-badge animate-fade-in">
+                <i class="fas fa-mountain"></i>
+                <span>Earth Sciences</span>
+            </div>
+            <h1 class="geotechnical-hero-title animate-fade-in-delay" data-text="Geotechnical Analysis">
+                Geotechnical Analysis
+            </h1>
+            <p class="geotechnical-hero-subtitle animate-fade-in-delay-2">
+                Advanced soil and rock mechanics for sustainable foundation design
+            </p>
+            <div class="geotechnical-stats animate-fade-in-delay-3">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="200">0</div>
+                    <div class="stat-label">Boreholes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="1500">0</div>
+                    <div class="stat-label">Tests Conducted</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="25">0</div>
+                    <div class="stat-label">Years Study</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Soil Investigation Dashboard -->
+    <section class="soil-investigation">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Soil Investigation Dashboard</h2>
+            <div class="investigation-grid">
+                <div class="investigation-card boring animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-drill"></i>
+                        <h3>Boring Log</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="boring-info">
+                            <div class="boring-item">
+                                <span>BH-01</span>
+                                <span>15.2m</span>
+                            </div>
+                            <div class="boring-item">
+                                <span>BH-02</span>
+                                <span>18.5m</span>
+                            </div>
+                            <div class="boring-item">
+                                <span>BH-03</span>
+                                <span>12.8m</span>
+                            </div>
+                        </div>
+                        <div class="boring-visual">
+                            <canvas id="boringChart" width="200" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="investigation-card sampling animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-vial"></i>
+                        <h3>Sample Testing</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="test-results">
+                            <div class="test-item">
+                                <span>SPT N-value</span>
+                                <span>25</span>
+                            </div>
+                            <div class="test-item">
+                                <span>Moisture Content</span>
+                                <span>18.5%</span>
+                            </div>
+                            <div class="test-item">
+                                <span>Unit Weight</span>
+                                <span>19.2 kN/m³</span>
+                            </div>
+                        </div>
+                        <div class="test-status">
+                            <div class="status-indicator completed"></div>
+                            <span>Testing Complete</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="investigation-card lab-testing animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-flask"></i>
+                        <h3>Lab Testing</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="lab-tests">
+                            <div class="test-progress">
+                                <span>Triaxial Test</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 85%"></div>
+                                </div>
+                                <span>85%</span>
+                            </div>
+                            <div class="test-progress">
+                                <span>Consolidation</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 70%"></div>
+                                </div>
+                                <span>70%</span>
+                            </div>
+                            <div class="test-progress">
+                                <span>Direct Shear</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 95%"></div>
+                                </div>
+                                <span>95%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="investigation-card analysis animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Analysis Results</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="analysis-summary">
+                            <div class="summary-item">
+                                <span>Bearing Capacity</span>
+                                <span>250 kPa</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Settlement</span>
+                                <span>15 mm</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Factor of Safety</span>
+                                <span>2.5</span>
+                            </div>
+                        </div>
+                        <div class="analysis-recommendation">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Foundation Type: Raft Foundation Recommended</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Soil Profile -->
+    <section class="soil-profile">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Interactive Soil Profile</h2>
+            <div class="profile-container animate-fade-in">
+                <div class="soil-column">
+                    <div class="soil-layer clay" data-depth="0-2m">
+                        <div class="layer-info">
+                            <h4>Clayey Soil</h4>
+                            <p>Depth: 0-2m</p>
+                            <p>SPT: 8-15</p>
+                        </div>
+                    </div>
+                    <div class="soil-layer sand" data-depth="2-5m">
+                        <div class="layer-info">
+                            <h4>Sandy Soil</h4>
+                            <p>Depth: 2-5m</p>
+                            <p>SPT: 15-25</p>
+                        </div>
+                    </div>
+                    <div class="soil-layer gravel" data-depth="5-8m">
+                        <div class="layer-info">
+                            <h4>Gravelly Soil</h4>
+                            <p>Depth: 5-8m</p>
+                            <p>SPT: 25-40</p>
+                        </div>
+                    </div>
+                    <div class="soil-layer rock" data-depth="8m+">
+                        <div class="layer-info">
+                            <h4>Weathered Rock</h4>
+                            <p>Depth: 8m+</p>
+                            <p>SPT: >50</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-details">
+                    <div class="detail-panel" id="detailPanel">
+                        <h3>Select a soil layer</h3>
+                        <p>Click on any soil layer to view detailed properties and test results.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Geotechnical Parameters -->
+    <section class="geotechnical-params">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Geotechnical Parameters</h2>
+            <div class="params-grid">
+                <div class="param-card strength animate-fade-in">
+                    <div class="param-header">
+                        <i class="fas fa-hammer"></i>
+                        <h3>Shear Strength</h3>
+                    </div>
+                    <div class="param-content">
+                        <div class="param-item">
+                            <span>Cohesion (c)</span>
+                            <span>25 kPa</span>
+                        </div>
+                        <div class="param-item">
+                            <span>Friction Angle (φ)</span>
+                            <span>28°</span>
+                        </div>
+                        <div class="param-item">
+                            <span>Undrained Strength</span>
+                            <span>45 kPa</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="param-card deformation animate-fade-in">
+                    <div class="param-header">
+                        <i class="fas fa-compress"></i>
+                        <h3>Deformation</h3>
+                    </div>
+                    <div class="param-content">
+                        <div class="param-item">
+                            <span>Compression Index</span>
+                            <span>0.25</span>
+                        </div>
+                        <div class="param-item">
+                            <span>Swelling Index</span>
+                            <span>0.05</span>
+                        </div>
+                        <div class="param-item">
+                            <span>Coefficient of Consolidation</span>
+                            <span>2.5 m²/year</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="param-card permeability animate-fade-in">
+                    <div class="param-header">
+                        <i class="fas fa-tint"></i>
+                        <h3>Permeability</h3>
+                    </div>
+                    <div class="param-content">
+                        <div class="param-item">
+                            <span>Hydraulic Conductivity</span>
+                            <span>1.2×10⁻⁵ m/s</span>
+                        </div>
+                        <div class="param-item">
+                            <span>Drainage Conditions</span>
+                            <span>Poor</span>
+                        </div>
+                        <div class="param-item">
+                            <span>Water Table</span>
+                            <span>2.5 m</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Foundation Design -->
+    <section class="foundation-design">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Foundation Design</h2>
+            <div class="design-comparison animate-fade-in">
+                <div class="foundation-option shallow">
+                    <div class="foundation-header">
+                        <h3>Shallow Foundation</h3>
+                        <div class="foundation-cost">$150,000</div>
+                    </div>
+                    <div class="foundation-details">
+                        <div class="detail-item">
+                            <i class="fas fa-ruler-vertical"></i>
+                            <span>Depth: 1.5m</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-weight"></i>
+                            <span>Capacity: 200 kPa</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Construction: 2 weeks</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-leaf"></i>
+                            <span>Environmental: Low Impact</span>
+                        </div>
+                    </div>
+                    <div class="foundation-suitability suitable">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Suitable</span>
+                    </div>
+                </div>
+
+                <div class="foundation-option deep">
+                    <div class="foundation-header">
+                        <h3>Deep Foundation</h3>
+                        <div class="foundation-cost">$350,000</div>
+                    </div>
+                    <div class="foundation-details">
+                        <div class="detail-item">
+                            <i class="fas fa-ruler-vertical"></i>
+                            <span>Depth: 8.0m</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-weight"></i>
+                            <span>Capacity: 500 kPa</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Construction: 6 weeks</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-leaf"></i>
+                            <span>Environmental: Higher Impact</span>
+                        </div>
+                    </div>
+                    <div class="foundation-suitability not-recommended">
+                        <i class="fas fa-times-circle"></i>
+                        <span>Not Recommended</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="design-recommendation animate-fade-in">
+                <div class="recommendation-header">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Recommended Solution</h3>
+                </div>
+                <div class="recommendation-content">
+                    <p>Based on the geotechnical investigation, a <strong>shallow raft foundation</strong> is recommended due to:</p>
+                    <ul>
+                        <li>Adequate bearing capacity in the upper soil layers</li>
+                        <li>Lower environmental impact</li>
+                        <li>Cost-effectiveness</li>
+                        <li>Shorter construction time</li>
+                        <li>Better compatibility with wildlife conservation goals</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/geotechnical.js"></script>
+</body>
+</html>

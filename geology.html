@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geology - The Journey of Spiny Babbler</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/geology.css">
+    <link rel="icon" href="assets/icons/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/icons/logo.png" alt="Spiny Babbler Logo" class="logo-img">
+                <span class="logo-text">The काँडे भ्याकुर Journey</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active">Journey</a>
+                    <div class="dropdown-menu">
+                        <a href="gallery.html" class="dropdown-item">Gallery</a>
+                        <a href="hydropower.html" class="dropdown-item">Hydropower</a>
+                        <a href="watersupply.html" class="dropdown-item">Water Supply</a>
+                        <a href="irrigation.html" class="dropdown-item">Irrigation</a>
+                        <a href="environmental.html" class="dropdown-item">Environmental</a>
+                        <a href="structure.html" class="dropdown-item">Structure</a>
+                        <a href="geotechnical.html" class="dropdown-item">Geotechnical</a>
+                        <a href="transportation.html" class="dropdown-item">Transportation</a>
+                        <a href="geology.html" class="dropdown-item active">Geology</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Documentation</a>
+                    <div class="dropdown-menu">
+                        <a href="article.html" class="dropdown-item">Article</a>
+                        <a href="research.html" class="dropdown-item">Research</a>
+                        <a href="project.html" class="dropdown-item">Project</a>
+                        <a href="journal.html" class="dropdown-item">Journal</a>
+                    </div>
+                </div>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="download.html" class="nav-link">Download</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="theme-toggle">
+                <button class="theme-btn" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-toggle">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="mobile-nav-link">Home</a>
+        <a href="about.html" class="mobile-nav-link">About</a>
+        <div class="mobile-dropdown">
+            <a href="#" class="mobile-nav-link active">Journey</a>
+            <div class="mobile-dropdown-menu">
+                <a href="gallery.html" class="mobile-dropdown-item">Gallery</a>
+                <a href="hydropower.html" class="mobile-dropdown-item">Hydropower</a>
+                <a href="watersupply.html" class="mobile-dropdown-item">Water Supply</a>
+                <a href="irrigation.html" class="mobile-dropdown-item">Irrigation</a>
+                <a href="environmental.html" class="mobile-dropdown-item">Environmental</a>
+                <a href="structure.html" class="mobile-dropdown-item">Structure</a>
+                <a href="geotechnical.html" class="mobile-dropdown-item">Geotechnical</a>
+                <a href="transportation.html" class="mobile-dropdown-item">Transportation</a>
+                <a href="geology.html" class="mobile-dropdown-item active">Geology</a>
+            </div>
+        </div>
+        <div class="mobile-dropdown">
+            <a href="#" class="mobile-nav-link">Documentation</a>
+            <div class="mobile-dropdown-menu">
+                <a href="article.html" class="mobile-dropdown-item">Article</a>
+                <a href="research.html" class="mobile-dropdown-item">Research</a>
+                <a href="project.html" class="mobile-dropdown-item">Project</a>
+                <a href="journal.html" class="mobile-dropdown-item">Journal</a>
+            </div>
+        </div>
+        <a href="news.html" class="mobile-nav-link">News</a>
+        <a href="download.html" class="mobile-nav-link">Download</a>
+        <a href="contact.html" class="mobile-nav-link">Contact</a>
+    </div>
+
+    <!-- Geology Hero Section -->
+    <section class="geology-hero">
+        <div class="rock-formations" id="rockFormations"></div>
+        <div class="fossil-animation" id="fossilAnimation"></div>
+        <div class="geology-hero-content">
+            <div class="geology-badge animate-fade-in">
+                <i class="fas fa-gem"></i>
+                <span>Earth Sciences</span>
+            </div>
+            <h1 class="geology-hero-title animate-fade-in-delay" data-text="Geological Exploration">
+                Geological Exploration
+            </h1>
+            <p class="geology-hero-subtitle animate-fade-in-delay-2">
+                Understanding Nepal's geological diversity for sustainable development and conservation
+            </p>
+            <div class="geology-stats animate-fade-in-delay-3">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="100">0</div>
+                    <div class="stat-label">Sites Surveyed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="50">0</div>
+                    <div class="stat-label">Rock Types</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="500">0</div>
+                    <div class="stat-label">Million Years</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Geological Survey Dashboard -->
+    <section class="geological-survey">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Geological Survey Dashboard</h2>
+            <div class="survey-grid">
+                <div class="survey-card mapping animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-map"></i>
+                        <h3>Geological Mapping</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="mapping-progress">
+                            <div class="progress-item">
+                                <span>Detailed Mapping</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 78%"></div>
+                                </div>
+                                <span>78%</span>
+                            </div>
+                            <div class="progress-item">
+                                <span>Remote Sensing</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 92%"></div>
+                                </div>
+                                <span>92%</span>
+                            </div>
+                            <div class="progress-item">
+                                <span>Field Verification</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%"></div>
+                                </div>
+                                <span>65%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="survey-card sampling animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-mountain"></i>
+                        <h3>Rock Sampling</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="sampling-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">156</span>
+                                <span class="stat-label">Samples Collected</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">45</span>
+                                <span class="stat-label">Locations</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">23</span>
+                                <span class="stat-label">Rock Types</span>
+                            </div>
+                        </div>
+                        <div class="sampling-chart">
+                            <canvas id="samplingChart" width="200" height="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="survey-card dating animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-clock"></i>
+                        <h3>Age Dating</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="dating-results">
+                            <div class="result-item">
+                                <span>Method: Radiometric</span>
+                                <span>Age: 45 ± 2 Ma</span>
+                            </div>
+                            <div class="result-item">
+                                <span>Method: Fossil</span>
+                                <span>Age: Eocene</span>
+                            </div>
+                            <div class="result-item">
+                                <span>Method: Stratigraphic</span>
+                                <span>Age: Middle Eocene</span>
+                            </div>
+                        </div>
+                        <div class="dating-status completed">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Analysis Complete</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="survey-card hazards animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Geological Hazards</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="hazard-list">
+                            <div class="hazard-item low">
+                                <span>Earthquake Risk</span>
+                                <span>Low</span>
+                            </div>
+                            <div class="hazard-item moderate">
+                                <span>Landslide Potential</span>
+                                <span>Moderate</span>
+                            </div>
+                            <div class="hazard-item low">
+                                <span>Flood Risk</span>
+                                <span>Low</span>
+                            </div>
+                        </div>
+                        <div class="hazard-mitigation">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Mitigation Measures in Place</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Geological Map -->
+    <section class="geological-map">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Interactive Geological Map</h2>
+            <div class="map-container animate-fade-in">
+                <div class="map-viewer" id="mapViewer">
+                    <div class="map-layers" id="mapLayers">
+                        <div class="layer bedrock" data-layer="bedrock">
+                            <span>Bedrock Geology</span>
+                        </div>
+                        <div class="layer structure" data-layer="structure">
+                            <span>Structural Geology</span>
+                        </div>
+                        <div class="layer mineral" data-layer="mineral">
+                            <span>Mineral Resources</span>
+                        </div>
+                        <div class="layer hazard" data-layer="hazard">
+                            <span>Geological Hazards</span>
+                        </div>
+                    </div>
+                    <div class="map-legend" id="mapLegend">
+                        <h4>Legend</h4>
+                        <div class="legend-item">
+                            <div class="legend-color sedimentary"></div>
+                            <span>Sedimentary Rocks</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color igneous"></div>
+                            <span>Igneous Rocks</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color metamorphic"></div>
+                            <span>Metamorphic Rocks</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-info" id="mapInfo">
+                    <h3>Geological Features</h3>
+                    <p>Select a layer to explore geological formations and features.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stratigraphic Column -->
+    <section class="stratigraphic-column">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Stratigraphic Column</h2>
+            <div class="column-container animate-fade-in">
+                <div class="strat-column">
+                    <div class="strata-unit quaternary" data-period="quaternary">
+                        <div class="unit-info">
+                            <h4>Quaternary</h4>
+                            <p>2.6 Ma - Present</p>
+                            <p>Alluvial deposits</p>
+                        </div>
+                    </div>
+                    <div class="strata-unit neogene" data-period="neogene">
+                        <div class="unit-info">
+                            <h4>Neogene</h4>
+                            <p>23 - 2.6 Ma</p>
+                            <p>Siwalik Group</p>
+                        </div>
+                    </div>
+                    <div class="strata-unit paleogene" data-period="paleogene">
+                        <div class="unit-info">
+                            <h4>Paleogene</h4>
+                            <p>66 - 23 Ma</p>
+                            <p>Subathu Formation</p>
+                        </div>
+                    </div>
+                    <div class="strata-unit mesozoic" data-period="mesozoic">
+                        <div class="unit-info">
+                            <h4>Mesozoic</h4>
+                            <p>252 - 66 Ma</p>
+                            <p>Lesser Himalayan</p>
+                        </div>
+                    </div>
+                    <div class="strata-unit paleozoic" data-period="paleozoic">
+                        <div class="unit-info">
+                            <h4>Paleozoic</h4>
+                            <p>541 - 252 Ma</p>
+                            <p>Greater Himalayan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="column-details">
+                    <div class="details-panel" id="detailsPanel">
+                        <h3>Geological Time Scale</h3>
+                        <p>Explore different geological periods and their characteristics.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mineral Resources -->
+    <section class="mineral-resources">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Mineral Resources</h2>
+            <div class="resources-grid">
+                <div class="resource-card metallic animate-fade-in">
+                    <div class="resource-header">
+                        <i class="fas fa-gem"></i>
+                        <h3>Metallic Minerals</h3>
+                    </div>
+                    <div class="resource-content">
+                        <div class="mineral-list">
+                            <div class="mineral-item">
+                                <span>Iron Ore</span>
+                                <span>High Grade</span>
+                            </div>
+                            <div class="mineral-item">
+                                <span>Copper</span>
+                                <span>Medium Grade</span>
+                            </div>
+                            <div class="mineral-item">
+                                <span>Zinc</span>
+                                <span>Low Grade</span>
+                            </div>
+                        </div>
+                        <div class="resource-reserves">
+                            <span>Estimated Reserves: 50 million tonnes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card non-metallic animate-fade-in">
+                    <div class="resource-header">
+                        <i class="fas fa-mountain"></i>
+                        <h3>Non-Metallic Minerals</h3>
+                    </div>
+                    <div class="resource-content">
+                        <div class="mineral-list">
+                            <div class="mineral-item">
+                                <span>Limestone</span>
+                                <span>Abundant</span>
+                            </div>
+                            <div class="mineral-item">
+                                <span>Quartzite</span>
+                                <span>Moderate</span>
+                            </div>
+                            <div class="mineral-item">
+                                <span>Marble</span>
+                                <span>High Quality</span>
+                            </div>
+                        </div>
+                        <div class="resource-reserves">
+                            <span>Estimated Reserves: 200 million tonnes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card industrial animate-fade-in">
+                    <div class="resource-header">
+                        <i class="fas fa-industry"></i>
+                        <h3>Industrial Minerals</h3>
+                    </div>
+                    <div class="resource-content">
+                        <div class="mineral-list">
+                            <div class="mineral-item">
+                                <span>Clay</span>
+                                <span>Ceramic Grade</span>
+                            </div>
+                            <div class="mineral-item">
+                                <span>Sand</span>
+                                <span>Construction Grade</span>
+                            </div>
+                            <div class="mineral-item">
+                                <span>Gravel</span>
+                                <span>High Quality</span>
+                            </div>
+                        </div>
+                        <div class="resource-reserves">
+                            <span>Estimated Reserves: 500 million tonnes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Geological Hazards Assessment -->
+    <section class="geological-hazards">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Geological Hazards Assessment</h2>
+            <div class="hazards-assessment">
+                <div class="hazard-card earthquake animate-fade-in">
+                    <div class="hazard-header">
+                        <i class="fas fa-house-damage"></i>
+                        <h3>Earthquake Hazard</h3>
+                        <div class="hazard-level moderate">Moderate</div>
+                    </div>
+                    <div class="hazard-content">
+                        <div class="hazard-parameters">
+                            <div class="parameter">
+                                <span>Peak Ground Acceleration</span>
+                                <span>0.25g</span>
+                            </div>
+                            <div class="parameter">
+                                <span>Return Period</span>
+                                <span>475 years</span>
+                            </div>
+                        </div>
+                        <div class="hazard-mitigation">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Seismic design required</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hazard-card landslide animate-fade-in">
+                    <div class="hazard-header">
+                        <i class="fas fa-mountain"></i>
+                        <h3>Landslide Risk</h3>
+                        <div class="hazard-level high">High</div>
+                    </div>
+                    <div class="hazard-content">
+                        <div class="hazard-parameters">
+                            <div class="parameter">
+                                <span>Slope Stability</span>
+                                <span>Critical</span>
+                            </div>
+                            <div class="parameter">
+                                <span>Rainfall Threshold</span>
+                                <span>100mm/day</span>
+                            </div>
+                        </div>
+                        <div class="hazard-mitigation">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Monitoring required</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hazard-card flood animate-fade-in">
+                    <div class="hazard-header">
+                        <i class="fas fa-water"></i>
+                        <h3>Flood Potential</h3>
+                        <div class="hazard-level low">Low</div>
+                    </div>
+                    <div class="hazard-content">
+                        <div class="hazard-parameters">
+                            <div class="parameter">
+                                <span>100-year Flood Level</span>
+                                <span>2.5m</span>
+                            </div>
+                            <div class="parameter">
+                                <span>Drainage Capacity</span>
+                                <span>Adequate</span>
+                            </div>
+                        </div>
+                        <div class="hazard-mitigation">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Standard precautions</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/geology.js"></script>
+</body>
+</html>

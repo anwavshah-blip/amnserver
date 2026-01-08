@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irrigation - The Journey of Spiny Babbler</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/irrigation.css">
+    <link rel="icon" href="assets/icons/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <!-- Same navigation structure with irrigation.html as active -->
+    </nav>
+
+    <!-- Irrigation Hero Section -->
+    <section class="irrigation-hero">
+        <div class="sprinkler-animation" id="sprinklerAnimation"></div>
+        <div class="crop-growth" id="cropGrowth"></div>
+        <div class="irrigation-hero-content">
+            <div class="irrigation-badge animate-fade-in">
+                <i class="fas fa-seedling"></i>
+                <span>Smart Irrigation</span>
+            </div>
+            <h1 class="irrigation-hero-title animate-fade-in-delay" data-text="Smart Irrigation Systems">
+                Smart Irrigation Systems
+            </h1>
+            <p class="irrigation-hero-subtitle animate-fade-in-delay-2">
+                Precision water management for agriculture while preserving natural habitats
+            </p>
+            <div class="irrigation-controls animate-fade-in-delay-3">
+                <div class="control-btn active" data-mode="auto">
+                    <i class="fas fa-robot"></i>
+                    <span>Auto</span>
+                </div>
+                <div class="control-btn" data-mode="manual">
+                    <i class="fas fa-hand-paper"></i>
+                    <span>Manual</span>
+                </div>
+                <div class="control-btn" data-mode="schedule">
+                    <i class="fas fa-calendar"></i>
+                    <span>Schedule</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real-time Irrigation Dashboard -->
+    <section class="irrigation-dashboard">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Irrigation Dashboard</h2>
+            <div class="dashboard-grid">
+                <div class="dashboard-card moisture animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-tint"></i>
+                        <h3>Soil Moisture</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="moisture-level">
+                            <div class="level-indicator" data-level="75"></div>
+                            <span class="level-text">75% - Optimal</span>
+                        </div>
+                        <div class="moisture-chart">
+                            <canvas id="moistureChart" width="200" height="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card weather animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-cloud-sun"></i>
+                        <h3>Weather Data</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="weather-item">
+                            <span class="weather-label">Temperature</span>
+                            <span class="weather-value">28°C</span>
+                        </div>
+                        <div class="weather-item">
+                            <span class="weather-label">Humidity</span>
+                            <span class="weather-value">65%</span>
+                        </div>
+                        <div class="weather-item">
+                            <span class="weather-label">Wind Speed</span>
+                            <span class="weather-value">12 km/h</span>
+                        </div>
+                        <div class="weather-item">
+                            <span class="weather-label">Rainfall</span>
+                            <span class="weather-value">0 mm</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card system animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-cogs"></i>
+                        <h3>System Status</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="system-status">
+                            <div class="status-item">
+                                <div class="status-indicator active"></div>
+                                <span>Zone 1 - Active</span>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-indicator inactive"></div>
+                                <span>Zone 2 - Standby</span>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-indicator active"></div>
+                                <span>Zone 3 - Active</span>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-indicator maintenance"></div>
+                                <span>Zone 4 - Maintenance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card efficiency animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Water Efficiency</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="efficiency-gauge">
+                            <canvas id="efficiencyGauge" width="150" height="150"></canvas>
+                            <div class="gauge-text">
+                                <span class="gauge-value">92%</span>
+                                <span class="gauge-label">Efficient</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Irrigation Zones -->
+    <section class="irrigation-zones">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Irrigation Zones</h2>
+            <div class="zones-grid">
+                <div class="zone-card animate-fade-in" data-zone="1">
+                    <div class="zone-header">
+                        <h3>Zone 1 - Rice Fields</h3>
+                        <div class="zone-status active">Active</div>
+                    </div>
+                    <div class="zone-info">
+                        <div class="info-item">
+                            <i class="fas fa-tint"></i>
+                            <span>Flow Rate: 15 L/min</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Duration: 45 min</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>Last Watered: 2 hours ago</span>
+                        </div>
+                    </div>
+                    <div class="zone-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                        <span>75% Complete</span>
+                    </div>
+                </div>
+                
+                <div class="zone-card animate-fade-in" data-zone="2">
+                    <div class="zone-header">
+                        <h3>Zone 2 - Vegetable Garden</h3>
+                        <div class="zone-status standby">Standby</div>
+                    </div>
+                    <div class="zone-info">
+                        <div class="info-item">
+                            <i class="fas fa-tint"></i>
+                            <span>Flow Rate: 8 L/min</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Duration: 30 min</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>Last Watered: 4 hours ago</span>
+                        </div>
+                    </div>
+                    <div class="zone-schedule">
+                        <span>Next: Tomorrow 6:00 AM</span>
+                    </div>
+                </div>
+                
+                <div class="zone-card animate-fade-in" data-zone="3">
+                    <div class="zone-header">
+                        <h3>Zone 3 - Orchard</h3>
+                        <div class="zone-status active">Active</div>
+                    </div>
+                    <div class="zone-info">
+                        <div class="info-item">
+                            <i class="fas fa-tint"></i>
+                            <span>Flow Rate: 12 L/min</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Duration: 60 min</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>Last Watered: 1 day ago</span>
+                        </div>
+                    </div>
+                    <div class="zone-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 40%"></div>
+                        </div>
+                        <span>40% Complete</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conservation Benefits -->
+    <section class="conservation-benefits">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Conservation Benefits</h2>
+            <div class="benefits-visualization">
+                <div class="benefit-chart animate-fade-in">
+                    <div class="chart-item">
+                        <div class="chart-bar" data-value="40">
+                            <span class="chart-label">Water Saved</span>
+                        </div>
+                    </div>
+                    <div class="chart-item">
+                        <div class="chart-bar" data-value="60">
+                            <span class="chart-label">Energy Saved</span>
+                        </div>
+                    </div>
+                    <div class="chart-item">
+                        <div class="chart-bar" data-value="80">
+                            <span class="chart-label">Yield Increase</span>
+                        </div>
+                    </div>
+                    <div class="chart-item">
+                        <div class="chart-bar" data-value="70">
+                            <span class="chart-label">Cost Reduction</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="benefit-details animate-fade-in">
+                    <div class="detail-item">
+                        <i class="fas fa-water"></i>
+                        <div>
+                            <h4>40% Water Savings</h4>
+                            <p>Precision irrigation reduces water waste</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-leaf"></i>
+                        <div>
+                            <h4>Habitat Preservation</h4>
+                            <p>Reduced water extraction protects natural habitats</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-dollar-sign"></i>
+                        <div>
+                            <h4>30% Cost Reduction</h4>
+                            <p>Optimized scheduling reduces operational costs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/irrigation.js"></script>
+</body>
+</html>

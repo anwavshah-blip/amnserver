@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transportation - The Journey of Spiny Babbler</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/transportation.css">
+    <link rel="icon" href="assets/icons/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/icons/logo.png" alt="Spiny Babbler Logo" class="logo-img">
+                <span class="logo-text">The काँडे भ्याकुर Journey</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active">Journey</a>
+                    <div class="dropdown-menu">
+                        <a href="gallery.html" class="dropdown-item">Gallery</a>
+                        <a href="hydropower.html" class="dropdown-item">Hydropower</a>
+                        <a href="watersupply.html" class="dropdown-item">Water Supply</a>
+                        <a href="irrigation.html" class="dropdown-item">Irrigation</a>
+                        <a href="environmental.html" class="dropdown-item">Environmental</a>
+                        <a href="structure.html" class="dropdown-item">Structure</a>
+                        <a href="geotechnical.html" class="dropdown-item">Geotechnical</a>
+                        <a href="transportation.html" class="dropdown-item active">Transportation</a>
+                        <a href="geology.html" class="dropdown-item">Geology</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Documentation</a>
+                    <div class="dropdown-menu">
+                        <a href="article.html" class="dropdown-item">Article</a>
+                        <a href="research.html" class="dropdown-item">Research</a>
+                        <a href="project.html" class="dropdown-item">Project</a>
+                        <a href="journal.html" class="dropdown-item">Journal</a>
+                    </div>
+                </div>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="download.html" class="nav-link">Download</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="theme-toggle">
+                <button class="theme-btn" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-toggle">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="mobile-nav-link">Home</a>
+        <a href="about.html" class="mobile-nav-link">About</a>
+        <div class="mobile-dropdown">
+            <a href="#" class="mobile-nav-link active">Journey</a>
+            <div class="mobile-dropdown-menu">
+                <a href="gallery.html" class="mobile-dropdown-item">Gallery</a>
+                <a href="hydropower.html" class="mobile-dropdown-item">Hydropower</a>
+                <a href="watersupply.html" class="mobile-dropdown-item">Water Supply</a>
+                <a href="irrigation.html" class="mobile-dropdown-item">Irrigation</a>
+                <a href="environmental.html" class="mobile-dropdown-item">Environmental</a>
+                <a href="structure.html" class="mobile-dropdown-item">Structure</a>
+                <a href="geotechnical.html" class="mobile-dropdown-item">Geotechnical</a>
+                <a href="transportation.html" class="mobile-dropdown-item active">Transportation</a>
+                <a href="geology.html" class="mobile-dropdown-item">Geology</a>
+            </div>
+        </div>
+        <div class="mobile-dropdown">
+            <a href="#" class="mobile-nav-link">Documentation</a>
+            <div class="mobile-dropdown-menu">
+                <a href="article.html" class="mobile-dropdown-item">Article</a>
+                <a href="research.html" class="mobile-dropdown-item">Research</a>
+                <a href="project.html" class="mobile-dropdown-item">Project</a>
+                <a href="journal.html" class="mobile-dropdown-item">Journal</a>
+            </div>
+        </div>
+        <a href="news.html" class="mobile-nav-link">News</a>
+        <a href="download.html" class="mobile-nav-link">Download</a>
+        <a href="contact.html" class="mobile-nav-link">Contact</a>
+    </div>
+
+    <!-- Transportation Hero Section -->
+    <section class="transportation-hero">
+        <div class="route-animation" id="routeAnimation"></div>
+        <div class="vehicle-icons" id="vehicleIcons"></div>
+        <div class="transportation-hero-content">
+            <div class="transportation-badge animate-fade-in">
+                <i class="fas fa-route"></i>
+                <span>Smart Mobility</span>
+            </div>
+            <h1 class="transportation-hero-title animate-fade-in-delay" data-text="Sustainable Transportation">
+                Sustainable Transportation
+            </h1>
+            <p class="transportation-hero-subtitle animate-fade-in-delay-2">
+                Eco-friendly mobility solutions connecting communities while protecting wildlife corridors
+            </p>
+            <div class="transport-modes animate-fade-in-delay-3">
+                <div class="mode-item">
+                    <i class="fas fa-walking"></i>
+                    <span>Walking</span>
+                </div>
+                <div class="mode-item">
+                    <i class="fas fa-bicycle"></i>
+                    <span>Cycling</span>
+                </div>
+                <div class="mode-item">
+                    <i class="fas fa-bus"></i>
+                    <span>Public Transit</span>
+                </div>
+                <div class="mode-item">
+                    <i class="fas fa-car"></i>
+                    <span>Electric Vehicles</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Traffic Flow Analytics -->
+    <section class="traffic-analytics">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Real-time Traffic Analytics</h2>
+            <div class="analytics-dashboard">
+                <div class="analytics-card flow animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-traffic-light"></i>
+                        <h3>Traffic Flow</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="flow-meter">
+                            <div class="flow-value">2,450</div>
+                            <div class="flow-label">vehicles/hour</div>
+                        </div>
+                        <div class="flow-chart">
+                            <canvas id="trafficFlowChart" width="200" height="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analytics-card speed animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <h3>Average Speed</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="speed-display">
+                            <div class="speed-value">45</div>
+                            <div class="speed-unit">km/h</div>
+                        </div>
+                        <div class="speed-status optimal">Optimal</div>
+                    </div>
+                </div>
+
+                <div class="analytics-card congestion animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Congestion Level</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="congestion-meter">
+                            <div class="congestion-level moderate">Moderate</div>
+                            <div class="congestion-bar">
+                                <div class="congestion-fill" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analytics-card emissions animate-fade-in">
+                    <div class="card-header">
+                        <i class="fas fa-smog"></i>
+                        <h3>Emissions</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="emission-reading">
+                            <div class="emission-value">42</div>
+                            <div class="emission-unit">g CO₂/km</div>
+                        </div>
+                        <div class="emission-trend down">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>15% reduction</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Route Planner -->
+    <section class="route-planner">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Eco-Friendly Route Planner</h2>
+            <div class="planner-interface animate-fade-in">
+                <div class="route-map" id="routeMap">
+                    <div class="map-container">
+                        <div class="route-point start" id="startPoint">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Start</span>
+                        </div>
+                        <div class="route-point end" id="endPoint">
+                            <i class="fas fa-flag-checkered"></i>
+                            <span>End</span>
+                        </div>
+                        <div class="route-line" id="routeLine"></div>
+                        <div class="wildlife-corridor" id="wildlifeCorridor">
+                            <i class="fas fa-dove"></i>
+                            <span>Wildlife Corridor</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="route-options">
+                    <div class="option-group">
+                        <h3>Route Options</h3>
+                        <div class="route-option fastest">
+                            <input type="radio" name="route" id="fastest" checked>
+                            <label for="fastest">
+                                <i class="fas fa-clock"></i>
+                                <span>Fastest Route</span>
+                                <span class="route-time">25 min</span>
+                            </label>
+                        </div>
+                        <div class="route-option eco">
+                            <input type="radio" name="route" id="eco">
+                            <label for="eco">
+                                <i class="fas fa-leaf"></i>
+                                <span>Eco-Friendly</span>
+                                <span class="route-time">32 min</span>
+                            </label>
+                        </div>
+                        <div class="route-option scenic">
+                            <input type="radio" name="route" id="scenic">
+                            <label for="scenic">
+                                <i class="fas fa-mountain"></i>
+                                <span>Scenic Route</span>
+                                <span class="route-time">40 min</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="route-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-route"></i>
+                            <span>Distance: 15.2 km</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-leaf"></i>
+                            <span>CO₂ Saved: 2.3 kg</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-dove"></i>
+                            <span>Wildlife Impact: Minimal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sustainable Transport Modes -->
+    <section class="transport-modes">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Sustainable Transport Solutions</h2>
+            <div class="modes-grid">
+                <div class="mode-card pedestrian animate-fade-in">
+                    <div class="mode-icon">
+                        <i class="fas fa-walking"></i>
+                    </div>
+                    <h3>Pedestrian Infrastructure</h3>
+                    <div class="mode-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Wildlife-friendly walkways</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Elevated crossings</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Natural lighting</span>
+                        </div>
+                    </div>
+                    <div class="mode-impact">
+                        <div class="impact-score">
+                            <span class="score-value">95%</span>
+                            <span class="score-label">Eco Score</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mode-card cycling animate-fade-in">
+                    <div class="mode-icon">
+                        <i class="fas fa-bicycle"></i>
+                    </div>
+                    <h3>Cycling Network</h3>
+                    <div class="mode-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Dedicated bike lanes</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Green corridors</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Solar lighting</span>
+                        </div>
+                    </div>
+                    <div class="mode-impact">
+                        <div class="impact-score">
+                            <span class="score-value">88%</span>
+                            <span class="score-label">Eco Score</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mode-card public animate-fade-in">
+                    <div class="mode-icon">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                    <h3>Public Transit</h3>
+                    <div class="mode-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Electric buses</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Priority lanes</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Real-time tracking</span>
+                        </div>
+                    </div>
+                    <div class="mode-impact">
+                        <div class="impact-score">
+                            <span class="score-value">82%</span>
+                            <span class="score-label">Eco Score</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mode-card electric animate-fade-in">
+                    <div class="mode-icon">
+                        <i class="fas fa-charging-station"></i>
+                    </div>
+                    <h3>Electric Infrastructure</h3>
+                    <div class="mode-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Fast charging stations</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Solar powered</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Smart grid integration</span>
+                        </div>
+                    </div>
+                    <div class="mode-impact">
+                        <div class="impact-score">
+                            <span class="score-value">78%</span>
+                            <span class="score-label">Eco Score</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wildlife Crossing Systems -->
+    <section class="wildlife-crossings">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Wildlife Crossing Systems</h2>
+            <div class="crossings-showcase">
+                <div class="crossing-item bridge animate-fade-in">
+                    <div class="crossing-image">
+                        <i class="fas fa-bridge"></i>
+                    </div>
+                    <div class="crossing-content">
+                        <h3>Eco-Bridges</h3>
+                        <p>Vegetated overpasses allowing safe wildlife passage over busy roads</p>
+                        <div class="crossing-stats">
+                            <div class="stat">
+                                <span class="stat-number">12</span>
+                                <span class="stat-label">Built</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">95%</span>
+                                <span class="stat-label">Usage Rate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="crossing-item tunnel animate-fade-in">
+                    <div class="crossing-image">
+                        <i class="fas fa-archway"></i>
+                    </div>
+                    <div class="crossing-content">
+                        <h3>Wildlife Tunnels</h3>
+                        <p>Underpass systems for smaller animals and amphibians</p>
+                        <div class="crossing-stats">
+                            <div class="stat">
+                                <span class="stat-number">25</span>
+                                <span class="stat-label">Installed</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">85%</span>
+                                <span class="stat-label">Effectiveness</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="crossing-item fence animate-fade-in">
+                    <div class="crossing-image">
+                        <i class="fas fa-fence"></i>
+                    </div>
+                    <div class="crossing-content">
+                        <h3>Guiding Fences</h3>
+                        <p>Directional barriers leading animals to safe crossing points</p>
+                        <div class="crossing-stats">
+                            <div class="stat">
+                                <span class="stat-number">50km</span>
+                                <span class="stat-label">Installed</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">80%</span>
+                                <span class="stat-label">Reduction</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Metrics -->
+    <section class="impact-metrics">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Environmental Impact Reduction</h2>
+            <div class="metrics-dashboard">
+                <div class="metric-card emissions animate-fade-in">
+                    <div class="metric-header">
+                        <i class="fas fa-smog"></i>
+                        <h3>Emissions Reduction</h3>
+                    </div>
+                    <div class="metric-value">-35%</div>
+                    <div class="metric-trend down">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>CO₂ emissions reduced</span>
+                    </div>
+                </div>
+
+                <div class="metric-card noise animate-fade-in">
+                    <div class="metric-header">
+                        <i class="fas fa-volume-down"></i>
+                        <h3>Noise Reduction</h3>
+                    </div>
+                    <div class="metric-value">-28%</div>
+                    <div class="metric-trend down">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>Traffic noise reduced</span>
+                    </div>
+                </div>
+
+                <div class="metric-card safety animate-fade-in">
+                    <div class="metric-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Wildlife Safety</h3>
+                    </div>
+                    <div class="metric-value">-90%</div>
+                    <div class="metric-trend down">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>Wildlife accidents reduced</span>
+                    </div>
+                </div>
+
+                <div class="metric-card efficiency animate-fade-in">
+                    <div class="metric-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Transport Efficiency</h3>
+                    </div>
+                    <div class="metric-value">+25%</div>
+                    <div class="metric-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>Improved flow efficiency</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/transportation.js"></script>
+</body>
+</html>

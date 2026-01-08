@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Supply - The Journey of Spiny Babbler</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/watersupply.css">
+    <link rel="icon" href="assets/icons/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <!-- Same navigation structure with watersupply.html as active -->
+    </nav>
+
+    <!-- Water Supply Hero Section -->
+    <section class="watersupply-hero">
+        <div class="water-drops" id="waterDrops"></div>
+        <div class="pipe-network" id="pipeNetwork"></div>
+        <div class="watersupply-hero-content">
+            <div class="watersupply-badge animate-fade-in">
+                <i class="fas fa-tint"></i>
+                <span>Clean Water</span>
+            </div>
+            <h1 class="watersupply-hero-title animate-fade-in-delay" data-text="Water Supply Systems">
+                Water Supply Systems
+            </h1>
+            <p class="watersupply-hero-subtitle animate-fade-in-delay-2">
+                Sustainable water management solutions for communities and wildlife conservation
+            </p>
+            <div class="water-cycle animate-fade-in-delay-3">
+                <div class="cycle-step">Collection</div>
+                <div class="cycle-arrow">→</div>
+                <div class="cycle-step">Treatment</div>
+                <div class="cycle-arrow">→</div>
+                <div class="cycle-step">Distribution</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Water Quality Monitoring -->
+    <section class="water-quality">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Real-time Water Quality</h2>
+            <div class="quality-monitors">
+                <div class="monitor-card animate-fade-in">
+                    <div class="monitor-icon">
+                        <i class="fas fa-thermometer-half"></i>
+                    </div>
+                    <div class="monitor-value" id="temperature">22.5°C</div>
+                    <div class="monitor-label">Temperature</div>
+                    <div class="monitor-status good">Optimal</div>
+                </div>
+                <div class="monitor-card animate-fade-in">
+                    <div class="monitor-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <div class="monitor-value" id="ph">7.2</div>
+                    <div class="monitor-label">pH Level</div>
+                    <div class="monitor-status good">Balanced</div>
+                </div>
+                <div class="monitor-card animate-fade-in">
+                    <div class="monitor-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="monitor-value" id="turbidity">2.1 NTU</div>
+                    <div class="monitor-label">Turbidity</div>
+                    <div class="monitor-status good">Clear</div>
+                </div>
+                <div class="monitor-card animate-fade-in">
+                    <div class="monitor-icon">
+                        <i class="fas fa-lungs"></i>
+                    </div>
+                    <div class="monitor-value" id="oxygen">8.5 mg/L</div>
+                    <div class="monitor-label">Dissolved O₂</div>
+                    <div class="monitor-status good">Healthy</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Water System Map -->
+    <section class="water-system-map">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Water Distribution Network</h2>
+            <div class="system-map">
+                <div class="map-source animate-fade-in">
+                    <div class="source-icon">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h3>Mountain Source</h3>
+                    <p>Pristine natural springs</p>
+                </div>
+                <div class="map-pipeline animate-fade-in"></div>
+                <div class="map-treatment animate-fade-in">
+                    <div class="treatment-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3>Treatment Plant</h3>
+                    <p>Purification & filtration</p>
+                </div>
+                <div class="map-pipeline animate-fade-in"></div>
+                <div class="map-reservoir animate-fade-in">
+                    <div class="reservoir-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Storage Reservoir</h3>
+                    <p>Clean water storage</p>
+                </div>
+                <div class="map-pipeline animate-fade-in"></div>
+                <div class="map-distribution animate-fade-in">
+                    <div class="distribution-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Distribution</h3>
+                    <p>Community supply</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conservation Impact -->
+    <section class="conservation-impact">
+        <div class="container">
+            <h2 class="section-title animate-fade-in">Wildlife Conservation Impact</h2>
+            <div class="impact-visualization">
+                <div class="impact-chart animate-fade-in">
+                    <canvas id="conservationChart" width="400" height="200"></canvas>
+                </div>
+                <div class="impact-metrics animate-fade-in">
+                    <div class="metric-item">
+                        <div class="metric-number">35%</div>
+                        <div class="metric-label">Water Savings</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number">50+</div>
+                        <div class="metric-label">Species Protected</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number">2000</div>
+                        <div class="metric-label">Hectares Conserved</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/watersupply.js"></script>
+</body>
+</html>
