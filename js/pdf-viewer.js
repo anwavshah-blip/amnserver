@@ -1,4 +1,4 @@
-// Production PDF Viewer with PDF.js - Complete Version
+// Fixed PDF Viewer - Production Ready
 
 let currentPDF = null;
 let currentPage = 1;
@@ -12,8 +12,10 @@ let ctx = null;
 // Initialize PDF.js
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-// PDF Viewer Functions
+// Fixed PDF Viewer Functions
 async function openPDF(pdfId, pdfPath = null) {
+    console.log('Opening PDF:', pdfId, 'Path:', pdfPath);
+    
     const modal = document.getElementById('pdfModal');
     const viewer = document.getElementById('pdfViewer');
     const title = document.getElementById('pdfTitle');
@@ -46,6 +48,13 @@ async function openPDF(pdfId, pdfPath = null) {
         
         // Load the PDF file
         const loadingTask = pdfjsLib.getDocument(pdfData.fileName);
+        
+        // Add progress tracking
+        loadingTask.onProgress = function(progress) {
+            const percent = Math.round((progress.loaded / progress.total) * 100);
+            updateLoadingProgress(percent);
+        };
+        
         pdfDoc = await loadingTask.promise;
         
         totalPages = pdfDoc.numPages;
@@ -69,7 +78,18 @@ async function openPDF(pdfId, pdfPath = null) {
         preventPDFActions(modal);
         
     } catch (error) {
-        showPDFError('Failed to load PDF file. Please try again.');
+        console.error('PDF loading error:', error);
+        showPDFError('Failed to load PDF file. Please ensure the file exists and try again.');
+    }
+}
+
+function updateLoadingProgress(percent) {
+    const loadingElement = document.getElementById('pdf-loading');
+    if (loadingElement) {
+        const progressText = loadingElement.querySelector('p');
+        if (progressText) {
+            progressText.textContent = `Loading PDF... ${percent}%`;
+        }
     }
 }
 
@@ -79,7 +99,7 @@ function createPDFCanvas() {
             <canvas id="pdf-canvas"></canvas>
             <div class="pdf-loading" id="pdf-loading">
                 <div class="pdf-spinner"></div>
-                <p>Loading PDF...</p>
+                <p>Loading PDF... 0%</p>
             </div>
         </div>
     `;
@@ -124,6 +144,7 @@ async function renderPage(num) {
         currentPage = num;
         
     } catch (error) {
+        console.error('Page rendering error:', error);
         showPDFError('Failed to render PDF page');
     } finally {
         pageRendering = false;
@@ -306,38 +327,6 @@ function getPDFData(pdfId) {
             pages: 4,
             uploadDate: '2024-03-10',
             type: 'Conservation Report'
-        },
-        research1: {
-            id: 'research1',
-            title: 'Population Dynamics Study 2024',
-            fileName: 'assets/documents/population-dynamics-study-2024.pdf',
-            pages: 2,
-            uploadDate: '2024-01-05',
-            type: 'Population Study'
-        },
-        research2: {
-            id: 'research2',
-            title: 'Genetic Diversity Analysis',
-            fileName: 'assets/documents/genetic-diversity-analysis.pdf',
-            pages: 3,
-            uploadDate: '2024-02-28',
-            type: 'Genetics Research'
-        },
-        project1: {
-            id: 'project1',
-            title: 'Spiny Babbler Habitat Restoration',
-            fileName: 'assets/documents/habitat-restoration-project.pdf',
-            pages: 5,
-            uploadDate: '2024-03-15',
-            type: 'Project Report'
-        },
-        journal1: {
-            id: 'journal1',
-            title: 'Field Observations Journal 2024',
-            fileName: 'assets/documents/field-observations-journal.pdf',
-            pages: 8,
-            uploadDate: '2024-01-20',
-            type: 'Field Journal'
         }
     };
     
@@ -369,8 +358,7 @@ function debounce(func, wait) {
 window.PDFViewer = {
     openPDF,
     closePDF,
-    changePage,
-    zoomPDF
+    changePage
 };
 
 // Add CSS styles
