@@ -1,0 +1,621 @@
+/* Water Supply Systems Styles */
+
+.watersupply-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 50%, #1abc9c 100%);
+    overflow: hidden;
+}
+
+.water-drops {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.pipe-network {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.watersupply-hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.watersupply-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    animation: water-glow 3s ease-in-out infinite;
+}
+
+@keyframes water-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(52, 152, 219, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(52, 152, 219, 0.8);
+    }
+}
+
+.watersupply-hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.watersupply-hero-subtitle {
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 3rem;
+    line-height: 1.7;
+}
+
+.water-cycle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+}
+
+.cycle-step {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.cycle-step:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.cycle-arrow {
+    color: white;
+    font-size: 1.5rem;
+    animation: pulse 2s infinite;
+}
+
+/* Water Quality Monitoring */
+.water-quality {
+    padding: 5rem 0;
+    background: var(--bg-secondary);
+}
+
+.quality-monitors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.monitor-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+}
+
+.monitor-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px var(--shadow-dark);
+}
+
+.monitor-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+    animation: icon-float 3s ease-in-out infinite;
+}
+
+@keyframes icon-float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.monitor-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.monitor-label {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.monitor-status {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.monitor-status.good {
+    background: rgba(39, 174, 96, 0.1);
+    color: #27ae60;
+}
+
+.monitor-status.warning {
+    background: rgba(243, 156, 18, 0.1);
+    color: #f39c12;
+}
+
+.monitor-status.bad {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+}
+
+/* Interactive Water System Map */
+.water-system-map {
+    padding: 5rem 0;
+    background: var(--bg-primary);
+}
+
+.system-map {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.map-source, .map-treatment, .map-reservoir, .map-distribution {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+}
+
+.map-source:hover, .map-treatment:hover, .map-reservoir:hover, .map-distribution:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 40px var(--shadow-dark);
+}
+
+.source-icon, .treatment-icon, .reservoir-icon, .distribution-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: white;
+    box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+    transition: all 0.3s ease;
+}
+
+.map-source:hover .source-icon,
+.map-treatment:hover .treatment-icon,
+.map-reservoir:hover .reservoir-icon,
+.map-distribution:hover .distribution-icon {
+    transform: rotate(10deg) scale(1.1);
+}
+
+.map-source h3, .map-treatment h3, .map-reservoir h3, .map-distribution h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.map-source p, .map-treatment p, .map-reservoir p, .map-distribution p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.map-pipeline {
+    height: 4px;
+    background: linear-gradient(90deg, #3498db, #2980b9);
+    border-radius: 2px;
+    position: relative;
+    animation: flow-animation 2s ease-in-out infinite;
+}
+
+@keyframes flow-animation {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+.map-pipeline::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 20px;
+    height: 8px;
+    background: white;
+    border-radius: 4px;
+    animation: flow-particle 3s linear infinite;
+}
+
+@keyframes flow-particle {
+    0% { left: -20px; }
+    100% { left: calc(100% + 20px); }
+}
+
+/* Conservation Impact */
+.conservation-impact {
+    padding: 5rem 0;
+    background: var(--bg-secondary);
+}
+
+.impact-visualization {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.impact-chart {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.impact-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.metric-item {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.metric-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px var(--shadow-dark);
+}
+
+.metric-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #3498db;
+    margin-bottom: 0.5rem;
+    animation: counter-up 2s ease-out;
+}
+
+.metric-label {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Water Drop Animation */
+.water-drops {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.water-drop {
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    background: linear-gradient(180deg, rgba(52, 152, 219, 0.8), rgba(52, 152, 219, 0.3));
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: drop-fall 4s infinite linear;
+    opacity: 0.6;
+}
+
+@keyframes drop-fall {
+    0% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+.water-drop:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 3.5s;
+}
+
+.water-drop:nth-child(2) {
+    left: 30%;
+    animation-delay: 1s;
+    animation-duration: 4.2s;
+}
+
+.water-drop:nth-child(3) {
+    left: 50%;
+    animation-delay: 2s;
+    animation-duration: 3.8s;
+}
+
+.water-drop:nth-child(4) {
+    left: 70%;
+    animation-delay: 0.5s;
+    animation-duration: 4.5s;
+}
+
+.water-drop:nth-child(5) {
+    left: 90%;
+    animation-delay: 1.5s;
+    animation-duration: 3.3s;
+}
+
+/* Pipe Network Animation */
+.pipe-network {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.pipe-segment {
+    position: absolute;
+    height: 6px;
+    background: linear-gradient(90deg, #3498db, #2980b9);
+    border-radius: 3px;
+    animation: pipe-flow 2s ease-in-out infinite;
+}
+
+.pipe-segment:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    width: 200px;
+    transform: rotate(15deg);
+    animation-delay: 0s;
+}
+
+.pipe-segment:nth-child(2) {
+    top: 60%;
+    right: 15%;
+    width: 150px;
+    transform: rotate(-20deg);
+    animation-delay: 0.5s;
+}
+
+.pipe-segment:nth-child(3) {
+    bottom: 30%;
+    left: 30%;
+    width: 180px;
+    transform: rotate(10deg);
+    animation-delay: 1s;
+}
+
+.pipe-segment:nth-child(4) {
+    top: 40%;
+    left: 50%;
+    width: 120px;
+    transform: rotate(-15deg);
+    animation-delay: 1.5s;
+}
+
+@keyframes pipe-flow {
+    0%, 100% { 
+        box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        opacity: 0.7;
+    }
+    50% { 
+        box-shadow: 0 0 20px rgba(52, 152, 219, 0.8);
+        opacity: 1;
+    }
+}
+
+/* Interactive Hover Effects */
+.monitor-card:hover .monitor-icon {
+    transform: rotate(10deg) scale(1.1);
+    box-shadow: 0 15px 40px rgba(52, 152, 219, 0.5);
+}
+
+.monitor-card:hover .monitor-value {
+    color: #3498db;
+    transform: scale(1.05);
+}
+
+/* System Map Interactions */
+.map-source, .map-treatment, .map-reservoir, .map-distribution {
+    position: relative;
+    overflow: hidden;
+}
+
+.map-source::before, .map-treatment::before, .map-reservoir::before, .map-distribution::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.map-source:hover::before, .map-treatment:hover::before, .map-reservoir:hover::before, .map-distribution:hover::before {
+    left: 100%;
+}
+
+/* Conservation Chart */
+#conservationChart {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .watersupply-hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .water-cycle {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .cycle-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .quality-monitors {
+        grid-template-columns: 1fr;
+    }
+    
+    .system-map {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .map-pipeline {
+        height: 2px;
+        width: 100%;
+        transform: rotate(90deg);
+    }
+    
+    .impact-visualization {
+        grid-template-columns: 1fr;
+    }
+    
+    .water-drops {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .watersupply-hero-title {
+        font-size: 2rem;
+    }
+    
+    .monitor-card {
+        padding: 1.5rem;
+    }
+    
+    .monitor-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .monitor-value {
+        font-size: 2rem;
+    }
+    
+    .map-source, .map-treatment, .map-reservoir, .map-distribution {
+        padding: 1.5rem;
+    }
+    
+    .source-icon, .treatment-icon, .reservoir-icon, .distribution-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+}
+
+/* Dark Mode Support */
+[data-theme="dark"] .watersupply-hero {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #3498db 100%);
+}
+
+[data-theme="dark"] .monitor-card,
+[data-theme="dark"] .map-source,
+[data-theme="dark"] .map-treatment,
+[data-theme="dark"] .map-reservoir,
+[data-theme="dark"] .map-distribution,
+[data-theme="dark"] .impact-chart,
+[data-theme="dark"] .metric-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .watersupply-hero {
+        background: #2980b9;
+    }
+    
+    .monitor-status.good {
+        background: #27ae60;
+        color: white;
+    }
+    
+    .monitor-status.warning {
+        background: #f39c12;
+        color: white;
+    }
+    
+    .monitor-status.bad {
+        background: #e74c3c;
+        color: white;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .water-drop, .pipe-segment, .icon-float, .flow-animation {
+        animation: none;
+    }
+    
+    .monitor-card:hover,
+    .map-source:hover,
+    .map-treatment:hover,
+    .map-reservoir:hover,
+    .map-distribution:hover {
+        transform: none;
+    }
+}

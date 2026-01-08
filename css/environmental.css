@@ -1,0 +1,603 @@
+/* Environmental Monitoring Styles */
+
+.environmental-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2c5530 0%, #4a7c59 50%, #6b9b7a 100%);
+    overflow: hidden;
+}
+
+.eco-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.leaf-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.environmental-hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.environmental-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(45deg, #27ae60, #2ecc71);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    animation: leaf-glow 3s ease-in-out infinite;
+}
+
+@keyframes leaf-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(39, 174, 96, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(39, 174, 96, 0.8);
+    }
+}
+
+.environmental-hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.environmental-hero-subtitle {
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 3rem;
+    line-height: 1.7;
+}
+
+.eco-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.indicator-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.indicator-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.indicator-icon {
+    font-size: 2rem;
+    color: #27ae60;
+    margin-bottom: 0.5rem;
+}
+
+.indicator-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.3rem;
+}
+
+.indicator-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Environmental Dashboard */
+.environmental-dashboard {
+    padding: 5rem 0;
+    background: var(--bg-secondary);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.dashboard-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px var(--shadow-dark);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-header i {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+.card-header h3 {
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Air Quality Card */
+.aqi-display {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.aqi-value {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #27ae60;
+    margin-bottom: 0.5rem;
+}
+
+.aqi-status {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.aqi-status.good {
+    background: rgba(39, 174, 96, 0.1);
+    color: #27ae60;
+}
+
+.aqi-status.moderate {
+    background: rgba(243, 156, 18, 0.1);
+    color: #f39c12;
+}
+
+.aqi-status.poor {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+}
+
+.aqi-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.pollutant-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+/* Climate Card */
+.climate-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.climate-item:last-child {
+    border-bottom: none;
+}
+
+.climate-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.climate-value {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Noise Card */
+.noise-meter {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.noise-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #f39c12;
+    margin-bottom: 0.5rem;
+}
+
+.noise-status {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: rgba(243, 156, 18, 0.1);
+    color: #f39c12;
+}
+
+.noise-chart {
+    margin-top: 1rem;
+}
+
+/* Biodiversity Card */
+.biodiversity-score {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.score-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #9b59b6;
+    margin-bottom: 0.5rem;
+}
+
+.score-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.species-count {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.count-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+/* Pollution Tracking */
+.pollution-tracking {
+    padding: 5rem 0;
+    background: var(--bg-primary);
+}
+
+.pollution-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.pollution-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.pollution-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px var(--shadow-dark);
+}
+
+.pollution-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.pollution-header i {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+.pollution-header h3 {
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.pollution-level {
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.pollution-level.low {
+    background: rgba(39, 174, 96, 0.1);
+    color: #27ae60;
+}
+
+.pollution-level.moderate {
+    background: rgba(243, 156, 18, 0.1);
+    color: #f39c12;
+}
+
+.pollution-level.high {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+}
+
+.emission-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.emission-item:last-child {
+    border-bottom: none;
+}
+
+.trend-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.trend-indicator.down {
+    background: rgba(39, 174, 96, 0.1);
+    color: #27ae60;
+}
+
+.trend-indicator.stable {
+    background: rgba(149, 165, 166, 0.1);
+    color: #95a5a6;
+}
+
+.trend-indicator.up {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+}
+
+/* Habitat Quality */
+.habitat-quality {
+    padding: 5rem 0;
+    background: var(--bg-secondary);
+}
+
+.habitat-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.habitat-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.habitat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px var(--shadow-dark);
+}
+
+.habitat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.habitat-header i {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+.habitat-header h3 {
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.habitat-score {
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.habitat-score.excellent {
+    background: rgba(39, 174, 96, 0.1);
+    color: #27ae60;
+}
+
+.habitat-score.good {
+    background: rgba(243, 156, 18, 0.1);
+    color: #f39c12;
+}
+
+.habitat-score.fair {
+    background: rgba(149, 165, 166, 0.1);
+    color: #95a5a6;
+}
+
+.indicator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.indicator-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--bg-primary);
+    border-radius: 4px;
+    margin: 0 1rem;
+    overflow: hidden;
+}
+
+.indicator-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+    transition: width 0.3s ease;
+}
+
+/* Conservation Actions */
+.conservation-actions {
+    padding: 5rem 0;
+    background: var(--bg-primary);
+}
+
+.actions-timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.actions-timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--accent-color);
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    width: 50%;
+    padding: 0 2rem;
+}
+
+.timeline-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+    text-align: left;
+}
+
+.timeline-date {
+    display: inline-block;
+    background: var(--accent-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.timeline-content {
+    background: var(--bg-card);
+    border-radius: 15px;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.timeline-content h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.timeline-content p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.timeline-progress {
+    margin-top: 1rem;
+}
+
+.timeline-progress .progress-bar {
+    height: 6px;
+    background: var(--bg-primary);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-progress .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+    transition: width 0.3s ease;
+}
+
+.timeline-progress span {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .environmental-hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .eco-indicators {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pollution-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .habitat-metrics {
+        grid-template-columns: 1fr;
+    }
+    
+    .actions-timeline::before {
+        left: 20px;
+    }
+    
+    .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        text-align: left !important;
+        padding-left: 60px;
+        padding-right: 20px;
+    }
+}
