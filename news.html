@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - The Journey of Spiny Babbler</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="icon" href="assets/icons/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <script>
+        const detectTheme = () => {
+            const hour = new Date().getHours();
+            const isDarkMode = hour >= 18 || hour < 6;
+            document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+        };
+        detectTheme();
+    </script>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/icons/logo.png" alt="Spiny Babbler Logo" class="logo-img">
+                <span class="logo-text">The Journey of Spiny Babbler</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Journey</a>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Documentation</a>
+                    <div class="dropdown-menu">
+                        <a href="article.html" class="dropdown-item">Article</a>
+                        <a href="research.html" class="dropdown-item">Research</a>
+                        <a href="project.html" class="dropdown-item">Project</a>
+                        <a href="journal.html" class="dropdown-item">Journal</a>
+                    </div>
+                </div>
+                <a href="news.html" class="nav-link active">News</a>
+                <a href="download.html" class="nav-link">Download</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="theme-toggle">
+                <button class="theme-btn" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-toggle">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- News Section -->
+    <section class="news-section">
+        <div class="container">
+            <h2 class="section-title">Latest News & Updates</h2>
+            <div class="news-timeline">
+                <div class="news-item glassmorphic">
+                    <div class="news-date">January 15, 2024</div>
+                    <div class="news-content">
+                        <h3>New Spiny Babbler Sighting in Western Nepal</h3>
+                        <p>A rare sighting of Spiny Babbler has been reported in the western region of Nepal, expanding our understanding of their distribution range.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="news-item glassmorphic">
+                    <div class="news-date">January 10, 2024</div>
+                    <div class="news-content">
+                        <h3>Conservation Workshop Held in Kathmandu</h3>
+                        <p>A successful conservation awareness workshop was conducted, bringing together local communities and researchers to discuss Spiny Babbler protection.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="news-item glassmorphic">
+                    <div class="news-date">January 5, 2024</div>
+                    <div class="news-content">
+                        <h3>Research Grant Awarded for Habitat Study</h3>
+                        <p>Our team has been awarded a significant research grant to conduct an extensive habitat study of Spiny Babbler across different ecological zones.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

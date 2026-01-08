@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research - The Journey of Spiny Babbler</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="icon" href="assets/icons/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Add before closing </head> tag -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+    <script>
+        const detectTheme = () => {
+            const hour = new Date().getHours();
+            const isDarkMode = hour >= 18 || hour < 6;
+            document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+        };
+        detectTheme();
+    </script>
+
+    <!-- Navigation (Same structure as before) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/icons/logo.png" alt="Spiny Babbler Logo" class="logo-img">
+                <span class="logo-text">The Journey of Spiny Babbler</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Journey</a>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Documentation</a>
+                    <div class="dropdown-menu">
+                        <a href="article.html" class="dropdown-item">Article</a>
+                        <a href="research.html" class="dropdown-item active">Research</a>
+                        <a href="project.html" class="dropdown-item">Project</a>
+                        <a href="journal.html" class="dropdown-item">Journal</a>
+                    </div>
+                </div>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="download.html" class="nav-link">Download</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="theme-toggle">
+                <button class="theme-btn" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-toggle">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Research Section -->
+    <section class="research-section">
+        <div class="container">
+            <h2 class="section-title">Research Papers</h2>
+            <div class="research-grid">
+                <div class="research-card glassmorphic" onclick="openPDF('research1')">
+                    <div class="research-preview">
+                        <img src="assets/images/research1-preview.jpg" alt="Research 1 Preview" class="preview-image">
+                        <div class="pdf-overlay">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                    </div>
+                    <div class="research-info">
+                        <h3>Population Dynamics Study 2024</h3>
+                        <p class="research-meta">
+                            <span class="upload-date"><i class="fas fa-calendar"></i> Jan 5, 2024</span>
+                            <span class="research-type"><i class="fas fa-microscope"></i> Population Study</span>
+                        </p>
+                        <p class="research-description">Comprehensive analysis of Spiny Babbler population trends, distribution patterns, and demographic changes over the past decade.</p>
+                        <div class="research-tags">
+                            <span class="tag">Population</span>
+                            <span class="tag">Demographics</span>
+                            <span class="tag">Trends</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="research-card glassmorphic" onclick="openPDF('research2')">
+                    <div class="research-preview">
+                        <img src="assets/images/research2-preview.jpg" alt="Research 2 Preview" class="preview-image">
+                        <div class="pdf-overlay">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                    </div>
+                    <div class="research-info">
+                        <h3>Genetic Diversity Analysis</h3>
+                        <p class="research-meta">
+                            <span class="upload-date"><i class="fas fa-calendar"></i> Feb 28, 2024</span>
+                            <span class="research-type"><i class="fas fa-dna"></i> Genetics</span>
+                        </p>
+                        <p class="research-description">Genetic analysis of Spiny Babbler populations across different regions of Nepal using mitochondrial DNA markers.</p>
+                        <div class="research-tags">
+                            <span class="tag">Genetics</span>
+                            <span class="tag">DNA</span>
+                            <span class="tag">Diversity</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PDF Viewer Modal (Same as article.html) -->
+    <div class="pdf-modal" id="pdfModal">
+        <div class="pdf-modal-content glassmorphic">
+            <div class="pdf-modal-header">
+                <h3 id="pdfTitle">Document Title</h3>
+                <button class="close-modal" onclick="closePDF()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="pdf-modal-body">
+                <div class="pdf-viewer" id="pdfViewer">
+                    <!-- PDF will be loaded here -->
+                </div>
+            </div>
+            <div class="pdf-modal-footer">
+                <p class="pdf-info">This document is protected. Editing, copying, printing, and downloading are restricted.</p>
+                <div class="pdf-controls">
+                    <button class="pdf-btn" onclick="changePage(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="page-info">Page <span id="currentPage">1</span> of <span id="totalPages">1</span></span>
+                    <button class="pdf-btn" onclick="changePage(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/pdf-viewer.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

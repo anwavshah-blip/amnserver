@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles - The Journey of Spiny Babbler</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="icon" href="assets/icons/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+    <script>
+        const detectTheme = () => {
+            const hour = new Date().getHours();
+            const isDarkMode = hour >= 18 || hour < 6;
+            document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+        };
+        detectTheme();
+    </script>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/icons/logo.png" alt="Spiny Babbler Logo" class="logo-img">
+                <span class="logo-text">The Journey of Spiny Babbler</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Journey</a>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Documentation</a>
+                    <div class="dropdown-menu">
+                        <a href="article.html" class="dropdown-item active">Article</a>
+                        <a href="research.html" class="dropdown-item">Research</a>
+                        <a href="project.html" class="dropdown-item">Project</a>
+                        <a href="journal.html" class="dropdown-item">Journal</a>
+                    </div>
+                </div>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="download.html" class="nav-link">Download</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="theme-toggle">
+                <button class="theme-btn" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-toggle">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="mobile-nav-link">Home</a>
+        <a href="about.html" class="mobile-nav-link">About</a>
+        <a href="journey.html" class="mobile-nav-link">Journey</a>
+        <div class="mobile-dropdown">
+            <a href="#" class="mobile-nav-link">Documentation</a>
+            <div class="mobile-dropdown-menu">
+                <a href="article.html" class="mobile-dropdown-item active">Article</a>
+                <a href="research.html" class="mobile-dropdown-item">Research</a>
+                <a href="project.html" class="mobile-dropdown-item">Project</a>
+                <a href="journal.html" class="mobile-dropdown-item">Journal</a>
+            </div>
+        </div>
+        <a href="news.html" class="mobile-nav-link">News</a>
+        <a href="download.html" class="mobile-nav-link">Download</a>
+        <a href="contact.html" class="mobile-nav-link">Contact</a>
+    </div>
+
+    <!-- Articles Section -->
+    <section class="articles-section">
+        <div class="container">
+            <h2 class="section-title">Research Articles</h2>
+            <div class="articles-grid">
+                <div class="article-card glassmorphic" onclick="openPDF('article1', 'assets/documents/habitat-preferences-spiny-babbler.pdf')">
+                    <div class="article-preview">
+                        <img src="assets/images/article1-preview.jpg" alt="Article 1 Preview" class="preview-image">
+                        <div class="pdf-overlay">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                    </div>
+                    <div class="article-info">
+                        <h3>Habitat Preferences of Spiny Babbler</h3>
+                        <p class="article-meta">
+                            <span class="upload-date"><i class="fas fa-calendar"></i> Jan 15, 2024</span>
+                            <span class="article-type"><i class="fas fa-tag"></i> Research</span>
+                        </p>
+                        <p class="article-description">A comprehensive study on the habitat selection and preferences of the Spiny Babbler in different ecological zones of Nepal.</p>
+                        <div class="article-tags">
+                            <span class="tag">Habitat</span>
+                            <span class="tag">Ecology</span>
+                            <span class="tag">Nepal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="article-card glassmorphic" onclick="openPDF('article2', 'assets/documents/breeding-behavior-observations.pdf')">
+                    <div class="article-preview">
+                        <img src="assets/images/article2-preview.jpg" alt="Article 2 Preview" class="preview-image">
+                        <div class="pdf-overlay">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                    </div>
+                    <div class="article-info">
+                        <h3>Breeding Behavior Observations</h3>
+                        <p class="article-meta">
+                            <span class="upload-date"><i class="fas fa-calendar"></i> Feb 20, 2024</span>
+                            <span class="article-type"><i class="fas fa-tag"></i> Behavioral Study</span>
+                        </p>
+                        <p class="article-description">Detailed observations of breeding behaviors, nesting patterns, and parental care in Spiny Babbler populations.</p>
+                        <div class="article-tags">
+                            <span class="tag">Breeding</span>
+                            <span class="tag">Behavior</span>
+                            <span class="tag">Nesting</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="article-card glassmorphic" onclick="openPDF('article3', 'assets/documents/conservation-status-assessment.pdf')">
+                    <div class="article-preview">
+                        <img src="assets/images/article3-preview.jpg" alt="Article 3 Preview" class="preview-image">
+                        <div class="pdf-overlay">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                    </div>
+                    <div class="article-info">
+                        <h3>Conservation Status Assessment</h3>
+                        <p class="article-meta">
+                            <span class="upload-date"><i class="fas fa-calendar"></i> Mar 10, 2024</span>
+                            <span class="article-type"><i class="fas fa-tag"></i> Conservation</span>
+                        </p>
+                        <p class="article-description">Current conservation status, threats assessment, and recommendations for Spiny Babbler protection in Nepal.</p>
+                        <div class="article-tags">
+                            <span class="tag">Conservation</span>
+                            <span class="tag">Threats</span>
+                            <span class="tag">Protection</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PDF Viewer Modal -->
+    <div class="pdf-modal" id="pdfModal">
+        <div class="pdf-modal-content glassmorphic">
+            <div class="pdf-modal-header">
+                <h3 id="pdfTitle">Document Title</h3>
+                <button class="close-modal" onclick="closePDF()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="pdf-modal-body">
+                <div class="pdf-viewer" id="pdfViewer">
+                    <!-- PDF will be loaded here -->
+                </div>
+            </div>
+            <div class="pdf-modal-footer">
+                <p class="pdf-info">This document is protected. Editing, copying, printing, and downloading are restricted.</p>
+                <div class="pdf-controls">
+                    <button class="pdf-btn" onclick="changePage(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="page-info">Page <span id="currentPage">1</span> of <span id="totalPages">1</span></span>
+                    <button class="pdf-btn" onclick="changePage(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/pdf-viewer.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

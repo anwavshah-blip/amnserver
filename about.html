@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - The Journey of Spiny Babbler</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="icon" href="assets/icons/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <script>
+        const detectTheme = () => {
+            const hour = new Date().getHours();
+            const isDarkMode = hour >= 18 || hour < 6;
+            document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+        };
+        detectTheme();
+    </script>
+
+    <!-- Navigation (Same as index.html) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/icons/logo.png" alt="Spiny Babbler Logo" class="logo-img">
+                <span class="logo-text">The Journey of Spiny Babbler</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Journey</a>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Documentation</a>
+                    <div class="dropdown-menu">
+                        <a href="article.html" class="dropdown-item">Article</a>
+                        <a href="research.html" class="dropdown-item">Research</a>
+                        <a href="project.html" class="dropdown-item">Project</a>
+                        <a href="journal.html" class="dropdown-item">Journal</a>
+                    </div>
+                </div>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="download.html" class="nav-link">Download</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="theme-toggle">
+                <button class="theme-btn" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-toggle">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="mobile-nav-link">Home</a>
+        <a href="about.html" class="mobile-nav-link active">About</a>
+        <a href="journey.html" class="mobile-nav-link">Journey</a>
+        <div class="mobile-dropdown">
+            <a href="#" class="mobile-nav-link">Documentation</a>
+            <div class="mobile-dropdown-menu">
+                <a href="article.html" class="mobile-dropdown-item">Article</a>
+                <a href="research.html" class="mobile-dropdown-item">Research</a>
+                <a href="project.html" class="mobile-dropdown-item">Project</a>
+                <a href="journal.html" class="mobile-dropdown-item">Journal</a>
+            </div>
+        </div>
+        <a href="news.html" class="mobile-nav-link">News</a>
+        <a href="download.html" class="mobile-nav-link">Download</a>
+        <a href="contact.html" class="mobile-nav-link">Contact</a>
+    </div>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-profile glassmorphic">
+                    <div class="profile-image-container">
+                        <img src="assets/images/profile.jpg" alt="Profile Image" class="profile-image">
+                        <div class="profile-image-overlay"></div>
+                    </div>
+                    <div class="profile-info">
+                        <h2 class="profile-name">John Doe</h2>
+                        <p class="profile-title">Wildlife Researcher & Conservationist</p>
+                        <div class="profile-badges">
+                            <span class="badge">Ornithologist</span>
+                            <span class="badge">Photographer</span>
+                            <span class="badge">Conservationist</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-details glassmorphic">
+                    <h3>About Me</h3>
+                    <p>Welcome to my journey of discovering and documenting the fascinating world of the Spiny Babbler, Nepal's endemic bird species. With over 15 years of experience in wildlife research and conservation, I have dedicated my life to studying these remarkable creatures.</p>
+                    
+                    <h3>My Mission</h3>
+                    <p>My mission is to raise awareness about the Spiny Babbler and contribute to its conservation through research, documentation, and education. I believe that understanding and appreciating these unique birds is crucial for their survival.</p>
+                    
+                    <h3>Experience & Expertise</h3>
+                    <ul>
+                        <li>15+ years of field research experience</li>
+                        <li>Published 25+ research papers on Nepalese avifauna</li>
+                        <li>Wildlife photography award winner</li>
+                        <li>Active member of Bird Conservation Nepal</li>
+                        <li>Lead researcher in Spiny Babbler habitat studies</li>
+                    </ul>
+                    
+                    <h3>Contact Information</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>john.doe@spinybabbler.org</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+977-9841-234567</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Kathmandu, Nepal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>
