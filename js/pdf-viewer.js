@@ -1,4 +1,4 @@
-// Fixed PDF Viewer - Production Ready
+// Fixed PDF Viewer with Screen-Fitting - Complete Version
 
 let currentPDF = null;
 let currentPage = 1;
@@ -8,14 +8,13 @@ let pageRendering = false;
 let pageNumPending = null;
 let canvas = null;
 let ctx = null;
+let currentScale = 1.0; // Track current scale for proper fitting
 
 // Initialize PDF.js
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-// Fixed PDF Viewer Functions
+// Fixed PDF Viewer Functions with Screen Fitting
 async function openPDF(pdfId, pdfPath = null) {
-    console.log('Opening PDF:', pdfId, 'Path:', pdfPath);
-    
     const modal = document.getElementById('pdfModal');
     const viewer = document.getElementById('pdfViewer');
     const title = document.getElementById('pdfTitle');
@@ -64,7 +63,7 @@ async function openPDF(pdfId, pdfPath = null) {
         document.getElementById('currentPage').textContent = currentPage;
         document.getElementById('totalPages').textContent = totalPages;
         
-        // Render first page
+        // Render first page with proper fitting
         await renderPage(currentPage);
         
         // Show modal
@@ -76,6 +75,9 @@ async function openPDF(pdfId, pdfPath = null) {
         
         // Prevent PDF download and copying
         preventPDFActions(modal);
+        
+        // Add zoom controls
+        addZoomControls();
         
     } catch (error) {
         console.error('PDF loading error:', error);
@@ -96,16 +98,50 @@ function updateLoadingProgress(percent) {
 function createPDFCanvas() {
     return `
         <div class="pdf-viewer-container">
-            <canvas id="pdf-canvas"></canvas>
+            <div class="pdf-canvas-wrapper">
+                <canvas id="pdf-canvas"></canvas>
+            </div>
             <div class="pdf-loading" id="pdf-loading">
                 <div class="pdf-spinner"></div>
                 <p>Loading PDF... 0%</p>
+            </div>
+            <div class="pdf-zoom-controls">
+                <button class="zoom-btn" onclick="zoomPDF(-0.2)" title="Zoom Out">
+                    <i class="fas fa-search-minus"></i>
+                </button>
+                <span class="zoom-level" id="zoomLevel">100%</span>
+                <button class="zoom-btn" onclick="zoomPDF(0.2)" title="Zoom In">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="zoom-btn" onclick="fitToWidth()" title="Fit to Width">
+                    <i class="fas fa-arrows-alt-h"></i>
+                </button>
+                <button class="zoom-btn" onclick="fitToPage()" title="Fit to Page">
+                    <i class="fas fa-compress"></i>
+                </button>
             </div>
         </div>
     `;
 }
 
-async function renderPage(num) {
+function calculateOptimalScale(pageViewport, container) {
+    const containerWidth = container.clientWidth - 40; // Account for padding
+    const containerHeight = container.clientHeight - 40;
+    
+    // Calculate scale to fit width
+    const widthScale = containerWidth / pageViewport.width;
+    
+    // Calculate scale to fit height
+    const heightScale = containerHeight / pageViewport.height;
+    
+    // Use the smaller scale to ensure entire page fits
+    const optimalScale = Math.min(widthScale, heightScale);
+    
+    // Ensure scale is within reasonable bounds (0.5 to 3.0)
+    return Math.max(0.5, Math.min(3.0, optimalScale));
+}
+
+async function renderPage(num, targetScale = null) {
     pageRendering = true;
     
     // Show loading
@@ -114,16 +150,39 @@ async function renderPage(num) {
     try {
         const page = await pdfDoc.getPage(num);
         
-        // Set scale based on container width
+        // Get container dimensions
         const container = document.querySelector('.pdf-viewer-container');
-        const containerWidth = container.clientWidth - 40;
         const viewport = page.getViewport({ scale: 1 });
-        const scale = containerWidth / viewport.width;
+        
+        // Calculate optimal scale
+        let scale;
+        if (targetScale) {
+            scale = targetScale;
+        } else {
+            scale = calculateOptimalScale(viewport, container);
+        }
+        
         const scaledViewport = page.getViewport({ scale: scale });
+        
+        // Update current scale
+        currentScale = scale;
+        
+        // Update zoom display
+        const zoomLevel = document.getElementById('zoomLevel');
+        if (zoomLevel) {
+            zoomLevel.textContent = Math.round(scale * 100) + '%';
+        }
         
         // Prepare canvas using PDF page dimensions
         canvas.height = scaledViewport.height;
         canvas.width = scaledViewport.width;
+        
+        // Center the canvas if it's smaller than container
+        const canvasWrapper = document.querySelector('.pdf-canvas-wrapper');
+        if (canvasWrapper) {
+            canvasWrapper.style.width = scaledViewport.width + 'px';
+            canvasWrapper.style.height = scaledViewport.height + 'px';
+        }
         
         // Render PDF page into canvas context
         const renderContext = {
@@ -157,11 +216,50 @@ async function renderPage(num) {
     }
 }
 
-function queueRenderPage(num) {
+// Zoom functions
+function zoomPDF(zoomDelta) {
+    if (!pdfDoc) return;
+    
+    const newScale = Math.max(0.5, Math.min(3.0, currentScale + zoomDelta));
+    renderPage(currentPage, newScale);
+}
+
+function fitToWidth() {
+    if (!pdfDoc) return;
+    
+    const container = document.querySelector('.pdf-viewer-container');
+    const containerWidth = container.clientWidth - 40;
+    
+    // Calculate scale to fit width exactly
+    pdfDoc.getPage(currentPage).then(page => {
+        const viewport = page.getViewport({ scale: 1 });
+        const widthScale = containerWidth / viewport.width;
+        renderPage(currentPage, widthScale);
+    });
+}
+
+function fitToPage() {
+    if (!pdfDoc) return;
+    
+    // Use the automatic optimal scaling
+    renderPage(currentPage);
+}
+
+// Add zoom controls to the modal
+function addZoomControls() {
+    // Zoom controls are already added in createPDFCanvas()
+    // This function can be used for additional zoom-related setup
+}
+
+function queueRenderPage(num, targetScale = null) {
     if (pageRendering) {
         pageNumPending = num;
+        // Store the target scale for pending page
+        if (targetScale) {
+            pageNumPending = { num: num, scale: targetScale };
+        }
     } else {
-        renderPage(num);
+        renderPage(num, targetScale);
     }
 }
 
@@ -188,6 +286,7 @@ function closePDF() {
     totalPages = 1;
     canvas = null;
     ctx = null;
+    currentScale = 1.0;
 }
 
 function addPDFKeyboardNavigation() {
@@ -215,6 +314,19 @@ function addPDFKeyboardNavigation() {
             case 'End':
                 e.preventDefault();
                 queueRenderPage(totalPages);
+                break;
+            case '+':
+            case '=':
+                e.preventDefault();
+                zoomPDF(0.1);
+                break;
+            case '-':
+                e.preventDefault();
+                zoomPDF(-0.1);
+                break;
+            case '0':
+                e.preventDefault();
+                fitToPage();
                 break;
         }
     });
@@ -333,15 +445,15 @@ function getPDFData(pdfId) {
     return pdfDatabase[pdfId] || null;
 }
 
-// Window resize handler
+// Window resize handler with debouncing
 window.addEventListener('resize', debounce(() => {
     const modal = document.getElementById('pdfModal');
     if (modal.classList.contains('active') && pdfDoc) {
+        // Re-render current page with new dimensions
         renderPage(currentPage);
     }
 }, 250));
 
-// Utility function
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -358,10 +470,13 @@ function debounce(func, wait) {
 window.PDFViewer = {
     openPDF,
     closePDF,
-    changePage
+    changePage,
+    zoomPDF,
+    fitToWidth,
+    fitToPage
 };
 
-// Add CSS styles
+// Add CSS styles for screen-fitting PDF viewer
 const pdfViewerStyles = document.createElement('style');
 pdfViewerStyles.textContent = `
     .pdf-viewer-container {
@@ -374,13 +489,22 @@ pdfViewerStyles.textContent = `
         background: #f8f9fa;
         border-radius: 10px;
         overflow: auto;
+        padding: 20px;
+    }
+    
+    .pdf-canvas-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
     }
     
     #pdf-canvas {
         max-width: 100%;
-        height: auto;
+        max-height: 100%;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         border-radius: 4px;
+        display: block;
     }
     
     .pdf-loading {
@@ -412,6 +536,49 @@ pdfViewerStyles.textContent = `
         font-size: 1rem;
     }
     
+    .pdf-zoom-controls {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px;
+        border-radius: 25px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 20;
+    }
+    
+    .zoom-btn {
+        background: #4299e1;
+        color: white;
+        border: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 14px;
+    }
+    
+    .zoom-btn:hover {
+        background: #3182ce;
+        transform: scale(1.1);
+    }
+    
+    .zoom-level {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 50px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #333;
+    }
+    
     .pdf-error {
         text-align: center;
         padding: 2rem;
@@ -440,12 +607,50 @@ pdfViewerStyles.textContent = `
     
     @media (max-width: 768px) {
         .pdf-viewer-container {
-            padding: 1rem;
+            padding: 10px;
+        }
+        
+        .pdf-zoom-controls {
+            bottom: 10px;
+            right: 10px;
+            padding: 8px;
+            gap: 8px;
+        }
+        
+        .zoom-btn {
+            width: 30px;
+            height: 30px;
+            font-size: 12px;
+        }
+        
+        .zoom-level {
+            min-width: 40px;
+            font-size: 11px;
         }
         
         #pdf-canvas {
             max-width: 100%;
             height: auto;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .pdf-zoom-controls {
+            bottom: 5px;
+            right: 5px;
+            padding: 6px;
+            gap: 6px;
+        }
+        
+        .zoom-btn {
+            width: 25px;
+            height: 25px;
+            font-size: 10px;
+        }
+        
+        .zoom-level {
+            min-width: 35px;
+            font-size: 10px;
         }
     }
 `;
