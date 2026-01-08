@@ -1,0 +1,458 @@
+/* Enhanced Responsive Design */
+
+/* Tablet and Mobile Menu Improvements */
+@media (max-width: 768px) {
+    /* Mobile Navigation Enhancements */
+    .mobile-menu {
+        background: var(--bg-card);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 0 0 20px 20px;
+        box-shadow: 0 10px 30px var(--shadow-dark);
+    }
+    
+    .mobile-nav-link {
+        padding: 1.2rem 2rem;
+        font-size: 1.1rem;
+        border-bottom: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-nav-link:hover {
+        background: rgba(66, 153, 225, 0.1);
+        padding-left: 2.5rem;
+    }
+    
+    .mobile-dropdown-menu {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        margin: 0.5rem 1rem;
+        overflow: hidden;
+    }
+    
+    .mobile-dropdown-item {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        color: var(--text-secondary);
+        text-decoration: none;
+        display: block;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-dropdown-item:hover {
+        background: rgba(66, 153, 225, 0.1);
+        color: var(--accent-color);
+    }
+    
+    /* Hero Section Mobile Optimizations */
+    .hero {
+        height: 80vh;
+        padding: 0 1rem;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-btn {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+    }
+    
+    /* Feature Cards Mobile */
+    .feature-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .feature-card {
+        padding: 1.5rem;
+    }
+    
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    /* About Section Mobile */
+    .about-section {
+        padding: 3rem 0;
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .about-profile {
+        position: relative;
+        top: auto;
+        padding: 1.5rem;
+    }
+    
+    .profile-image {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .about-details {
+        padding: 1.5rem;
+    }
+    
+    /* Documentation Pages Mobile */
+    .articles-section, .research-section, .project-section, .journal-section {
+        padding: 3rem 0;
+    }
+    
+    .articles-grid, .research-grid, .project-grid, .journal-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .article-card, .research-card, .project-card, .journal-card {
+        padding: 1.2rem;
+    }
+    
+    .preview-image {
+        height: 150px;
+    }
+    
+    /* PDF Modal Mobile */
+    .pdf-modal-content {
+        width: 95%;
+        margin: 1rem;
+    }
+    
+    .pdf-modal-header, .pdf-modal-body, .pdf-modal-footer {
+        padding: 1rem;
+    }
+    
+    .pdf-modal-body {
+        height: 50vh;
+    }
+    
+    /* News Section Mobile */
+    .news-section {
+        padding: 3rem 0;
+    }
+    
+    .news-timeline::before {
+        left: 30px;
+    }
+    
+    .news-item {
+        margin-left: 60px;
+        margin-right: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .news-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    /* Contact Section Mobile */
+    .contact-section {
+        padding: 3rem 0;
+    }
+    
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .contact-info, .contact-form-container {
+        padding: 1.5rem;
+    }
+    
+    .contact-method {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+    
+    /* Footer Mobile */
+    .footer {
+        padding: 2rem 0 0.5rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .footer-profile {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-contact .contact-item {
+        justify-content: center;
+    }
+    
+    .footer-social {
+        justify-content: center;
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+    /* Navigation */
+    .nav-container {
+        padding: 0.8rem 15px;
+    }
+    
+    .logo-text {
+        font-size: 1rem;
+    }
+    
+    .logo-img {
+        width: 30px;
+        height: 30px;
+    }
+    
+    /* Hero Section */
+    .hero {
+        height: 70vh;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    /* Feature Cards */
+    .feature-card {
+        padding: 1.2rem;
+    }
+    
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    /* Section Titles */
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* Cards */
+    .article-card, .research-card, .project-card, .journal-card {
+        padding: 1rem;
+    }
+    
+    .article-info h3, .research-info h3, .project-info h3, .journal-info h3 {
+        font-size: 1.1rem;
+    }
+    
+    /* Forms */
+    .form-group input,
+    .form-group textarea {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+    
+    .submit-btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Buttons */
+    .hero-btn, .pdf-btn, .theme-btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Large Mobile Devices */
+@media (min-width: 481px) and (max-width: 768px) {
+    .feature-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .articles-grid, .research-grid, .project-grid, .journal-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tablet Devices */
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Navigation */
+    .nav-menu {
+        gap: 1.5rem;
+    }
+    
+    .nav-link {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Hero Section */
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    /* About Section */
+    .about-content {
+        grid-template-columns: 1fr 1.5fr;
+        gap: 2rem;
+    }
+    
+    /* Feature Cards */
+    .feature-cards {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+    
+    /* Documentation Pages */
+    .articles-grid, .research-grid, .project-grid, .journal-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    /* Contact Section */
+    .contact-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+}
+
+/* Large Screens */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1400px;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    .feature-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .articles-grid, .research-grid, .project-grid, .journal-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Height-based Media Queries */
+@media (max-height: 600px) {
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+    
+    .polygon-container {
+        display: none;
+    }
+}
+
+/* Orientation-based Media Queries */
+@media (orientation: landscape) and (max-width: 768px) {
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+    
+    .mobile-menu {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo-img, .profile-image, .footer-profile-img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .polygon {
+        animation: none;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --border-color: rgba(0, 0, 0, 0.8);
+        --shadow-dark: rgba(0, 0, 0, 0.5);
+    }
+    
+    [data-theme="dark"] {
+        --border-color: rgba(255, 255, 255, 0.8);
+        --shadow-light: rgba(255, 255, 255, 0.3);
+    }
+    
+    .nav-link, .dropdown-item, .btn {
+        border: 2px solid transparent;
+    }
+    
+    .nav-link:hover, .dropdown-item:hover {
+        border-color: var(--accent-color);
+    }
+}
+
+/* Print Styles */
+@media print {
+    .navbar, .mobile-menu, .theme-toggle, .hero-btn, .pdf-controls, .social-links {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+    
+    .glassmorphic, .neumorphic {
+        background: white;
+        border: 1px solid #ccc;
+        box-shadow: none;
+        backdrop-filter: none;
+    }
+}
