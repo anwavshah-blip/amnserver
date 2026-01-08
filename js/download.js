@@ -1,0 +1,518 @@
+// Advanced Download Page JavaScript
+
+document.addEventListener('DOMContentLoaded', function() {
+    initializeDownloadAnimations();
+    initializeParticleSystem();
+    initializeDownloadFilters();
+    initializeDownloadButtons();
+    initializeCategoryCards();
+    initializeCounterAnimations();
+    initializeScrollEffects();
+});
+
+// Particle System for Hero Section
+function initializeParticleSystem() {
+    const container = document.getElementById('particlesContainer');
+    if (!container) return;
+
+    const particleCount = 50;
+    const particles = [];
+
+    for (let i = 0; i < particleCount; i++) {
+        createParticle(container, particles);
+    }
+
+    animateParticles(particles);
+}
+
+function createParticle(container, particles) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.cssText = `
+        position: absolute;
+        width: ${Math.random() * 6 + 2}px;
+        height: ${Math.random() * 6 + 2}px;
+        background: var(--accent-color);
+        border-radius: 50%;
+        opacity: ${Math.random() * 0.6 + 0.2};
+        pointer-events: none;
+    `;
+
+    particle.x = Math.random() * container.offsetWidth;
+    particle.y = Math.random() * container.offsetHeight;
+    particle.vx = (Math.random() - 0.5) * 2;
+    particle.vy = (Math.random() - 0.5) * 2;
+
+    particle.style.left = particle.x + 'px';
+    particle.style.top = particle.y + 'px';
+
+    container.appendChild(particle);
+    particles.push(particle);
+}
+
+function animateParticles(particles) {
+    function animate() {
+        particles.forEach(particle => {
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+
+            // Bounce off edges
+            if (particle.x <= 0 || particle.x >= window.innerWidth) {
+                particle.vx *= -1;
+            }
+            if (particle.y <= 0 || particle.y >= window.innerHeight) {
+                particle.vy *= -1;
+            }
+
+            particle.style.left = particle.x + 'px';
+            particle.style.top = particle.y + 'px';
+        });
+
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+// Download Animations
+function initializeDownloadAnimations() {
+    // Animate download cards on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+                
+                // Add staggered delay for grid items
+                if (element.classList.contains('download-card')) {
+                    const delay = Array.from(element.parentNode.children).indexOf(element) * 100;
+                    setTimeout(() => {
+                        element.classList.add('animate-fade-in');
+                    }, delay);
+                }
+                
+                observer.unobserve(element);
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements
+    const animatedElements = document.querySelectorAll('.download-card, .category-card');
+    animatedElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.6s ease';
+        observer.observe(el);
+    });
+}
+
+// Counter Animations
+function initializeCounterAnimations() {
+    const counters = document.querySelectorAll('.stat-number');
+    
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = parseInt(counter.getAttribute('data-count'));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+
+                updateCounter();
+                counterObserver.unobserve(counter);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => counterObserver.observe(counter));
+}
+
+// Category Cards
+function initializeCategoryCards() {
+    const categoryCards = document.querySelectorAll('.category-card');
+    
+    categoryCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const category = this.getAttribute('data-category');
+            
+            // Add click animation
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+            
+            // Filter downloads
+            filterDownloads(category);
+            
+            // Update active filter button
+            const filterBtn = document.querySelector(`[data-filter="${category}"]`);
+            if (filterBtn) {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                filterBtn.classList.add('active');
+            }
+            
+            // Smooth scroll to downloads
+            document.querySelector('.download-items').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+    });
+}
+
+// Download Filters
+function initializeDownloadFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+            
+            // Update active button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Add click animation
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+            
+            // Filter downloads
+            filterDownloads(filter);
+        });
+    });
+}
+
+function filterDownloads(category) {
+    const downloadCards = document.querySelectorAll('.download-card');
+    
+    downloadCards.forEach((card, index) => {
+        const cardCategory = card.getAttribute('data-category');
+        
+        if (category === 'all' || cardCategory === category) {
+            card.style.display = 'block';
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 50);
+        } else {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            setTimeout(() => {
+                card.style.display = 'none';
+            }, 300);
+        }
+    });
+}
+
+// Download Buttons
+function initializeDownloadButtons() {
+    const downloadButtons = document.querySelectorAll('.download-btn');
+    const previewButtons = document.querySelectorAll('.preview-btn');
+    
+    downloadButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const fileName = this.getAttribute('data-file');
+            startDownload(fileName, this);
+        });
+    });
+    
+    previewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const fileName = this.getAttribute('data-file');
+            previewFile(fileName, this);
+        });
+    });
+}
+
+function startDownload(fileName, button) {
+    // Show download modal
+    const modal = document.getElementById('downloadModal');
+    const fileNameElement = document.getElementById('downloadFileName');
+    const progressFill = document.getElementById('progressFill');
+    const progressPercent = document.getElementById('progressPercent');
+    const progressSize = document.getElementById('progressSize');
+    const downloadSpeed = document.getElementById('downloadSpeed');
+    
+    modal.classList.add('active');
+    fileNameElement.textContent = fileName;
+    
+    // Simulate download progress
+    let progress = 0;
+    let downloadedSize = 0;
+    const totalSize = Math.random() * 50 + 10; // Random size between 10-60 MB
+    let speed = Math.random() * 5 + 1; // Random speed between 1-6 MB/s
+    
+    const downloadInterval = setInterval(() => {
+        progress += speed / totalSize * 10;
+        downloadedSize = (progress / 100) * totalSize;
+        
+        if (progress >= 100) {
+            progress = 100;
+            downloadedSize = totalSize;
+            clearInterval(downloadInterval);
+            
+            // Show completion
+            setTimeout(() => {
+                modal.classList.remove('active');
+                showDownloadComplete(fileName);
+            }, 1000);
+        }
+        
+        progressFill.style.width = progress + '%';
+        progressPercent.textContent = Math.floor(progress) + '%';
+        progressSize.textContent = `${downloadedSize.toFixed(1)} MB / ${totalSize.toFixed(1)} MB`;
+        downloadSpeed.textContent = speed.toFixed(1) + ' MB/s';
+        
+        // Vary speed slightly
+        speed += (Math.random() - 0.5) * 0.5;
+        speed = Math.max(0.5, Math.min(8, speed));
+    }, 100);
+    
+    // Cancel download functionality
+    const cancelBtn = document.getElementById('cancelDownloadBtn');
+    const closeBtn = document.getElementById('closeDownloadModal');
+    
+    const cancelDownload = () => {
+        clearInterval(downloadInterval);
+        modal.classList.remove('active');
+        showDownloadCancelled();
+    };
+    
+    cancelBtn.addEventListener('click', cancelDownload);
+    closeBtn.addEventListener('click', cancelDownload);
+}
+
+function showDownloadComplete(fileName) {
+    // Create success notification
+    const notification = document.createElement('div');
+    notification.className = 'download-notification success';
+    notification.innerHTML = `
+        <div class="notification-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="notification-content">
+            <h4>Download Complete!</h4>
+            <p>${fileName} has been downloaded successfully.</p>
+        </div>
+        <button class="notification-close">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #48bb78;
+        color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        z-index: 9999;
+        animation: slide-in-right 0.3s ease;
+        max-width: 400px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    `;
+    
+    setTimeout(() => {
+        notification.style.animation = 'slide-out-right 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 5000);
+}
+
+function showDownloadCancelled() {
+    const notification = document.createElement('div');
+    notification.className = 'download-notification cancelled';
+    notification.innerHTML = `
+        <div class="notification-icon">
+            <i class="fas fa-times-circle"></i>
+        </div>
+        <div class="notification-content">
+            <h4>Download Cancelled</h4>
+            <p>The download has been cancelled.</p>
+        </div>
+        <button class="notification-close">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #f56565;
+        color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        z-index: 9999;
+        animation: slide-in-right 0.3s ease;
+        max-width: 400px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    `;
+    
+    setTimeout(() => {
+        notification.style.animation = 'slide-out-right 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+function previewFile(fileName, button) {
+    // Add preview animation
+    button.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+        button.style.transform = '';
+    }, 150);
+    
+    // Simulate preview
+    alert(`Preview functionality for ${fileName} would open here. This could show a PDF viewer, image gallery, video player, or audio player depending on the file type.`);
+}
+
+// Scroll Effects
+function initializeScrollEffects() {
+    // Parallax effect for hero section
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const hero = document.querySelector('.download-hero');
+        const heroContent = document.querySelector('.download-hero-content');
+        
+        if (hero && heroContent) {
+            const rate = scrolled * -0.5;
+            heroContent.style.transform = `translateY(${rate}px)`;
+        }
+    });
+    
+    // Load more functionality
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            this.classList.add('loading');
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+            
+            // Simulate loading more items
+            setTimeout(() => {
+                this.classList.remove('loading');
+                this.innerHTML = '<i class="fas fa-spinner"></i> Load More Resources';
+                
+                // Add more items here
+                showLoadMoreComplete();
+            }, 2000);
+        });
+    }
+}
+
+function showLoadMoreComplete() {
+    const notification = document.createElement('div');
+    notification.className = 'load-more-notification';
+    notification.innerHTML = `
+        <div class="notification-content">
+            <p>More resources loaded successfully!</p>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    notification.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--accent-color);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 25px;
+        z-index: 9999;
+        animation: fade-in-up 0.3s ease;
+        box-shadow: 0 10px 30px rgba(66, 153, 225, 0.3);
+    `;
+    
+    setTimeout(() => {
+        notification.style.animation = 'fade-out-down 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 2000);
+}
+
+// Add CSS animations
+const downloadStyles = document.createElement('style');
+downloadStyles.textContent = `
+    @keyframes slide-in-right {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slide-out-right {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+    
+    @keyframes fade-in-up {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes fade-out-down {
+        from {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+    }
+    
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+`;
+document.head.appendChild(downloadStyles);
