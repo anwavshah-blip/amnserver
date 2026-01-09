@@ -1,4 +1,4 @@
-// Enhanced PDF Viewer - Optimized for Quality, Speed, and Instant Close
+// Fixed PDF Viewer with Screen-Fitting - Complete Version
 
 let currentPDF = null;
 let currentPage = 1;
@@ -8,73 +8,18 @@ let pageRendering = false;
 let pageNumPending = null;
 let canvas = null;
 let ctx = null;
-let currentScale = 1.0;
-let isModalClosing = false;
+let currentScale = 1.0; // Track current scale for proper fitting
 
-// Initialize PDF.js with optimized settings
+// Initialize PDF.js
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-// Optimize PDF.js settings for better quality and performance
-const PDFJS_OPTIONS = {
-    maxImageSize: -1, // No limit on image size for better quality
-    disableFontFace: false, // Enable font rendering
-    disableRange: false, // Enable range requests for faster loading
-    disableStream: false, // Enable streaming
-    disableAutoFetch: false, // Enable auto-fetching
-    disableCreateObjectURL: false, // Enable object URLs
-    verbosity: 0 // Reduce console output
-};
-
-// Pre-load common PDFs for instant display
-const pdfCache = new Map();
-const preloadedPDFs = [
-    'assets/documents/habitat-preferences-spiny-babbler.pdf',
-    'assets/documents/breeding-behavior-observations.pdf',
-    'assets/documents/conservation-status-assessment.pdf'
-];
-
-// Pre-load PDFs in background
-function preloadPDFs() {
-    preloadedPDFs.forEach(pdfPath => {
-        const loadingTask = pdfjsLib.getDocument({
-            url: pdfPath,
-            ...PDFJS_OPTIONS
-        });
-        
-        loadingTask.promise.then(pdf => {
-            pdfCache.set(pdfPath, pdf);
-            console.log(`Pre-loaded: ${pdfPath}`);
-        }).catch(error => {
-            console.warn(`Failed to pre-load: ${pdfPath}`, error);
-        });
-    });
-}
-
-// Start pre-loading when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(preloadPDFs, 1000); // Delay to prioritize main content
-});
-
-// Enhanced PDF opening with instant display
+// Fixed PDF Viewer Functions with Screen Fitting
 async function openPDF(pdfId, pdfPath = null) {
-    if (isModalClosing) return; // Prevent multiple opens during close
-    
     const modal = document.getElementById('pdfModal');
     const viewer = document.getElementById('pdfViewer');
     const title = document.getElementById('pdfTitle');
     
     try {
-        // Show modal immediately for instant feedback
-        modal.style.display = 'flex';
-        modal.style.opacity = '0';
-        document.body.style.overflow = 'hidden';
-        
-        // Fade in animation
-        requestAnimationFrame(() => {
-            modal.style.transition = 'opacity 0.2s ease';
-            modal.style.opacity = '1';
-        });
-        
         // Get PDF data
         let pdfData;
         if (pdfPath) {
@@ -93,44 +38,24 @@ async function openPDF(pdfId, pdfPath = null) {
         
         title.textContent = pdfData.title || 'PDF Document';
         
-        // Create enhanced canvas with high quality settings
-        viewer.innerHTML = createEnhancedPDFCanvas();
+        // Create canvas for PDF rendering
+        viewer.innerHTML = createPDFCanvas();
         
-        // Initialize canvas with high quality settings
+        // Initialize canvas
         canvas = document.getElementById('pdf-canvas');
-        ctx = canvas.getContext('2d', { 
-            alpha: false, // Disable transparency for better performance
-            desynchronized: true // Enable desynchronized canvas for faster rendering
-        });
+        ctx = canvas.getContext('2d');
         
-        // Try to get cached PDF first
-        let pdf = pdfCache.get(pdfData.fileName);
+        // Load the PDF file
+        const loadingTask = pdfjsLib.getDocument(pdfData.fileName);
         
-        if (!pdf) {
-            // Show loading state
-            showPDFLoading();
-            
-            // Load PDF with optimized settings
-            const loadingTask = pdfjsLib.getDocument({
-                url: pdfData.fileName,
-                ...PDFJS_OPTIONS
-            });
-            
-            // Progress tracking with faster updates
-            loadingTask.onProgress = function(progress) {
-                const percent = Math.round((progress.loaded / progress.total) * 100);
-                updateLoadingProgress(percent);
-            };
-            
-            pdf = await loadingTask.promise;
-        }
+        // Add progress tracking
+        loadingTask.onProgress = function(progress) {
+            const percent = Math.round((progress.loaded / progress.total) * 100);
+            updateLoadingProgress(percent);
+        };
         
-        // Cache the PDF for future use
-        if (!pdfCache.has(pdfData.fileName)) {
-            pdfCache.set(pdfData.fileName, pdf);
-        }
+        pdfDoc = await loadingTask.promise;
         
-        pdfDoc = pdf;
         totalPages = pdfDoc.numPages;
         currentPage = 1;
         
@@ -138,8 +63,12 @@ async function openPDF(pdfId, pdfPath = null) {
         document.getElementById('currentPage').textContent = currentPage;
         document.getElementById('totalPages').textContent = totalPages;
         
-        // Render first page with enhanced quality
-        await renderEnhancedPage(currentPage);
+        // Render first page with proper fitting
+        await renderPage(currentPage);
+        
+        // Show modal
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
         
         // Add keyboard navigation
         addPDFKeyboardNavigation();
@@ -147,54 +76,12 @@ async function openPDF(pdfId, pdfPath = null) {
         // Prevent PDF download and copying
         preventPDFActions(modal);
         
-        // Add enhanced zoom controls
-        addEnhancedZoomControls();
-        
-        // Mark as active after successful load
-        modal.classList.add('active');
+        // Add zoom controls
+        addZoomControls();
         
     } catch (error) {
         console.error('PDF loading error:', error);
         showPDFError('Failed to load PDF file. Please ensure the file exists and try again.');
-    }
-}
-
-function createEnhancedPDFCanvas() {
-    return `
-        <div class="enhanced-pdf-viewer-container">
-            <div class="pdf-canvas-wrapper">
-                <canvas id="pdf-canvas" class="enhanced-canvas"></canvas>
-            </div>
-            <div class="pdf-loading" id="pdf-loading">
-                <div class="pdf-spinner"></div>
-                <p>Loading PDF... 0%</p>
-            </div>
-            <div class="enhanced-pdf-zoom-controls">
-                <button class="zoom-btn" onclick="zoomPDF(-0.1)" title="Zoom Out">
-                    <i class="fas fa-search-minus"></i>
-                </button>
-                <span class="zoom-level" id="zoomLevel">100%</span>
-                <button class="zoom-btn" onclick="zoomPDF(0.1)" title="Zoom In">
-                    <i class="fas fa-search-plus"></i>
-                </button>
-                <button class="zoom-btn" onclick="fitToWidth()" title="Fit to Width">
-                    <i class="fas fa-arrows-alt-h"></i>
-                </button>
-                <button class="zoom-btn" onclick="fitToPage()" title="Fit to Page">
-                    <i class="fas fa-compress"></i>
-                </button>
-                <button class="zoom-btn close-pdf-instant" onclick="closePDF()" title="Close">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-    `;
-}
-
-function showPDFLoading() {
-    const loadingElement = document.getElementById('pdf-loading');
-    if (loadingElement) {
-        loadingElement.style.display = 'flex';
     }
 }
 
@@ -208,25 +95,71 @@ function updateLoadingProgress(percent) {
     }
 }
 
-// Enhanced page rendering with better quality
-async function renderEnhancedPage(num, targetScale = null) {
-    if (pageRendering || !pdfDoc) return;
+function createPDFCanvas() {
+    return `
+        <div class="pdf-viewer-container">
+            <div class="pdf-canvas-wrapper">
+                <canvas id="pdf-canvas"></canvas>
+            </div>
+            <div class="pdf-loading" id="pdf-loading">
+                <div class="pdf-spinner"></div>
+                <p>Loading PDF... 0%</p>
+            </div>
+            <div class="pdf-zoom-controls">
+                <button class="zoom-btn" onclick="zoomPDF(-0.2)" title="Zoom Out">
+                    <i class="fas fa-search-minus"></i>
+                </button>
+                <span class="zoom-level" id="zoomLevel">100%</span>
+                <button class="zoom-btn" onclick="zoomPDF(0.2)" title="Zoom In">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="zoom-btn" onclick="fitToWidth()" title="Fit to Width">
+                    <i class="fas fa-arrows-alt-h"></i>
+                </button>
+                <button class="zoom-btn" onclick="fitToPage()" title="Fit to Page">
+                    <i class="fas fa-compress"></i>
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+function calculateOptimalScale(pageViewport, container) {
+    const containerWidth = container.clientWidth - 40; // Account for padding
+    const containerHeight = container.clientHeight - 40;
     
+    // Calculate scale to fit width
+    const widthScale = containerWidth / pageViewport.width;
+    
+    // Calculate scale to fit height
+    const heightScale = containerHeight / pageViewport.height;
+    
+    // Use the smaller scale to ensure entire page fits
+    const optimalScale = Math.min(widthScale, heightScale);
+    
+    // Ensure scale is within reasonable bounds (0.5 to 3.0)
+    return Math.max(0.5, Math.min(3.0, optimalScale));
+}
+
+async function renderPage(num, targetScale = null) {
     pageRendering = true;
+    
+    // Show loading
+    document.getElementById('pdf-loading').style.display = 'flex';
     
     try {
         const page = await pdfDoc.getPage(num);
         
-        // Get container dimensions with better calculations
-        const container = document.querySelector('.enhanced-pdf-viewer-container');
+        // Get container dimensions
+        const container = document.querySelector('.pdf-viewer-container');
         const viewport = page.getViewport({ scale: 1 });
         
-        // Calculate optimal scale with better quality settings
+        // Calculate optimal scale
         let scale;
         if (targetScale) {
-            scale = Math.max(0.5, Math.min(4.0, targetScale)); // Allow up to 400% zoom
+            scale = targetScale;
         } else {
-            scale = calculateEnhancedOptimalScale(viewport, container);
+            scale = calculateOptimalScale(viewport, container);
         }
         
         const scaledViewport = page.getViewport({ scale: scale });
@@ -240,34 +173,21 @@ async function renderEnhancedPage(num, targetScale = null) {
             zoomLevel.textContent = Math.round(scale * 100) + '%';
         }
         
-        // Configure canvas for high quality rendering
-        const outputScale = window.devicePixelRatio || 1;
+        // Prepare canvas using PDF page dimensions
+        canvas.height = scaledViewport.height;
+        canvas.width = scaledViewport.width;
         
-        canvas.width = Math.floor(scaledViewport.width * outputScale);
-        canvas.height = Math.floor(scaledViewport.height * outputScale);
-        canvas.style.width = Math.floor(scaledViewport.width) + 'px';
-        canvas.style.height = Math.floor(scaledViewport.height) + 'px';
-        
-        // Set up canvas for high quality rendering
-        ctx.scale(outputScale, outputScale);
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-        
-        // Center the canvas
+        // Center the canvas if it's smaller than container
         const canvasWrapper = document.querySelector('.pdf-canvas-wrapper');
         if (canvasWrapper) {
             canvasWrapper.style.width = scaledViewport.width + 'px';
             canvasWrapper.style.height = scaledViewport.height + 'px';
-            canvasWrapper.style.margin = '0 auto';
         }
         
-        // Render with enhanced settings
+        // Render PDF page into canvas context
         const renderContext = {
             canvasContext: ctx,
-            viewport: scaledViewport,
-            enableWebGL: true, // Enable WebGL if available
-            renderInteractiveForms: false, // Disable for better performance
-            background: 'white' // Set white background
+            viewport: scaledViewport
         };
         
         const renderTask = page.render(renderContext);
@@ -277,114 +197,100 @@ async function renderEnhancedPage(num, targetScale = null) {
         document.getElementById('currentPage').textContent = num;
         
         // Hide loading
-        const loadingElement = document.getElementById('pdf-loading');
-        if (loadingElement) {
-            loadingElement.style.display = 'none';
-        }
+        document.getElementById('pdf-loading').style.display = 'none';
         
         // Update current page
         currentPage = num;
         
     } catch (error) {
-        console.error('Enhanced page rendering error:', error);
-        showPDFError('Failed to render PDF page with enhanced quality');
+        console.error('Page rendering error:', error);
+        showPDFError('Failed to render PDF page');
     } finally {
         pageRendering = false;
         
         // Render pending page
         if (pageNumPending !== null) {
-            const pending = pageNumPending;
+            renderPage(pageNumPending);
             pageNumPending = null;
-            renderEnhancedPage(pending.num || pending, pending.scale);
         }
     }
 }
 
-function calculateEnhancedOptimalScale(pageViewport, container) {
-    const containerWidth = container.clientWidth - 60; // Account for padding and controls
-    const containerHeight = container.clientHeight - 120; // Account for header, footer, and controls
-    
-    // Calculate scale to fit with better quality
-    const widthScale = containerWidth / pageViewport.width;
-    const heightScale = containerHeight / pageViewport.height;
-    
-    // Use the smaller scale but ensure minimum quality
-    const optimalScale = Math.max(0.8, Math.min(widthScale, heightScale, 2.0));
-    
-    return optimalScale;
-}
-
-// Enhanced zoom functions
+// Zoom functions
 function zoomPDF(zoomDelta) {
-    if (!pdfDoc || pageRendering) return;
+    if (!pdfDoc) return;
     
-    const newScale = Math.max(0.5, Math.min(4.0, currentScale + zoomDelta));
-    renderEnhancedPage(currentPage, newScale);
+    const newScale = Math.max(0.5, Math.min(3.0, currentScale + zoomDelta));
+    renderPage(currentPage, newScale);
 }
 
 function fitToWidth() {
-    if (!pdfDoc || pageRendering) return;
+    if (!pdfDoc) return;
     
-    const container = document.querySelector('.enhanced-pdf-viewer-container');
-    const containerWidth = container.clientWidth - 60;
+    const container = document.querySelector('.pdf-viewer-container');
+    const containerWidth = container.clientWidth - 40;
     
+    // Calculate scale to fit width exactly
     pdfDoc.getPage(currentPage).then(page => {
         const viewport = page.getViewport({ scale: 1 });
         const widthScale = containerWidth / viewport.width;
-        renderEnhancedPage(currentPage, Math.min(widthScale, 2.0));
+        renderPage(currentPage, widthScale);
     });
 }
 
 function fitToPage() {
-    if (!pdfDoc || pageRendering) return;
+    if (!pdfDoc) return;
     
-    renderEnhancedPage(currentPage);
+    // Use the automatic optimal scaling
+    renderPage(currentPage);
 }
 
-// Instant close function
+// Add zoom controls to the modal
+function addZoomControls() {
+    // Zoom controls are already added in createPDFCanvas()
+    // This function can be used for additional zoom-related setup
+}
+
+function queueRenderPage(num, targetScale = null) {
+    if (pageRendering) {
+        pageNumPending = num;
+        // Store the target scale for pending page
+        if (targetScale) {
+            pageNumPending = { num: num, scale: targetScale };
+        }
+    } else {
+        renderPage(num, targetScale);
+    }
+}
+
+function changePage(direction) {
+    const newPage = currentPage + direction;
+    
+    if (newPage >= 1 && newPage <= totalPages) {
+        queueRenderPage(newPage);
+    }
+}
+
 function closePDF() {
-    if (isModalClosing) return; // Prevent multiple close calls
-    
     const modal = document.getElementById('pdfModal');
-    if (!modal.classList.contains('active')) return;
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
     
-    isModalClosing = true;
-    
-    // Instant visual feedback
-    modal.style.transition = 'opacity 0.1s ease';
-    modal.style.opacity = '0';
-    
-    // Clean up after fade out
-    setTimeout(() => {
-        modal.classList.remove('active');
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-        
-        // Clean up PDF resources
-        if (pdfDoc) {
-            pdfDoc.destroy();
-            pdfDoc = null;
-        }
-        
-        currentPDF = null;
-        currentPage = 1;
-        totalPages = 1;
-        canvas = null;
-        ctx = null;
-        currentScale = 1.0;
-        isModalClosing = false;
-        
-        // Clear the viewer
-        const viewer = document.getElementById('pdfViewer');
-        if (viewer) {
-            viewer.innerHTML = '';
-        }
-    }, 100);
+    // Clean up
+    if (pdfDoc) {
+        pdfDoc.destroy();
+        pdfDoc = null;
+    }
+    currentPDF = null;
+    currentPage = 1;
+    totalPages = 1;
+    canvas = null;
+    ctx = null;
+    currentScale = 1.0;
 }
 
-// Enhanced keyboard navigation
 function addPDFKeyboardNavigation() {
-    const keyHandler = function(e) {
+    document.addEventListener('keydown', function(e) {
         const modal = document.getElementById('pdfModal');
         if (!modal.classList.contains('active')) return;
         
@@ -423,177 +329,167 @@ function addPDFKeyboardNavigation() {
                 fitToPage();
                 break;
         }
-    };
-    
-    document.addEventListener('keydown', keyHandler);
-    
-    // Store handler for cleanup
-    modal.keyHandler = keyHandler;
+    });
 }
 
-function queueRenderPage(num, targetScale = null) {
-    if (pageRendering) {
-        pageNumPending = { num: num, scale: targetScale };
-    } else {
-        renderEnhancedPage(num, targetScale);
+function preventPDFActions(container) {
+    // Prevent right-click context menu
+    container.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+    });
+    
+    // Prevent text selection
+    const canvas = container.querySelector('#pdf-canvas');
+    if (canvas) {
+        canvas.style.userSelect = 'none';
+        canvas.style.webkitUserSelect = 'none';
+        canvas.style.mozUserSelect = 'none';
+        canvas.style.msUserSelect = 'none';
     }
-}
-
-function changePage(direction) {
-    if (pageRendering) return;
     
-    const newPage = currentPage + direction;
-    if (newPage >= 1 && newPage <= totalPages) {
-        queueRenderPage(newPage);
-    }
+    // Prevent copy operations
+    container.addEventListener('copy', function(e) {
+        e.preventDefault();
+        return false;
+    });
+    
+    // Prevent print operations
+    container.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+    
+    // Prevent drag operations
+    container.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
 }
 
-// Enhanced zoom controls
-function addEnhancedZoomControls() {
-    // Controls are already added in createEnhancedPDFCanvas()
-    // This function can be used for additional setup
-}
-
-// Enhanced error handling
 function showPDFError(message) {
     const viewer = document.getElementById('pdfViewer');
     viewer.innerHTML = `
-        <div class="pdf-error enhanced-error">
+        <div class="pdf-error">
             <i class="fas fa-exclamation-triangle"></i>
             <h3>Error Loading PDF</h3>
             <p>${message}</p>
             <button onclick="closePDF()" class="btn btn-primary">Close</button>
         </div>
     `;
-    
-    // Hide loading on error
-    const loadingElement = document.getElementById('pdf-loading');
-    if (loadingElement) {
-        loadingElement.style.display = 'none';
-    }
 }
 
-// Enhanced PDF actions prevention
-function preventPDFActions(container) {
-    // Multiple prevention methods for better security
-    const preventDefault = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-    };
-    
-    // Prevent context menu
-    container.addEventListener('contextmenu', preventDefault);
-    
-    // Prevent text selection
-    container.style.userSelect = 'none';
-    container.style.webkitUserSelect = 'none';
-    container.style.mozUserSelect = 'none';
-    container.style.msUserSelect = 'none';
-    
-    // Prevent copy operations
-    container.addEventListener('copy', preventDefault);
-    container.addEventListener('cut', preventDefault);
-    
-    // Prevent print operations
-    container.addEventListener('keydown', function(e) {
-        if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's')) {
-            preventDefault(e);
-        }
-    });
-    
-    // Prevent drag operations
-    container.addEventListener('dragstart', preventDefault);
-    container.addEventListener('selectstart', preventDefault);
-}
-
-// Enhanced touch/swipe support
+// Touch/swipe support for mobile
 let touchStartX = 0;
-let touchStartY = 0;
 let touchEndX = 0;
-let touchEndY = 0;
 
 document.addEventListener('touchstart', function(e) {
     const modal = document.getElementById('pdfModal');
     if (!modal.classList.contains('active')) return;
     
-    const touch = e.changedTouches[0];
-    touchStartX = touch.screenX;
-    touchStartY = touch.screenY;
-}, { passive: true });
+    touchStartX = e.changedTouches[0].screenX;
+});
 
 document.addEventListener('touchend', function(e) {
     const modal = document.getElementById('pdfModal');
     if (!modal.classList.contains('active')) return;
     
-    const touch = e.changedTouches[0];
-    touchEndX = touch.screenX;
-    touchEndY = touch.screenY;
-    handleEnhancedSwipe();
-}, { passive: true });
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+});
 
-function handleEnhancedSwipe() {
+function handleSwipe() {
     const swipeThreshold = 50;
-    const diffX = touchStartX - touchEndX;
-    const diffY = touchStartY - touchEndY;
+    const diff = touchStartX - touchEndX;
     
-    // Check if horizontal swipe is dominant
-    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > swipeThreshold) {
-        if (diffX > 0) {
-            changePage(1); // Swipe left - next page
+    if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+            changePage(1);
         } else {
-            changePage(-1); // Swipe right - previous page
+            changePage(-1);
         }
     }
 }
 
-// Enhanced window resize handler
-const debouncedResize = debounce(() => {
-    const modal = document.getElementById('pdfModal');
-    if (modal.classList.contains('active') && pdfDoc && !pageRendering) {
-        // Re-render current page with new dimensions
-        renderEnhancedPage(currentPage, currentScale);
-    }
-}, 150);
-
-window.addEventListener('resize', debouncedResize);
-
-// Enhanced cleanup on page unload
-window.addEventListener('beforeunload', () => {
-    pdfCache.forEach(pdf => {
-        if (pdf && pdf.destroy) {
-            pdf.destroy();
+// PDF Database
+function getPDFData(pdfId) {
+    const pdfDatabase = {
+        article1: {
+            id: 'article1',
+            title: 'Habitat Preferences of Spiny Babbler',
+            fileName: 'assets/documents/habitat-preferences-spiny-babbler.pdf',
+            pages: 3,
+            uploadDate: '2024-01-15',
+            type: 'Research Article'
+        },
+        article2: {
+            id: 'article2',
+            title: 'Breeding Behavior Observations',
+            fileName: 'assets/documents/breeding-behavior-observations.pdf',
+            pages: 2,
+            uploadDate: '2024-02-20',
+            type: 'Behavioral Study'
+        },
+        article3: {
+            id: 'article3',
+            title: 'Conservation Status Assessment',
+            fileName: 'assets/documents/conservation-status-assessment.pdf',
+            pages: 4,
+            uploadDate: '2024-03-10',
+            type: 'Conservation Report'
         }
-    });
-    pdfCache.clear();
-});
+    };
+    
+    return pdfDatabase[pdfId] || null;
+}
 
-// Export enhanced functions
+// Window resize handler with debouncing
+window.addEventListener('resize', debounce(() => {
+    const modal = document.getElementById('pdfModal');
+    if (modal.classList.contains('active') && pdfDoc) {
+        // Re-render current page with new dimensions
+        renderPage(currentPage);
+    }
+}, 250));
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Export functions
 window.PDFViewer = {
     openPDF,
     closePDF,
     changePage,
     zoomPDF,
     fitToWidth,
-    fitToPage,
-    preloadPDFs
+    fitToPage
 };
 
-// Enhanced CSS styles for better quality display
-const enhancedPDFStyles = document.createElement('style');
-enhancedPDFStyles.textContent = `
-    .enhanced-pdf-viewer-container {
+// Add CSS styles for screen-fitting PDF viewer
+const pdfViewerStyles = document.createElement('style');
+pdfViewerStyles.textContent = `
+    .pdf-viewer-container {
         position: relative;
         width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #ffffff;
-        border-radius: 12px;
+        background: #f8f9fa;
+        border-radius: 10px;
         overflow: auto;
-        padding: 30px;
-        box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+        padding: 20px;
     }
     
     .pdf-canvas-wrapper {
@@ -601,19 +497,14 @@ enhancedPDFStyles.textContent = `
         align-items: center;
         justify-content: center;
         margin: 0 auto;
-        transition: all 0.3s ease;
     }
     
-    .enhanced-canvas {
+    #pdf-canvas {
         max-width: 100%;
         max-height: 100%;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
         display: block;
-        image-rendering: -webkit-optimize-contrast;
-        image-rendering: crisp-edges;
-        transform-origin: center center;
-        transition: transform 0.2s ease;
     }
     
     .pdf-loading {
@@ -622,117 +513,91 @@ enhancedPDFStyles.textContent = `
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(248, 249, 250, 0.9);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         z-index: 10;
-        backdrop-filter: blur(2px);
     }
     
     .pdf-spinner {
-        width: 50px;
-        height: 50px;
-        border: 4px solid #f1f5f9;
-        border-top: 4px solid #4299e1;
+        width: 40px;
+        height: 40px;
+        border: 3px solid #e2e8f0;
+        border-top: 3px solid #4299e1;
         border-radius: 50%;
         animation: spin 1s linear infinite;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
     }
     
     .pdf-loading p {
-        color: #64748b;
-        font-size: 1.1rem;
-        font-weight: 500;
+        color: #666;
+        font-size: 1rem;
     }
     
-    .enhanced-pdf-zoom-controls {
+    .pdf-zoom-controls {
         position: absolute;
-        bottom: 25px;
-        right: 25px;
+        bottom: 20px;
+        right: 20px;
         display: flex;
-        gap: 12px;
-        background: rgba(255, 255, 255, 0.95);
-        padding: 12px;
-        border-radius: 30px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px;
+        border-radius: 25px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         z-index: 20;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
     }
     
     .zoom-btn {
-        background: linear-gradient(135deg, #4299e1, #3182ce);
+        background: #4299e1;
         color: white;
         border: none;
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        font-size: 15px;
-        box-shadow: 0 2px 8px rgba(66, 153, 225, 0.3);
+        transition: all 0.3s ease;
+        font-size: 14px;
     }
     
     .zoom-btn:hover {
-        background: linear-gradient(135deg, #3182ce, #2c5282);
-        transform: scale(1.1) translateY(-2px);
-        box-shadow: 0 4px 15px rgba(66, 153, 225, 0.4);
-    }
-    
-    .zoom-btn:active {
-        transform: scale(0.95);
+        background: #3182ce;
+        transform: scale(1.1);
     }
     
     .zoom-level {
         display: flex;
         align-items: center;
         justify-content: center;
-        min-width: 60px;
-        font-size: 13px;
-        font-weight: 600;
-        color: #374151;
-        background: rgba(241, 245, 249, 0.8);
-        padding: 4px 8px;
-        border-radius: 12px;
+        min-width: 50px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #333;
     }
     
-    .close-pdf-instant {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-    }
-    
-    .close-pdf-instant:hover {
-        background: linear-gradient(135deg, #dc2626, #b91c1c);
-    }
-    
-    .pdf-error.enhanced-error {
+    .pdf-error {
         text-align: center;
-        padding: 3rem;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 12px;
-        margin: 2rem;
+        padding: 2rem;
     }
     
-    .pdf-error.enhanced-error i {
-        font-size: 4rem;
-        color: #ef4444;
+    .pdf-error i {
+        font-size: 3rem;
+        color: #f56565;
+        margin-bottom: 1rem;
+    }
+    
+    .pdf-error h3 {
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+    
+    .pdf-error p {
+        color: #666;
         margin-bottom: 1.5rem;
-    }
-    
-    .pdf-error.enhanced-error h3 {
-        color: #374151;
-        margin-bottom: 0.75rem;
-        font-size: 1.5rem;
-    }
-    
-    .pdf-error.enhanced-error p {
-        color: #6b7280;
-        margin-bottom: 2rem;
-        font-size: 1.1rem;
     }
     
     @keyframes spin {
@@ -741,35 +606,11 @@ enhancedPDFStyles.textContent = `
     }
     
     @media (max-width: 768px) {
-        .enhanced-pdf-viewer-container {
-            padding: 20px;
-        }
-        
-        .enhanced-pdf-zoom-controls {
-            bottom: 15px;
-            right: 15px;
+        .pdf-viewer-container {
             padding: 10px;
-            gap: 10px;
         }
         
-        .zoom-btn {
-            width: 35px;
-            height: 35px;
-            font-size: 13px;
-        }
-        
-        .zoom-level {
-            min-width: 50px;
-            font-size: 12px;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .enhanced-pdf-viewer-container {
-            padding: 15px;
-        }
-        
-        .enhanced-pdf-zoom-controls {
+        .pdf-zoom-controls {
             bottom: 10px;
             right: 10px;
             padding: 8px;
@@ -779,13 +620,38 @@ enhancedPDFStyles.textContent = `
         .zoom-btn {
             width: 30px;
             height: 30px;
-            font-size: 11px;
+            font-size: 12px;
         }
         
         .zoom-level {
-            min-width: 45px;
+            min-width: 40px;
             font-size: 11px;
+        }
+        
+        #pdf-canvas {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .pdf-zoom-controls {
+            bottom: 5px;
+            right: 5px;
+            padding: 6px;
+            gap: 6px;
+        }
+        
+        .zoom-btn {
+            width: 25px;
+            height: 25px;
+            font-size: 10px;
+        }
+        
+        .zoom-level {
+            min-width: 35px;
+            font-size: 10px;
         }
     }
 `;
-document.head.appendChild(enhancedPDFStyles);
+document.head.appendChild(pdfViewerStyles);
