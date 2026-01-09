@@ -1,4 +1,4 @@
-// Fixed PDF Viewer with Screen-Fitting - Complete Version
+// Fixed PDF Viewer with Working Zoom for Desktop and Mobile
 
 let currentPDF = null;
 let currentPage = 1;
@@ -8,12 +8,12 @@ let pageRendering = false;
 let pageNumPending = null;
 let canvas = null;
 let ctx = null;
-let currentScale = 1.0; // Track current scale for proper fitting
+let currentScale = 1.0;
 
 // Initialize PDF.js
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-// Fixed PDF Viewer Functions with Screen Fitting
+// Fixed PDF Viewer Functions
 async function openPDF(pdfId, pdfPath = null) {
     const modal = document.getElementById('pdfModal');
     const viewer = document.getElementById('pdfViewer');
@@ -48,7 +48,6 @@ async function openPDF(pdfId, pdfPath = null) {
         // Load the PDF file
         const loadingTask = pdfjsLib.getDocument(pdfData.fileName);
         
-        // Add progress tracking
         loadingTask.onProgress = function(progress) {
             const percent = Math.round((progress.loaded / progress.total) * 100);
             updateLoadingProgress(percent);
@@ -63,7 +62,7 @@ async function openPDF(pdfId, pdfPath = null) {
         document.getElementById('currentPage').textContent = currentPage;
         document.getElementById('totalPages').textContent = totalPages;
         
-        // Render first page with proper fitting
+        // Render first page with optimal scale
         await renderPage(currentPage);
         
         // Show modal
@@ -76,8 +75,8 @@ async function openPDF(pdfId, pdfPath = null) {
         // Prevent PDF download and copying
         preventPDFActions(modal);
         
-        // Add zoom controls
-        addZoomControls();
+        // Setup zoom controls with proper event listeners
+        setupZoomControls();
         
     } catch (error) {
         console.error('PDF loading error:', error);
@@ -106,17 +105,17 @@ function createPDFCanvas() {
                 <p>Loading PDF... 0%</p>
             </div>
             <div class="pdf-zoom-controls">
-                <button class="zoom-btn" onclick="zoomPDF(-0.2)" title="Zoom Out">
+                <button class="zoom-btn" id="zoomOutBtn" title="Zoom Out">
                     <i class="fas fa-search-minus"></i>
                 </button>
                 <span class="zoom-level" id="zoomLevel">100%</span>
-                <button class="zoom-btn" onclick="zoomPDF(0.2)" title="Zoom In">
+                <button class="zoom-btn" id="zoomInBtn" title="Zoom In">
                     <i class="fas fa-search-plus"></i>
                 </button>
-                <button class="zoom-btn" onclick="fitToWidth()" title="Fit to Width">
+                <button class="zoom-btn" id="fitToWidthBtn" title="Fit to Width">
                     <i class="fas fa-arrows-alt-h"></i>
                 </button>
-                <button class="zoom-btn" onclick="fitToPage()" title="Fit to Page">
+                <button class="zoom-btn" id="fitToPageBtn" title="Fit to Page">
                     <i class="fas fa-compress"></i>
                 </button>
             </div>
@@ -125,19 +124,13 @@ function createPDFCanvas() {
 }
 
 function calculateOptimalScale(pageViewport, container) {
-    const containerWidth = container.clientWidth - 40; // Account for padding
+    const containerWidth = container.clientWidth - 40;
     const containerHeight = container.clientHeight - 40;
     
-    // Calculate scale to fit width
     const widthScale = containerWidth / pageViewport.width;
-    
-    // Calculate scale to fit height
     const heightScale = containerHeight / pageViewport.height;
     
-    // Use the smaller scale to ensure entire page fits
     const optimalScale = Math.min(widthScale, heightScale);
-    
-    // Ensure scale is within reasonable bounds (0.5 to 3.0)
     return Math.max(0.5, Math.min(3.0, optimalScale));
 }
 
@@ -173,7 +166,7 @@ async function renderPage(num, targetScale = null) {
             zoomLevel.textContent = Math.round(scale * 100) + '%';
         }
         
-        // Prepare canvas using PDF page dimensions
+        // Prepare canvas
         canvas.height = scaledViewport.height;
         canvas.width = scaledViewport.width;
         
@@ -184,7 +177,7 @@ async function renderPage(num, targetScale = null) {
             canvasWrapper.style.height = scaledViewport.height + 'px';
         }
         
-        // Render PDF page into canvas context
+        // Render PDF page
         const renderContext = {
             canvasContext: ctx,
             viewport: scaledViewport
@@ -210,13 +203,18 @@ async function renderPage(num, targetScale = null) {
         
         // Render pending page
         if (pageNumPending !== null) {
-            renderPage(pageNumPending);
+            const pending = pageNumPending;
             pageNumPending = null;
+            if (typeof pending === 'object') {
+                renderPage(pending.num, pending.scale);
+            } else {
+                renderPage(pending);
+            }
         }
     }
 }
 
-// Zoom functions
+// Fixed zoom functions
 function zoomPDF(zoomDelta) {
     if (!pdfDoc) return;
     
@@ -230,7 +228,6 @@ function fitToWidth() {
     const container = document.querySelector('.pdf-viewer-container');
     const containerWidth = container.clientWidth - 40;
     
-    // Calculate scale to fit width exactly
     pdfDoc.getPage(currentPage).then(page => {
         const viewport = page.getViewport({ scale: 1 });
         const widthScale = containerWidth / viewport.width;
@@ -241,20 +238,43 @@ function fitToWidth() {
 function fitToPage() {
     if (!pdfDoc) return;
     
-    // Use the automatic optimal scaling
     renderPage(currentPage);
 }
 
-// Add zoom controls to the modal
-function addZoomControls() {
-    // Zoom controls are already added in createPDFCanvas()
-    // This function can be used for additional zoom-related setup
+// Setup zoom controls with proper event listeners
+function setupZoomControls() {
+    // Zoom in button
+    const zoomInBtn = document.getElementById('zoomInBtn');
+    if (zoomInBtn) {
+        zoomInBtn.addEventListener('click', function() {
+            zoomPDF(0.2);
+        });
+    }
+    
+    // Zoom out button
+    const zoomOutBtn = document.getElementById('zoomOutBtn');
+    if (zoomOutBtn) {
+        zoomOutBtn.addEventListener('click', function() {
+            zoomPDF(-0.2);
+        });
+    }
+    
+    // Fit to width button
+    const fitToWidthBtn = document.getElementById('fitToWidthBtn');
+    if (fitToWidthBtn) {
+        fitToWidthBtn.addEventListener('click', fitToWidth);
+    }
+    
+    // Fit to page button
+    const fitToPageBtn = document.getElementById('fitToPageBtn');
+    if (fitToPageBtn) {
+        fitToPageBtn.addEventListener('click', fitToPage);
+    }
 }
 
 function queueRenderPage(num, targetScale = null) {
     if (pageRendering) {
         pageNumPending = num;
-        // Store the target scale for pending page
         if (targetScale) {
             pageNumPending = { num: num, scale: targetScale };
         }
@@ -340,7 +360,6 @@ function preventPDFActions(container) {
     });
     
     // Prevent text selection
-    const canvas = container.querySelector('#pdf-canvas');
     if (canvas) {
         canvas.style.userSelect = 'none';
         canvas.style.webkitUserSelect = 'none';
