@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="css/pdf-viewer-enhanced.css">
     <link rel="icon" href="assets/icons/logo.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/pdf-viewer-enhanced.css">
+<script src="js/pdf-viewer-optimized.js"></script>
     
     <!-- PDF.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 <body>
-    <!-- Auto Theme Detection -->
     <script>
         const detectTheme = () => {
             const hour = new Date().getHours();
@@ -37,17 +37,18 @@
                 <a href="about.html" class="nav-link">About</a>
                 <div class="dropdown">
                     <a href="#" class="nav-link dropdown-toggle">Journey</a>
-                    <div class="dropdown-menu">
-                        <a href="gallery.html" class="dropdown-item">Gallery</a>
-                        <a href="hydropower.html" class="dropdown-item">Hydropower</a>
-                        <a href="watersupply.html" class="dropdown-item">Water Supply</a>
-                        <a href="irrigation.html" class="dropdown-item">Irrigation</a>
-                        <a href="environmental.html" class="dropdown-item">Environmental</a>
-                        <a href="structure.html" class="dropdown-item">Structure</a>
-                        <a href="geotechnical.html" class="dropdown-item">Geotechnical</a>
-                        <a href="transportation.html" class="dropdown-item">Transportation</a>
-                        <a href="geology.html" class="dropdown-item">Geology</a>
-                    </div>
+
+<div class="dropdown-menu">
+        <a href="gallery.html" class="dropdown-item">Gallery</a>
+        <a href="hydropower.html" class="dropdown-item">Hydropower</a>
+        <a href="watersupply.html" class="dropdown-item">Water Supply</a>
+        <a href="irrigation.html" class="dropdown-item">Irrigation</a>
+        <a href="environmental.html" class="dropdown-item">Environmental</a>
+        <a href="structure.html" class="dropdown-item">Structure</a>
+        <a href="geotechnical.html" class="dropdown-item">Geotechnical</a>
+        <a href="transportation.html" class="dropdown-item">Transportation</a>
+        <a href="geology.html" class="dropdown-item">Geology</a>
+    </div>
                 </div>
                 <div class="dropdown">
                     <a href="#" class="nav-link dropdown-toggle">Documentation</a>
@@ -168,12 +169,12 @@
         </div>
     </section>
 
-    <!-- Enhanced PDF Viewer Modal -->
-    <div class="pdf-viewer-modal" id="pdfModal">
-        <div class="pdf-viewer-content glassmorphic">
+    <!-- PDF Viewer Modal -->
+    <div class="pdf-modal" id="pdfModal">
+        <div class="pdf-modal-content glassmorphic">
             <div class="pdf-modal-header">
                 <h3 id="pdfTitle">Document Title</h3>
-                <button class="pdf-close-btn" onclick="closePDF()">
+                <button class="close-modal" onclick="closePDF()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -199,7 +200,7 @@
 
     <script src="js/main.js"></script>
     <script src="js/theme.js"></script>
-    <script src="js/pdf-viewer-new.js"></script>
+    <script src="js/pdf-viewer.js"></script>
     <script src="js/animations.js"></script>
 </body>
 </html>
