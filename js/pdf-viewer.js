@@ -1,4 +1,4 @@
-// Complete PDF Viewer with Working Scrollbars and Persistent Zoom Controls
+// Optimized PDF Viewer for Instant Multi-Page Opening
 
 let currentPDF = null;
 let currentPage = 1;
@@ -9,6 +9,7 @@ let pageNumPending = null;
 let canvas = null;
 let ctx = null;
 let currentScale = 1.0;
+let pageCache = new Map(); // Cache for rendered pages
 
 // Initialize PDF.js
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -19,6 +20,10 @@ async function openPDF(pdfId, pdfPath = null) {
     const title = document.getElementById('pdfTitle');
     
     try {
+        // Show modal IMMEDIATELY for instant feedback
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
         let pdfData;
         if (pdfPath) {
             pdfData = {
@@ -35,29 +40,21 @@ async function openPDF(pdfId, pdfPath = null) {
         }
         
         title.textContent = pdfData.title || 'PDF Document';
+        
+        // Create viewer interface immediately
         viewer.innerHTML = createPDFCanvas();
         
+        // Initialize canvas
         canvas = document.getElementById('pdf-canvas');
         ctx = canvas.getContext('2d');
         
-        const loadingTask = pdfjsLib.getDocument(pdfData.fileName);
-        loadingTask.onProgress = function(progress) {
-            const percent = Math.round((progress.loaded / progress.total) * 100);
-            updateLoadingProgress(percent);
-        };
+        // Show loading indicator immediately
+        document.getElementById('pdf-loading').style.display = 'flex';
         
-        pdfDoc = await loadingTask.promise;
-        totalPages = pdfDoc.numPages;
-        currentPage = 1;
+        // Start PDF loading in background
+        loadPDFDocument(pdfData.fileName);
         
-        document.getElementById('currentPage').textContent = currentPage;
-        document.getElementById('totalPages').textContent = totalPages;
-        
-        await renderPage(currentPage);
-        
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        
+        // Add controls and navigation
         addPDFKeyboardNavigation();
         preventPDFActions(modal);
         addZoomControls();
@@ -65,6 +62,49 @@ async function openPDF(pdfId, pdfPath = null) {
     } catch (error) {
         console.error('PDF loading error:', error);
         showPDFError('Failed to load PDF file. Please ensure the file exists and try again.');
+    }
+}
+
+async function loadPDFDocument(pdfUrl) {
+    try {
+        // Configure for faster loading
+        const loadingTask = pdfjsLib.getDocument({
+            url: pdfUrl,
+            // Optimize for faster first page display
+            disableAutoFetch: false,
+            disableStream: false,
+            // Use range requests for faster loading
+            rangeChunkSize: 65536,
+            // Enable worker for better performance
+            useSystemFonts: true
+        });
+        
+        // Show progress
+        loadingTask.onProgress = function(progress) {
+            const percent = Math.round((progress.loaded / progress.total) * 100);
+            updateLoadingProgress(percent);
+        };
+        
+        // Load PDF in background
+        pdfDoc = await loadingTask.promise;
+        
+        // Get total pages
+        totalPages = pdfDoc.numPages;
+        currentPage = 1;
+        
+        // Update UI immediately
+        document.getElementById('currentPage').textContent = currentPage;
+        document.getElementById('totalPages').textContent = totalPages;
+        
+        // Render first page as fast as possible
+        await renderPageInstant(currentPage);
+        
+        // Pre-cache next few pages in background
+        preCachePages();
+        
+    } catch (error) {
+        console.error('PDF document loading error:', error);
+        showPDFError('Failed to load PDF document. Please ensure the file exists and try again.');
     }
 }
 
@@ -93,19 +133,29 @@ function createPDFCanvas() {
                     <i class="fas fa-compress"></i>
                 </button>
             </div>
+            <div class="pdf-page-navigation">
+                <button class="pdf-btn" onclick="changePage(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="page-info">Page <span id="currentPage">1</span> of <span id="totalPages">1</span></span>
+                <button class="pdf-btn" onclick="changePage(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
     `;
 }
 
-async function renderPage(num, targetScale = null) {
+async function renderPageInstant(num, targetScale = null) {
     pageRendering = true;
-    document.getElementById('pdf-loading').style.display = 'flex';
     
     try {
+        // Get page from document
         const page = await pdfDoc.getPage(num);
         const container = document.querySelector('.pdf-viewer-container');
         const viewport = page.getViewport({ scale: 1 });
         
+        // Calculate optimal scale
         let scale;
         if (targetScale) {
             scale = targetScale;
@@ -116,17 +166,20 @@ async function renderPage(num, targetScale = null) {
         const scaledViewport = page.getViewport({ scale: scale });
         currentScale = scale;
         
+        // Update zoom display
         document.getElementById('zoomLevel').textContent = Math.round(scale * 100) + '%';
         
+        // Set canvas dimensions
         canvas.height = scaledViewport.height;
         canvas.width = scaledViewport.width;
         
+        // Setup canvas wrapper for scrolling
         const canvasWrapper = document.querySelector('.pdf-canvas-wrapper');
         if (canvasWrapper) {
             canvasWrapper.style.width = scaledViewport.width + 'px';
             canvasWrapper.style.height = scaledViewport.height + 'px';
             
-            // ENABLE SCROLLING WHEN CONTENT IS LARGER
+            // Enable scrolling when content is larger
             if (scaledViewport.width > container.clientWidth || scaledViewport.height > container.clientHeight) {
                 container.style.overflow = 'auto';
             } else {
@@ -134,6 +187,7 @@ async function renderPage(num, targetScale = null) {
             }
         }
         
+        // Render page
         const renderContext = {
             canvasContext: ctx,
             viewport: scaledViewport
@@ -141,19 +195,32 @@ async function renderPage(num, targetScale = null) {
         
         await page.render(renderContext).promise;
         
+        // Update page info
         document.getElementById('currentPage').textContent = num;
-        document.getElementById('pdf-loading').style.display = 'none';
+        
+        // Hide loading after first page is rendered
+        if (num === 1) {
+            document.getElementById('pdf-loading').style.display = 'none';
+        }
         
         currentPage = num;
         
+        // Cache this page
+        pageCache.set(num, { canvas: canvas, scale: scale });
+        
     } catch (error) {
         console.error('Page rendering error:', error);
-        showPDFError('Failed to render PDF page');
+        if (num === 1) {
+            showPDFError('Failed to render PDF page');
+        }
     } finally {
         pageRendering = false;
+        
+        // Render pending page if any
         if (pageNumPending !== null) {
-            renderPage(pageNumPending);
+            const pending = pageNumPending;
             pageNumPending = null;
+            renderPageInstant(pending);
         }
     }
 }
@@ -168,17 +235,117 @@ function calculateOptimalScale(pageViewport, container) {
     return Math.max(0.5, Math.min(3.0, Math.min(widthScale, heightScale)));
 }
 
-// ZOOM FUNCTIONS (Fixed)
+// Pre-cache next few pages for instant navigation
+async function preCachePages() {
+    const cachePromises = [];
+    const pagesToCache = Math.min(totalPages, 5); // Cache next 5 pages
+    
+    for (let i = 2; i <= pagesToCache; i++) {
+        cachePromises.push(cachePage(i));
+    }
+    
+    // Cache in background without blocking
+    Promise.all(cachePromises).catch(error => {
+        console.log('Background caching completed');
+    });
+}
+
+async function cachePage(pageNum) {
+    if (pageCache.has(pageNum)) return;
+    
+    try {
+        const page = await pdfDoc.getPage(pageNum);
+        const container = document.querySelector('.pdf-viewer-container');
+        const viewport = page.getViewport({ scale: 1 });
+        const scale = calculateOptimalScale(viewport, container);
+        const scaledViewport = page.getViewport({ scale: scale });
+        
+        // Create offscreen canvas for caching
+        const offscreenCanvas = document.createElement('canvas');
+        offscreenCanvas.height = scaledViewport.height;
+        offscreenCanvas.width = scaledViewport.width;
+        const offscreenCtx = offscreenCanvas.getContext('2d');
+        
+        const renderContext = {
+            canvasContext: offscreenCtx,
+            viewport: scaledViewport
+        };
+        
+        await page.render(renderContext).promise;
+        
+        // Cache the rendered page
+        pageCache.set(pageNum, { 
+            canvas: offscreenCanvas, 
+            scale: scale,
+            width: scaledViewport.width,
+            height: scaledViewport.height
+        });
+        
+    } catch (error) {
+        console.log(`Failed to cache page ${pageNum}:`, error);
+    }
+}
+
+// Optimized page changing with cache
+async function changePage(direction) {
+    const newPage = currentPage + direction;
+    if (newPage >= 1 && newPage <= totalPages) {
+        
+        // Check if page is cached
+        if (pageCache.has(newPage)) {
+            // INSTANT display from cache
+            displayCachedPage(newPage);
+        } else {
+            // Render if not cached
+            renderPageInstant(newPage);
+        }
+        
+        // Pre-cache adjacent pages
+        preCacheAdjacentPages(newPage);
+    }
+}
+
+function displayCachedPage(pageNum) {
+    const cachedPage = pageCache.get(pageNum);
+    if (!cachedPage) return;
+    
+    // Copy cached canvas to main canvas
+    canvas.width = cachedPage.width;
+    canvas.height = cachedPage.height;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(cachedPage.canvas, 0, 0);
+    
+    // Update UI
+    currentPage = pageNum;
+    document.getElementById('currentPage').textContent = pageNum;
+    document.getElementById('zoomLevel').textContent = Math.round(cachedPage.scale * 100) + '%';
+    currentScale = cachedPage.scale;
+}
+
+function preCacheAdjacentPages(currentPageNum) {
+    // Cache previous and next pages
+    const pagesToCache = [
+        currentPageNum - 1,
+        currentPageNum + 1,
+        currentPageNum + 2
+    ].filter(page => page >= 1 && page <= totalPages && !pageCache.has(page));
+    
+    pagesToCache.forEach(pageNum => {
+        cachePage(pageNum);
+    });
+}
+
+// Zoom functions (optimized)
 function zoomIn() {
     if (!pdfDoc) return;
     const newScale = Math.min(3.0, currentScale + 0.2);
-    renderPage(currentPage, newScale);
+    renderPageInstant(currentPage, newScale);
 }
 
 function zoomOut() {
     if (!pdfDoc) return;
     const newScale = Math.max(0.5, currentScale - 0.2);
-    renderPage(currentPage, newScale);
+    renderPageInstant(currentPage, newScale);
 }
 
 function fitToWidth() {
@@ -189,20 +356,13 @@ function fitToWidth() {
     pdfDoc.getPage(currentPage).then(page => {
         const viewport = page.getViewport({ scale: 1 });
         const widthScale = containerWidth / viewport.width;
-        renderPage(currentPage, widthScale);
+        renderPageInstant(currentPage, widthScale);
     });
 }
 
 function resetZoom() {
     if (!pdfDoc) return;
-    renderPage(currentPage);
-}
-
-function changePage(direction) {
-    const newPage = currentPage + direction;
-    if (newPage >= 1 && newPage <= totalPages) {
-        renderPage(newPage);
-    }
+    renderPageInstant(currentPage);
 }
 
 function closePDF() {
@@ -220,6 +380,7 @@ function closePDF() {
     canvas = null;
     ctx = null;
     currentScale = 1.0;
+    pageCache.clear(); // Clear cache
 }
 
 function getPDFData(pdfId) {
@@ -253,7 +414,7 @@ function getPDFData(pdfId) {
     return pdfDatabase[pdfId] || null;
 }
 
-// Add CSS for PDF viewer
+// Add CSS for instant loading
 const pdfViewerStyles = document.createElement('style');
 pdfViewerStyles.textContent = `
     .pdf-viewer-container {
@@ -307,6 +468,21 @@ pdfViewerStyles.textContent = `
         border-radius: 50%;
         animation: spin 1s linear infinite;
         margin-bottom: 1rem;
+    }
+    
+    .pdf-page-navigation {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px 20px;
+        border-radius: 25px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 100;
     }
     
     .pdf-zoom-controls {
