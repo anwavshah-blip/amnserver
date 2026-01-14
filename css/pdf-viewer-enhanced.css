@@ -1,4 +1,5 @@
-/* PDF Modal Screen-Fitting Styles */
+/* Complete PDF Viewer Enhanced CSS with Working Scrollbars */
+
 .pdf-modal {
     position: fixed;
     top: 0;
@@ -40,13 +41,17 @@
     flex: 1;
     overflow: hidden;
     padding: 0;
+    position: relative;
+    height: calc(90vh - 160px);
 }
 
 .pdf-viewer {
     width: 100%;
     height: 100%;
     min-height: 500px;
-    max-height: calc(90vh - 160px); /* Account for header and footer */
+    max-height: calc(90vh - 160px);
+    overflow: auto !important;
+    position: relative;
 }
 
 .pdf-modal-footer {
@@ -119,7 +124,109 @@
     background: rgba(66, 153, 225, 0.1);
 }
 
-/* Responsive adjustments for PDF modal */
+/* CRITICAL SCROLLBAR FIXES */
+.pdf-viewer-container {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: auto !important;
+    display: block !important;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.pdf-canvas-wrapper {
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+#pdf-canvas {
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    margin: 0 auto;
+}
+
+/* FORCE SCROLLBARS TO APPEAR */
+.pdf-viewer-container::-webkit-scrollbar {
+    width: 12px !important;
+    height: 12px !important;
+    display: block !important;
+}
+
+.pdf-viewer-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1) !important;
+    border-radius: 6px !important;
+}
+
+.pdf-viewer-container::-webkit-scrollbar-thumb {
+    background: rgba(66, 153, 225, 0.8) !important;
+    border-radius: 6px !important;
+    min-height: 30px !important;
+}
+
+.pdf-viewer-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(66, 153, 225, 1) !important;
+}
+
+/* Firefox scrollbars */
+.pdf-viewer-container {
+    scrollbar-width: auto !important;
+    scrollbar-color: rgba(66, 153, 225, 0.8) rgba(0, 0, 0, 0.1) !important;
+}
+
+/* FIXED ZOOM CONTROLS */
+.pdf-zoom-controls {
+    position: fixed !important;
+    bottom: 100px !important;
+    right: 40px !important;
+    display: flex !important;
+    gap: 10px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    padding: 12px !important;
+    border-radius: 25px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    z-index: 9999 !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.zoom-btn {
+    background: #4299e1 !important;
+    color: white !important;
+    border: none !important;
+    width: 35px !important;
+    height: 35px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    font-size: 14px !important;
+    min-width: 35px !important;
+    min-height: 35px !important;
+}
+
+.zoom-level {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 50px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #333 !important;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .pdf-modal {
         padding: 10px;
@@ -137,6 +244,11 @@
     .pdf-modal-header,
     .pdf-modal-footer {
         padding: 15px 20px;
+    }
+    
+    .pdf-zoom-controls {
+        bottom: 80px !important;
+        right: 20px !important;
     }
 }
 
@@ -159,78 +271,14 @@
         padding: 10px 15px;
     }
     
-    .pdf-controls {
-        gap: 0.5rem;
+    .pdf-zoom-controls {
+        bottom: 70px !important;
+        right: 10px !important;
+        padding: 8px !important;
     }
     
-    .pdf-btn {
-        width: 35px;
-        height: 35px;
-    }
-}
-
-
-/* Additional styles for persistent zoom controls and scrolling */
-
-/* Ensure zoom controls stay visible */
-.pdf-zoom-controls {
-    position: fixed !important;
-    bottom: 80px !important;
-    right: 40px !important;
-    z-index: 1000 !important;
-}
-
-/* Enhanced scroll behavior for zoomed content */
-.pdf-viewer-container {
-    overflow: auto !important;
-    scroll-behavior: smooth;
-}
-
-/* Custom scrollbar for better UX */
-.pdf-viewer-container::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-.pdf-viewer-container::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-}
-
-.pdf-viewer-container::-webkit-scrollbar-thumb {
-    background: rgba(66, 153, 225, 0.6);
-    border-radius: 4px;
-}
-
-.pdf-viewer-container::-webkit-scrollbar-thumb:hover {
-    background: rgba(66, 153, 225, 0.8);
-}
-
-/* Prevent zoom controls from disappearing */
-.pdf-modal-body {
-    position: relative;
-}
-
-/* Ensure canvas wrapper can scroll */
-.pdf-canvas-wrapper {
-    min-width: 100%;
-    min-height: 100%;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-}
-
-/* Mobile responsive adjustments */
-@media (max-width: 768px) {
-    .pdf-zoom-controls {
-        bottom: 60px !important;
-        right: 20px !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .pdf-zoom-controls {
-        bottom: 50px !important;
-        right: 10px !important;
+    .zoom-btn {
+        width: 30px !important;
+        height: 30px !important;
     }
 }
