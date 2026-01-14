@@ -172,3 +172,69 @@
         height: 35px;
     }
 }
+
+
+/* Additional styles for persistent zoom controls and scrolling */
+
+/* Ensure zoom controls stay visible */
+.pdf-zoom-controls {
+    position: fixed !important;
+    bottom: 80px !important;
+    right: 40px !important;
+    z-index: 1000 !important;
+}
+
+/* Enhanced scroll behavior for zoomed content */
+.pdf-viewer-container {
+    overflow: auto !important;
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for better UX */
+.pdf-viewer-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.pdf-viewer-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.pdf-viewer-container::-webkit-scrollbar-thumb {
+    background: rgba(66, 153, 225, 0.6);
+    border-radius: 4px;
+}
+
+.pdf-viewer-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(66, 153, 225, 0.8);
+}
+
+/* Prevent zoom controls from disappearing */
+.pdf-modal-body {
+    position: relative;
+}
+
+/* Ensure canvas wrapper can scroll */
+.pdf-canvas-wrapper {
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .pdf-zoom-controls {
+        bottom: 60px !important;
+        right: 20px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .pdf-zoom-controls {
+        bottom: 50px !important;
+        right: 10px !important;
+    }
+}
