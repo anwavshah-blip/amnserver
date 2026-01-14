@@ -1,4 +1,4 @@
-/* Complete PDF Viewer Enhanced CSS with Working Scrollbars */
+/* Complete PDF Viewer Enhanced CSS - Instant Loading & Scrollbars */
 
 .pdf-modal {
     position: fixed;
@@ -124,17 +124,18 @@
     background: rgba(66, 153, 225, 0.1);
 }
 
-/* CRITICAL SCROLLBAR FIXES */
+/* === INSTANT LOADING STYLES === */
 .pdf-viewer-container {
     position: relative !important;
     width: 100% !important;
     height: 100% !important;
     overflow: auto !important;
     display: block !important;
-    background: #f8f9fa;
+    background: #ffffff;
     border-radius: 10px;
     padding: 20px;
     box-sizing: border-box;
+    transition: all 0.3s ease;
 }
 
 .pdf-canvas-wrapper {
@@ -143,6 +144,8 @@
     height: auto !important;
     min-width: 100%;
     min-height: 100%;
+    margin: 0 auto;
+    transition: all 0.3s ease;
 }
 
 #pdf-canvas {
@@ -154,37 +157,68 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     margin: 0 auto;
+    will-change: transform;
+    transform: translateZ(0);
 }
 
-/* FORCE SCROLLBARS TO APPEAR */
-.pdf-viewer-container::-webkit-scrollbar {
-    width: 12px !important;
-    height: 12px !important;
-    display: block !important;
+/* === LOADING INDICATOR === */
+.pdf-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(248, 249, 250, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: opacity 0.3s ease;
 }
 
-.pdf-viewer-container::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1) !important;
-    border-radius: 6px !important;
+.pdf-loading.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
-.pdf-viewer-container::-webkit-scrollbar-thumb {
-    background: rgba(66, 153, 225, 0.8) !important;
-    border-radius: 6px !important;
-    min-height: 30px !important;
+.pdf-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e2e8f0;
+    border-top: 3px solid #4299e1;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
 }
 
-.pdf-viewer-container::-webkit-scrollbar-thumb:hover {
-    background: rgba(66, 153, 225, 1) !important;
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-/* Firefox scrollbars */
-.pdf-viewer-container {
-    scrollbar-width: auto !important;
-    scrollbar-color: rgba(66, 153, 225, 0.8) rgba(0, 0, 0, 0.1) !important;
+/* === PAGE NAVIGATION === */
+.pdf-page-navigation {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 20px;
+    border-radius: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    transition: all 0.2s ease;
 }
 
-/* FIXED ZOOM CONTROLS */
+.pdf-page-navigation button:active {
+    transform: scale(0.95);
+}
+
+/* === ZOOM CONTROLS (FIXED POSITION) === */
 .pdf-zoom-controls {
     position: fixed !important;
     bottom: 100px !important;
@@ -214,6 +248,12 @@
     font-size: 14px !important;
     min-width: 35px !important;
     min-height: 35px !important;
+    transition: all 0.3s ease !important;
+}
+
+.zoom-btn:hover {
+    background: #3182ce !important;
+    transform: scale(1.1) !important;
 }
 
 .zoom-level {
@@ -226,7 +266,35 @@
     color: #333 !important;
 }
 
-/* Responsive adjustments */
+/* === FORCE SCROLLBARS TO APPEAR === */
+.pdf-viewer-container::-webkit-scrollbar {
+    width: 12px !important;
+    height: 12px !important;
+    display: block !important;
+}
+
+.pdf-viewer-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1) !important;
+    border-radius: 6px !important;
+}
+
+.pdf-viewer-container::-webkit-scrollbar-thumb {
+    background: rgba(66, 153, 225, 0.8) !important;
+    border-radius: 6px !important;
+    min-height: 30px !important;
+}
+
+.pdf-viewer-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(66, 153, 225, 1) !important;
+}
+
+/* Firefox scrollbars */
+.pdf-viewer-container {
+    scrollbar-width: auto !important;
+    scrollbar-color: rgba(66, 153, 225, 0.8) rgba(0, 0, 0, 0.1) !important;
+}
+
+/* === RESPONSIVE DESIGN === */
 @media (max-width: 768px) {
     .pdf-modal {
         padding: 10px;
@@ -249,6 +317,12 @@
     .pdf-zoom-controls {
         bottom: 80px !important;
         right: 20px !important;
+        padding: 10px !important;
+    }
+    
+    .pdf-page-navigation {
+        bottom: 15px !important;
+        padding: 8px 15px !important;
     }
 }
 
@@ -275,50 +349,23 @@
         bottom: 70px !important;
         right: 10px !important;
         padding: 8px !important;
+        gap: 8px !important;
     }
     
     .zoom-btn {
         width: 30px !important;
         height: 30px !important;
+        font-size: 12px !important;
     }
-}
-/* Instant loading optimizations */
-.pdf-viewer-container {
-    background: #ffffff;
-    transition: all 0.3s ease;
-}
-
-.pdf-loading {
-    transition: opacity 0.3s ease;
-}
-
-.pdf-loading.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* Smooth page transitions */
-.pdf-canvas-wrapper {
-    transition: all 0.3s ease;
-}
-
-/* Instant navigation feedback */
-.pdf-page-navigation {
-    transition: all 0.2s ease;
-}
-
-.pdf-page-navigation button:active {
-    transform: scale(0.95);
-}
-
-/* Performance optimizations */
-#pdf-canvas {
-    will-change: transform;
-    transform: translateZ(0);
-}
-
-/* Reduce flickering */
-.pdf-viewer-container {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    
+    .zoom-level {
+        min-width: 40px !important;
+        font-size: 11px !important;
+    }
+    
+    .pdf-page-navigation {
+        bottom: 10px !important;
+        padding: 6px 12px !important;
+        gap: 0.5rem !important;
+    }
 }
