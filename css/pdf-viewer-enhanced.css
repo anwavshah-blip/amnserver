@@ -1,5 +1,4 @@
-/* Working PDF Viewer Styles - Clean & Simple */
-
+/* PDF Modal Screen-Fitting Styles */
 .pdf-modal {
     position: fixed;
     top: 0;
@@ -37,26 +36,17 @@
     flex-shrink: 0;
 }
 
-.pdf-modal-header h3 {
-    color: var(--text-primary);
-    margin: 0;
-}
-
 .pdf-modal-body {
     flex: 1;
     overflow: hidden;
     padding: 0;
-    position: relative;
-    height: calc(90vh - 160px);
 }
 
 .pdf-viewer {
     width: 100%;
     height: 100%;
     min-height: 500px;
-    max-height: calc(90vh - 160px);
-    overflow: auto;
-    position: relative;
+    max-height: calc(90vh - 160px); /* Account for header and footer */
 }
 
 .pdf-modal-footer {
@@ -129,149 +119,7 @@
     background: rgba(66, 153, 225, 0.1);
 }
 
-/* PDF Viewer Container */
-.pdf-viewer-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    border-radius: 10px;
-    overflow: auto;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.pdf-canvas-wrapper {
-    display: block;
-    width: auto;
-    height: auto;
-    min-width: 100%;
-    min-height: 100%;
-    margin: 0 auto;
-}
-
-#pdf-canvas {
-    display: block;
-    width: auto;
-    height: auto;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    margin: 0 auto;
-}
-
-/* Loading Indicator */
-.pdf-loading {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(248, 249, 250, 0.9);
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-}
-
-.pdf-spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid #e2e8f0;
-    border-top: 3px solid #4299e1;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 1rem;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Zoom Controls */
-.pdf-zoom-controls {
-    position: fixed;
-    bottom: 100px;
-    right: 40px;
-    display: flex;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 12px;
-    border-radius: 25px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    z-index: 999;
-}
-
-.zoom-btn {
-    background: #4299e1;
-    color: white;
-    border: none;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.zoom-btn:hover {
-    background: #3182ce;
-    transform: scale(1.1);
-}
-
-.zoom-level {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 50px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #333;
-}
-
-/* Page Navigation */
-.pdf-page-navigation {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 10px 20px;
-    border-radius: 25px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-}
-
-/* Error Display */
-.pdf-error {
-    text-align: center;
-    padding: 2rem;
-    color: #e53e3e;
-}
-
-.pdf-error i {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.pdf-error h3 {
-    color: #333;
-    margin-bottom: 0.5rem;
-}
-
-.pdf-error p {
-    color: #666;
-    margin-bottom: 1.5rem;
-}
-
-/* Responsive Design */
+/* Responsive adjustments for PDF modal */
 @media (max-width: 768px) {
     .pdf-modal {
         padding: 10px;
@@ -289,17 +137,6 @@
     .pdf-modal-header,
     .pdf-modal-footer {
         padding: 15px 20px;
-    }
-    
-    .pdf-zoom-controls {
-        bottom: 80px;
-        right: 20px;
-        padding: 10px;
-    }
-    
-    .pdf-page-navigation {
-        bottom: 15px;
-        padding: 8px 15px;
     }
 }
 
@@ -322,27 +159,78 @@
         padding: 10px 15px;
     }
     
-    .pdf-zoom-controls {
-        bottom: 70px;
-        right: 10px;
-        padding: 8px;
-        gap: 8px;
-    }
-    
-    .zoom-btn {
-        width: 30px;
-        height: 30px;
-        font-size: 12px;
-    }
-    
-    .zoom-level {
-        min-width: 40px;
-        font-size: 11px;
-    }
-    
-    .pdf-page-navigation {
-        bottom: 10px;
-        padding: 6px 12px;
+    .pdf-controls {
         gap: 0.5rem;
+    }
+    
+    .pdf-btn {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+
+/* Additional styles for persistent zoom controls and scrolling */
+
+/* Ensure zoom controls stay visible */
+.pdf-zoom-controls {
+    position: fixed !important;
+    bottom: 80px !important;
+    right: 40px !important;
+    z-index: 1000 !important;
+}
+
+/* Enhanced scroll behavior for zoomed content */
+.pdf-viewer-container {
+    overflow: auto !important;
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for better UX */
+.pdf-viewer-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.pdf-viewer-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.pdf-viewer-container::-webkit-scrollbar-thumb {
+    background: rgba(66, 153, 225, 0.6);
+    border-radius: 4px;
+}
+
+.pdf-viewer-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(66, 153, 225, 0.8);
+}
+
+/* Prevent zoom controls from disappearing */
+.pdf-modal-body {
+    position: relative;
+}
+
+/* Ensure canvas wrapper can scroll */
+.pdf-canvas-wrapper {
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .pdf-zoom-controls {
+        bottom: 60px !important;
+        right: 20px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .pdf-zoom-controls {
+        bottom: 50px !important;
+        right: 10px !important;
     }
 }
