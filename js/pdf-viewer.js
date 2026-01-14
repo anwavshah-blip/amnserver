@@ -1,4 +1,4 @@
-// Fixed PDF Viewer with Screen-Fitting - Complete Version
+// Fixed PDF Viewer with Screen-Fitting - Complete Version with persistent zoom controls and scroll
 
 let currentPDF = null;
 let currentPage = 1;
@@ -182,6 +182,12 @@ async function renderPage(num, targetScale = null) {
         if (canvasWrapper) {
             canvasWrapper.style.width = scaledViewport.width + 'px';
             canvasWrapper.style.height = scaledViewport.height + 'px';
+            // Enable scrolling when content is larger than container
+            if (scaledViewport.width > container.clientWidth || scaledViewport.height > container.clientHeight) {
+                container.style.overflow = 'auto';
+            } else {
+                container.style.overflow = 'hidden';
+            }
         }
         
         // Render PDF page into canvas context
@@ -216,12 +222,26 @@ async function renderPage(num, targetScale = null) {
     }
 }
 
-// Zoom functions
+// Zoom functions - FIXED to prevent button disappearance
 function zoomPDF(zoomDelta) {
     if (!pdfDoc) return;
     
     const newScale = Math.max(0.5, Math.min(3.0, currentScale + zoomDelta));
+    
+    // Store the zoom controls container reference
+    const zoomControls = document.querySelector('.pdf-zoom-controls');
+    const zoomControlsHTML = zoomControls ? zoomControls.innerHTML : null;
+    
+    // Re-render page with new scale
     renderPage(currentPage, newScale);
+    
+    // Ensure zoom controls remain visible after re-render
+    setTimeout(() => {
+        const newZoomControls = document.querySelector('.pdf-zoom-controls');
+        if (newZoomControls && zoomControlsHTML) {
+            newZoomControls.innerHTML = zoomControlsHTML;
+        }
+    }, 100);
 }
 
 function fitToWidth() {
@@ -230,19 +250,43 @@ function fitToWidth() {
     const container = document.querySelector('.pdf-viewer-container');
     const containerWidth = container.clientWidth - 40;
     
+    // Store zoom controls
+    const zoomControls = document.querySelector('.pdf-zoom-controls');
+    const zoomControlsHTML = zoomControls ? zoomControls.innerHTML : null;
+    
     // Calculate scale to fit width exactly
     pdfDoc.getPage(currentPage).then(page => {
         const viewport = page.getViewport({ scale: 1 });
         const widthScale = containerWidth / viewport.width;
         renderPage(currentPage, widthScale);
+        
+        // Restore zoom controls
+        setTimeout(() => {
+            const newZoomControls = document.querySelector('.pdf-zoom-controls');
+            if (newZoomControls && zoomControlsHTML) {
+                newZoomControls.innerHTML = zoomControlsHTML;
+            }
+        }, 100);
     });
 }
 
 function fitToPage() {
     if (!pdfDoc) return;
     
+    // Store zoom controls
+    const zoomControls = document.querySelector('.pdf-zoom-controls');
+    const zoomControlsHTML = zoomControls ? zoomControls.innerHTML : null;
+    
     // Use the automatic optimal scaling
     renderPage(currentPage);
+    
+    // Restore zoom controls
+    setTimeout(() => {
+        const newZoomControls = document.querySelector('.pdf-zoom-controls');
+        if (newZoomControls && zoomControlsHTML) {
+            newZoomControls.innerHTML = zoomControlsHTML;
+        }
+    }, 100);
 }
 
 // Add zoom controls to the modal
@@ -476,7 +520,7 @@ window.PDFViewer = {
     fitToPage
 };
 
-// Add CSS styles for screen-fitting PDF viewer
+// Add CSS styles for screen-fitting PDF viewer with scroll support
 const pdfViewerStyles = document.createElement('style');
 pdfViewerStyles.textContent = `
     .pdf-viewer-container {
@@ -488,8 +532,9 @@ pdfViewerStyles.textContent = `
         justify-content: center;
         background: #f8f9fa;
         border-radius: 10px;
-        overflow: auto;
+        overflow: auto; /* Changed from hidden to auto for scroll */
         padding: 20px;
+        box-sizing: border-box;
     }
     
     .pdf-canvas-wrapper {
@@ -497,6 +542,8 @@ pdfViewerStyles.textContent = `
         align-items: center;
         justify-content: center;
         margin: 0 auto;
+        min-width: 100%;
+        min-height: 100%;
     }
     
     #pdf-canvas {
@@ -505,6 +552,11 @@ pdfViewerStyles.textContent = `
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         border-radius: 4px;
         display: block;
+        cursor: grab;
+    }
+    
+    #pdf-canvas:active {
+        cursor: grabbing;
     }
     
     .pdf-loading {
@@ -537,16 +589,18 @@ pdfViewerStyles.textContent = `
     }
     
     .pdf-zoom-controls {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
+        position: fixed;
+        bottom: 80px;
+        right: 40px;
         display: flex;
         gap: 10px;
-        background: rgba(255, 255, 255, 0.9);
-        padding: 10px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 12px;
         border-radius: 25px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        z-index: 20;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        z-index: 100;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.1);
     }
     
     .zoom-btn {
@@ -605,14 +659,34 @@ pdfViewerStyles.textContent = `
         100% { transform: rotate(360deg); }
     }
     
+    /* Scrollbar styling for PDF viewer */
+    .pdf-viewer-container::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .pdf-viewer-container::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+    }
+    
+    .pdf-viewer-container::-webkit-scrollbar-thumb {
+        background: rgba(66, 153, 225, 0.6);
+        border-radius: 4px;
+    }
+    
+    .pdf-viewer-container::-webkit-scrollbar-thumb:hover {
+        background: rgba(66, 153, 225, 0.8);
+    }
+    
     @media (max-width: 768px) {
         .pdf-viewer-container {
             padding: 10px;
         }
         
         .pdf-zoom-controls {
-            bottom: 10px;
-            right: 10px;
+            bottom: 60px;
+            right: 20px;
             padding: 8px;
             gap: 8px;
         }
@@ -636,8 +710,8 @@ pdfViewerStyles.textContent = `
     
     @media (max-width: 480px) {
         .pdf-zoom-controls {
-            bottom: 5px;
-            right: 5px;
+            bottom: 50px;
+            right: 10px;
             padding: 6px;
             gap: 6px;
         }
