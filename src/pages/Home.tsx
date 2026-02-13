@@ -47,7 +47,7 @@ export default function Home() {
             >
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-medium mb-6">
                 <Sparkles className="w-4 h-4 text-primary" />
-                Welcome to my digital universe
+                Together for Nature, Together for Nepal
               </span>
             </motion.div>
             
@@ -58,7 +58,7 @@ export default function Home() {
               className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6"
             >
               Hi, I'm{' '}
-              <span className="gradient-text">Alex Chen</span>
+              <span className="gradient-text">Aman Shah</span>
             </motion.h1>
             
             <motion.p
@@ -67,7 +67,7 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
               className="text-xl sm:text-2xl text-muted-foreground mb-8"
             >
-              Physicist | Developer | Designer
+              Physicist | Engineer | Researcher
             </motion.p>
             
             <motion.p
@@ -76,8 +76,9 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
               className="text-lg text-muted-foreground/80 max-w-2xl mx-auto mb-10"
             >
-              Exploring the universe through code and physics. Building digital experiences 
-              that bridge the gap between theoretical concepts and practical applications.
+              Exploring Nepal’s natural heritage and celebrating its unique wildlife, we connect
+              research and community action — and empower you to protect, preserve, and make a
+              lasting conservation impact.
             </motion.p>
             
             <motion.div
