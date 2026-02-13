@@ -26,7 +26,7 @@ const personalInfo = [
 
 const education = [
   {
-    Grade: '+2',
+    degree: '+2',
     institution: 'MIT',
     year: '2077 - 2079',
     description: 'Physical Group- Mathematics, Physic and Computer',
