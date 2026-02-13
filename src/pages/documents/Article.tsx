@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import article1 from '../../assets/documents/article/game.pdf';
 import { 
   Search, 
   FileText, 
@@ -37,7 +38,7 @@ const articles: Article[] = [
     date: '2024-01-15',
     tags: ['Quantum Physics', 'Research'],
     views: 1250,
-    pdfUrl: '/sample.pdf',
+    pdfUrl: article1,
     description: 'An in-depth exploration of quantum entanglement and its applications in quantum computing.',
   },
   {

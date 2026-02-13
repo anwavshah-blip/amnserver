@@ -116,10 +116,10 @@ export default function Footer() {
                 <div>
                   <p className="text-sm text-muted-foreground">Email</p>
                   <a 
-                    href="mailto:nepalwildresearch@outlook.com" 
+                    href="mailto:amangrown@outlook.com" 
                     className="hover:text-primary transition-colors"
                   >
-                    nepalwildresearch@outlook.com
+                    amangrown@outlook.com
                   </a>
                 </div>
               </li>
