@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { 
   Mail, 
   Phone, 
@@ -19,13 +20,13 @@ const socialLinks = [
 ];
 
 const quickLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Gallery', href: '/gallery' },
-  { label: 'Physics', href: '/physics' },
-  { label: 'Documents', href: '/documents/article' },
-  { label: 'News', href: '/news' },
-  { label: 'Downloads', href: '/downloads' },
+  { label: 'Home', to: '/' },
+  { label: 'About', to: '/about' },
+  { label: 'Gallery', to: '/gallery' },
+  { label: 'Physics', to: '/physics' },
+  { label: 'Documents', to: '/documents/article' },
+  { label: 'News', to: '/news' },
+  { label: 'Downloads', to: '/downloads' },
 ];
 
 export default function Footer() {
@@ -86,9 +87,9 @@ export default function Footer() {
             <h3 className="text-lg font-semibold">Quick Links</h3>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
-                <li key={link.href}>
+                <li key={link.to}>
                   <a
-                    href={link.href}
+                    href={link.to}
                     className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center gap-2"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-primary/50" />
