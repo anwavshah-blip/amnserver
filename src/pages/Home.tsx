@@ -9,7 +9,7 @@ const features = [
   {
     icon: Sparkles,
     title: 'Kande Bhyakur',
-    description: 'shy, elusive, and ground-dwelling bird, usually detected by its loud, melodious, and thrush-like song.',
+    description: 'Shy, elusive, and ground-dwelling bird, usually detected by its loud, melodious, and thrush-like song.',
   },
   {
     icon: Zap,
