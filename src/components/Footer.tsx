@@ -51,12 +51,13 @@ export default function Footer() {
                 <Atom className="w-6 h-6" />
               </div>
               <span className="text-2xl font-bold gradient-text">
-                Portfolio
+                Nepal Wild Research
               </span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Exploring the universe through code and physics. 
-              Building digital experiences that are both functional and beautiful.
+              Exploring Nepal’s forests and wildlife through science
+              and research. Building digital experiences that turn knowledge into
+              meaningful conservation action.
             </p>
             <div className="flex items-center gap-3">
               {socialLinks.map((social) => (
@@ -113,10 +114,10 @@ export default function Footer() {
                 <div>
                   <p className="text-sm text-muted-foreground">Email</p>
                   <a 
-                    href="mailto:contact@portfolio.com" 
+                    href="mailto:amangrown@outlook.com" 
                     className="hover:text-primary transition-colors"
                   >
-                    contact@portfolio.com
+                    amangrown@outlook.com
                   </a>
                 </div>
               </li>
@@ -125,10 +126,10 @@ export default function Footer() {
                 <div>
                   <p className="text-sm text-muted-foreground">Phone</p>
                   <a 
-                    href="tel:+1234567890" 
+                    href="tel:+977-9864164617" 
                     className="hover:text-primary transition-colors"
                   >
-                    +1 (234) 567-890
+                    +977 986 4164617
                   </a>
                 </div>
               </li>
@@ -136,8 +137,8 @@ export default function Footer() {
                 <MapPin className="w-5 h-5 text-primary mt-0.5" />
                 <div>
                   <p className="text-sm text-muted-foreground">Address</p>
-                  <p>123 Science Street</p>
-                  <p>Tech City, TC 12345</p>
+                  <p>Syuchatar</p>
+                  <p>Kirtipur, Kathmandu</p>
                 </div>
               </li>
             </ul>
@@ -181,10 +182,10 @@ export default function Footer() {
         >
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground text-center sm:text-left">
-              © {currentYear} Portfolio Hub. All rights reserved.
+              © {currentYear} Nepal Wild Research. All rights reserved.
             </p>
             <p className="text-sm text-muted-foreground flex items-center gap-1">
-              Made with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> by Owner Name
+              Made with <Heart className="w-4 h-4 text-red-500 animate-pulse" /> by Aman Shah
             </p>
           </div>
         </motion.div>

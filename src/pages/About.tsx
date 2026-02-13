@@ -13,6 +13,7 @@ import {
   Globe,
   Cpu
 } from 'lucide-react';
+import profilePhoto from '../assets/images/profile.jpg';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 
@@ -20,7 +21,7 @@ const personalInfo = [
   { icon: Calendar, label: 'Date of Birth', value: 'Shrawan 07, 2060' },
   { icon: MapPin, label: 'Address', value: 'Syuchatar, Kirtipur, Kathmandu' },
   { icon: Mail, label: 'Email', value: 'amangrown@outlook.com' },
-  { icon: Phone, label: 'Phone', value: '+974-9864164617' },
+  { icon: Phone, label: 'Phone', value: '+977-9864164617' },
 ];
 
 const education = [
@@ -118,13 +119,13 @@ export default function About() {
                   <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 animate-pulse-glow" />
                   <div className="absolute inset-1 rounded-full bg-background" />
                   <img
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+                    src={profilePhoto}
                     alt="Profile"
                     className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] rounded-full object-cover"
                   />
                 </div>
                 
-                <h2 className="text-2xl font-bold mb-2">Alex Chen</h2>
+                <h2 className="text-2xl font-bold mb-2">Aman Shah</h2>
                 <p className="text-primary font-medium mb-4">
                   Physicist & Engineer
                 </p>
