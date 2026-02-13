@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
+import logoImage from '../assets/images/logo.png';
 import { 
   Home, 
   User, 
@@ -72,9 +73,11 @@ export default function Navigation() {
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl glass-button flex items-center justify-center">
-                <Atom className="w-5 h-5" />
-              </div>
+              <img 
+              src={logoImage} 
+              alt="Logo" 
+              className="w-10 h-10 rounded-xl object-cover"
+              />
               <span className="text-xl font-bold gradient-text hidden sm:block">
                 NWR
               </span>
