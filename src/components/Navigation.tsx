@@ -18,23 +18,23 @@ import {
 } from 'lucide-react';
 
 const navItems = [
-  { path: '/', label: 'Home', icon: Home },
-  { path: '/about', label: 'About', icon: User },
-  { path: '/gallery', label: 'Gallery', icon: Image },
-  { path: '/physics', label: 'Physics', icon: Atom },
+  { path: '#/', label: 'Home', icon: Home },
+  { path: '#/about', label: 'About', icon: User },
+  { path: '#/gallery', label: 'Gallery', icon: Image },
+  { path: '#/physics', label: 'Physics', icon: Atom },
   { 
-    path: '/documents', 
+    path: '#/documents', 
     label: 'Documents', 
     icon: FileText,
     submenu: [
-      { path: '/documents/article', label: 'Article' },
-      { path: '/documents/report', label: 'Report' },
-      { path: '/documents/journal', label: 'Journal' },
-      { path: '/documents/project', label: 'Project' },
+      { path: '#/documents/article', label: 'Article' },
+      { path: '#/documents/report', label: 'Report' },
+      { path: '#/documents/journal', label: 'Journal' },
+      { path: '#/documents/project', label: 'Project' },
     ]
   },
-  { path: '/news', label: 'News', icon: Newspaper },
-  { path: '/downloads', label: 'Download', icon: Download },
+  { path: '#/news', label: 'News', icon: Newspaper },
+  { path: '#/downloads', label: 'Download', icon: Download },
 ];
 
 export default function Navigation() {
@@ -53,9 +53,10 @@ export default function Navigation() {
   }, []);
 
   const isActive = (path: string) => {
-    if (path === '/') return location.pathname === '/';
-    return location.pathname.startsWith(path);
-  };
+  const hashPath = path.replace('#', '');
+  if (hashPath === '/') return location.pathname === '/';
+  return location.pathname.startsWith(hashPath);
+};
 
   return (
     <>

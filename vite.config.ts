@@ -6,5 +6,6 @@ export default defineConfig({
   base: '/',  // Important for custom domain
   build: {
     outDir: 'docs',
+    sourcemap: true,
   },
 })
