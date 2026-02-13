@@ -76,9 +76,8 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
               className="text-lg text-muted-foreground/80 max-w-2xl mx-auto mb-10"
             >
-              Exploring Nepal’s natural heritage and celebrating its unique wildlife, we connect
-              research and community action — and empower you to protect, preserve, and make a
-              lasting conservation impact.
+              Exploring Nepal’s forests and wildlife, creating digital experiences that
+               turn conservation knowledge into practical action and empower you to protect nature.
             </motion.p>
             
             <motion.div

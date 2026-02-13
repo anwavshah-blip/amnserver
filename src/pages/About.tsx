@@ -17,24 +17,24 @@ import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 
 const personalInfo = [
-  { icon: Calendar, label: 'Date of Birth', value: 'March 15, 1995' },
-  { icon: MapPin, label: 'Address', value: '123 Science Street, Tech City, TC 12345' },
-  { icon: Mail, label: 'Email', value: 'alex.chen@portfolio.com' },
-  { icon: Phone, label: 'Phone', value: '+1 (234) 567-890' },
+  { icon: Calendar, label: 'Date of Birth', value: 'Shrawan 07, 2060' },
+  { icon: MapPin, label: 'Address', value: 'Syuchatar, Kirtipur, Kathmandu' },
+  { icon: Mail, label: 'Email', value: 'amangrown@outlook.com' },
+  { icon: Phone, label: 'Phone', value: '+974-9864164617' },
 ];
 
 const education = [
   {
-    degree: 'Ph.D. in Theoretical Physics',
+    Grade: '+2',
     institution: 'MIT',
-    year: '2018 - 2022',
-    description: 'Specialized in Quantum Field Theory and Particle Physics',
+    year: '2077 - 2079',
+    description: 'Physical Group- Mathematics, Physic and Computer',
   },
   {
-    degree: 'M.S. in Computer Science',
-    institution: 'Stanford University',
-    year: '2016 - 2018',
-    description: 'Focus on Machine Learning and Scientific Computing',
+    degree: 'B.E in Civil Engineering',
+    institution: 'Advance College Of Engineering and Management',
+    year: '2079 - Current',
+    description: 'Currently Pursuing',
   },
   {
     degree: 'B.S. in Physics',
@@ -99,7 +99,7 @@ export default function About() {
               About <span className="gradient-text">Me</span>
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Bridging the gap between theoretical physics and practical software engineering.
+              Bridging the gap between theoretical physics and practical engineering.
             </p>
           </motion.div>
           
@@ -126,7 +126,7 @@ export default function About() {
                 
                 <h2 className="text-2xl font-bold mb-2">Alex Chen</h2>
                 <p className="text-primary font-medium mb-4">
-                  Physicist & Software Developer
+                  Physicist & Engineer
                 </p>
                 
                 <div className="flex flex-wrap justify-center gap-2 mb-6">
@@ -144,7 +144,7 @@ export default function About() {
                 </div>
                 
                 <a
-                  href="mailto:alex.chen@portfolio.com"
+                  href="mailto:amangrown@outlook.com"
                   className="w-full py-3 glass-button font-medium"
                 >
                   Get In Touch
