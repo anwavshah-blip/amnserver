@@ -13,7 +13,7 @@ import {
   Globe,
   Cpu
 } from 'lucide-react';
-import profilePhoto from '../assets/images/profile1.jpeg';
+import profilePhoto from '../assets/images/profile.jpeg';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 

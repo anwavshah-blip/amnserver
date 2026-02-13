@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import logoImage from '../assets/images/logo.png';
 import { 
   Mail, 
   Phone, 
@@ -7,7 +8,6 @@ import {
   Linkedin, 
   Twitter, 
   Instagram,
-  Atom,
   Heart
 } from 'lucide-react';
 
@@ -48,7 +48,11 @@ export default function Footer() {
           >
             <div className="flex items-center gap-2">
               <div className="w-12 h-12 rounded-xl glass-button flex items-center justify-center">
-                <Atom className="w-6 h-6" />
+                <img 
+              src={logoImage} 
+              alt="Logo" 
+              className="w-10 h-10 rounded-xl object-cover"
+              />
               </div>
               <span className="text-2xl font-bold gradient-text">
                 Nepal Wild Research
