@@ -33,8 +33,8 @@ const navItems = [
       { path: '/documents/project', label: 'Project' },
     ]
   },
-  { path: '#/news', label: 'News', icon: Newspaper },
-  { path: '#/downloads', label: 'Download', icon: Download },
+  { path: '/news', label: 'News', icon: Newspaper },
+  { path: '/downloads', label: 'Download', icon: Download },
 ];
 
 export default function Navigation() {
@@ -52,9 +52,11 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Simple isActive - works with HashRouter
   const isActive = (path: string) => {
-  return location.pathname === path || location.pathname.startsWith(path + '/');
-};
+    return location.pathname === path || location.pathname.startsWith(path + '/');
+  };
+
   return (
     <>
       {/* Desktop Navigation */}
