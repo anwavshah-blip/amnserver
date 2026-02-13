@@ -76,7 +76,7 @@ export default function Navigation() {
                 <Atom className="w-5 h-5" />
               </div>
               <span className="text-xl font-bold gradient-text hidden sm:block">
-                Portfolio
+                Nepal Wild Research
               </span>
             </Link>
 

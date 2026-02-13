@@ -8,18 +8,18 @@ import ParticleBackground from '../components/ParticleBackground';
 const features = [
   {
     icon: Sparkles,
-    title: 'Creative Design',
-    description: 'Beautiful glassmorphism and neumorphism UI designs with smooth animations.',
+    title: 'Kande Bhyakur',
+    description: 'shy, elusive, and ground-dwelling bird, usually detected by its loud, melodious, and thrush-like song.',
   },
   {
     icon: Zap,
-    title: 'Fast Performance',
-    description: 'Optimized for speed with modern technologies and best practices.',
+    title: 'Siddhartha Gautama Buddha',
+    description: 'It is better to travel well than to arrive.',
   },
   {
     icon: Globe,
-    title: 'Responsive',
-    description: 'Fully responsive design that works perfectly on all devices.',
+    title: 'Quantum Tunneling',
+    description: 'Particles can sometimes pass directly through solid barriers.',
   },
 ];
 
@@ -76,8 +76,7 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
               className="text-lg text-muted-foreground/80 max-w-2xl mx-auto mb-10"
             >
-              Exploring Nepal’s forests and wildlife, creating digital experiences that
-               turn conservation knowledge into practical action and empower you to protect nature.
+              Exploring our wilderness, we reveal the wonders of Nepal’s wildlife. Learn, engage, and become a guardian of nature.
             </motion.p>
             
             <motion.div

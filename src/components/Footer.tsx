@@ -55,9 +55,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Exploring Nepal’s forests and wildlife through science
-              and research. Building digital experiences that turn knowledge into
-              meaningful conservation action.
+              Exploring Nepal’s forests and wildlife through science and research. Building digital experiences that turn knowledge into meaningful conservation action.
             </p>
             <div className="flex items-center gap-3">
               {socialLinks.map((social) => (
