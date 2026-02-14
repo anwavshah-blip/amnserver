@@ -47,7 +47,7 @@ const projects: Project[] = [
     description: 'Interactive web-based quantum circuit simulator for educational purposes.',
     status: 'Completed',
     githubUrl: 'https://github.com',
-    demoUrl: 'https://www.aman-sah.com.np',
+    demoUrl: 'https://aman-sah.com.np',
   },
   {
     id: 2,
