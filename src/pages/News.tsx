@@ -5,31 +5,18 @@ import {
   Calendar, 
   Clock, 
   FileText, 
+  Download, 
   Eye,
   ChevronRight,
   Newspaper,
   Tag,
   X,
+  ZoomIn,
+  ZoomOut,
   Lock
 } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
-import ProtectedPdfViewer from '../components/ProtectedPdfViewer';
-
-// Import actual PDF files
-import news1Pdf from '../assets/news/game1.pdf';
-import news2Pdf from '../assets/news/game1.pdf';
-import news3Pdf from '../assets/news/game1.pdf';
-import news4Pdf from '../assets/news/game1.pdf';
-import news5Pdf from '../assets/news/game1.pdf';
-import news6Pdf from '../assets/news/game1.pdf';
-
-// Interface for attachment data in news items
-interface Attachment {
-  name: string; 
-  size: string; 
-  pdfUrl: string;
-}
 
 interface NewsItem {
   id: number;
@@ -38,14 +25,7 @@ interface NewsItem {
   excerpt: string;
   content: string;
   tags: string[];
-  author: string;
-  attachments: Attachment[];
-}
-
-// Interface for the selected attachment (includes extra fields for PDF viewer)
-interface SelectedAttachment extends Attachment {
-  author: string;
-  date: string;
+  attachments: { name: string; size: string; url: string }[];
 }
 
 const newsItems: NewsItem[] = [
@@ -56,10 +36,9 @@ const newsItems: NewsItem[] = [
     excerpt: 'Our latest research on quantum entanglement has been published in Nature Physics.',
     content: 'We are excited to announce that our latest research paper on quantum entanglement has been published in Nature Physics. This work represents years of collaboration with international research teams and opens new possibilities for quantum communication technologies.',
     tags: ['Publication', 'Quantum Physics'],
-    author: 'Aman Shah',
     attachments: [
-      { name: 'Research_Paper.pdf', size: '2.4 MB', pdfUrl: news1Pdf },
-      { name: 'Supplementary_Data.pdf', size: '15.8 MB', pdfUrl: news2Pdf },
+      { name: 'Research_Paper.pdf', size: '2.4 MB', url: '#' },
+      { name: 'Supplementary_Data.zip', size: '15.8 MB', url: '#' },
     ],
   },
   {
@@ -69,9 +48,8 @@ const newsItems: NewsItem[] = [
     excerpt: 'New particle detection results from the LHC experiments show promising findings.',
     content: 'The latest results from our CERN collaboration have revealed interesting patterns in particle collision data. These findings could potentially lead to new discoveries in the field of particle physics.',
     tags: ['CERN', 'Research'],
-    author: 'Aman Shah',
     attachments: [
-      { name: 'Experiment_Results.pdf', size: '5.2 MB', pdfUrl: news2Pdf },
+      { name: 'Experiment_Results.pdf', size: '5.2 MB', url: '#' },
     ],
   },
   {
@@ -81,10 +59,9 @@ const newsItems: NewsItem[] = [
     excerpt: 'I will be presenting our latest findings at the International Physics Conference.',
     content: 'I am honored to be invited as a keynote speaker at the International Physics Conference in Geneva. I will be presenting our recent work on dark matter detection methods and their implications for future experiments.',
     tags: ['Conference', 'Speaking'],
-    author: 'Aman Shah',
     attachments: [
-      { name: 'Presentation_Slides.pdf', size: '12.5 MB', pdfUrl: news3Pdf },
-      { name: 'Conference_Program.pdf', size: '1.8 MB', pdfUrl: news4Pdf },
+      { name: 'Presentation_Slides.pptx', size: '12.5 MB', url: '#' },
+      { name: 'Conference_Program.pdf', size: '1.8 MB', url: '#' },
     ],
   },
   {
@@ -94,9 +71,8 @@ const newsItems: NewsItem[] = [
     excerpt: 'We have received a major grant to continue our quantum computing research.',
     content: 'We are thrilled to announce that our research group has been awarded a $2.5 million grant from the National Science Foundation to continue our work on quantum computing applications in physics simulations.',
     tags: ['Funding', 'Quantum Computing'],
-    author: 'Aman Shah',
     attachments: [
-      { name: 'Grant_Proposal.pdf', size: '3.1 MB', pdfUrl: news4Pdf },
+      { name: 'Grant_Proposal.pdf', size: '3.1 MB', url: '#' },
     ],
   },
   {
@@ -106,10 +82,9 @@ const newsItems: NewsItem[] = [
     excerpt: 'Our new open-source physics simulation tool is now available on GitHub.',
     content: 'After months of development, we are excited to release our open-source physics simulation tool. This project aims to make physics simulations accessible to students and researchers worldwide.',
     tags: ['Open Source', 'Software'],
-    author: 'Aman Shah',
     attachments: [
-      { name: 'User_Manual.pdf', size: '4.5 MB', pdfUrl: news5Pdf },
-      { name: 'Release_Notes.pdf', size: '12 KB', pdfUrl: news6Pdf },
+      { name: 'User_Manual.pdf', size: '4.5 MB', url: '#' },
+      { name: 'Release_Notes.txt', size: '12 KB', url: '#' },
     ],
   },
   {
@@ -119,9 +94,8 @@ const newsItems: NewsItem[] = [
     excerpt: 'New international collaboration announced for dark matter research.',
     content: 'We are pleased to announce a new collaboration with the European Research Institute for Dark Matter Studies. This partnership will combine our expertise in detection methods with their advanced simulation capabilities.',
     tags: ['Collaboration', 'Dark Matter'],
-    author: 'Aman Shah',
     attachments: [
-      { name: 'MOU.pdf', size: '1.2 MB', pdfUrl: news6Pdf },
+      { name: 'MOU.pdf', size: '1.2 MB', url: '#' },
     ],
   },
 ];
@@ -129,7 +103,8 @@ const newsItems: NewsItem[] = [
 export default function News() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
-  const [selectedAttachment, setSelectedAttachment] = useState<SelectedAttachment | null>(null);
+  const [selectedAttachment, setSelectedAttachment] = useState<{ name: string; size: string } | null>(null);
+  const [zoomLevel, setZoomLevel] = useState(100);
 
   const filteredNews = newsItems.filter(news =>
     news.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -137,13 +112,12 @@ export default function News() {
     news.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-  // Fixed: Properly typed function to handle attachment viewing
-  const handleViewAttachment = (attachment: Attachment, news: NewsItem) => {
-    setSelectedAttachment({
-      ...attachment,
-      author: news.author,
-      date: news.date
-    });
+  const handleZoomIn = () => {
+    setZoomLevel(prev => Math.min(prev + 25, 200));
+  };
+
+  const handleZoomOut = () => {
+    setZoomLevel(prev => Math.max(prev - 25, 50));
   };
 
   return (
@@ -338,6 +312,11 @@ export default function News() {
                   <p className="text-muted-foreground leading-relaxed">
                     {selectedNews.content}
                   </p>
+                  <p className="text-muted-foreground leading-relaxed mt-4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
                 </div>
                 
                 {/* Attachments */}
@@ -351,7 +330,8 @@ export default function News() {
                       {selectedNews.attachments.map((attachment, idx) => (
                         <div
                           key={idx}
-                          className="flex items-center justify-between p-3 glass-card hover:bg-white/5 transition-colors"
+                          onClick={() => setSelectedAttachment(attachment)}
+                          className="flex items-center justify-between p-3 glass-card hover:bg-white/5 cursor-pointer transition-colors"
                         >
                           <div className="flex items-center gap-3">
                             <FileText className="w-5 h-5 text-primary" />
@@ -361,21 +341,11 @@ export default function News() {
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
-                            {/* View Button - Opens PDF Viewer */}
-                            <button 
-                              onClick={() => handleViewAttachment(attachment, selectedNews)}
-                              className="w-8 h-8 rounded-lg glass-button flex items-center justify-center hover:bg-primary/20 transition-colors"
-                              title="View PDF"
-                            >
+                            <button className="w-8 h-8 rounded-lg glass-button flex items-center justify-center">
                               <Eye className="w-4 h-4" />
                             </button>
-                            {/* Download Button - Disabled/Locked */}
-                            <button 
-                              className="w-8 h-8 rounded-lg glass-button flex items-center justify-center opacity-50 cursor-not-allowed"
-                              title="Download disabled"
-                              disabled
-                            >
-                              <Lock className="w-4 h-4" />
+                            <button className="w-8 h-8 rounded-lg glass-button flex items-center justify-center">
+                              <Download className="w-4 h-4" />
                             </button>
                           </div>
                         </div>
@@ -389,19 +359,98 @@ export default function News() {
         )}
       </AnimatePresence>
 
-      {/* PDF Viewer Modal - Using ProtectedPdfViewer */}
-      {selectedAttachment && (
-        <ProtectedPdfViewer 
-          article={{
-            id: 0,
-            title: selectedAttachment.name,
-            author: selectedAttachment.author,
-            date: selectedAttachment.date,
-            pdfUrl: selectedAttachment.pdfUrl
-          }}
-          onClose={() => setSelectedAttachment(null)}
-        />
-      )}
+      {/* Attachment Viewer Modal */}
+      <AnimatePresence>
+        {selectedAttachment && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm"
+          >
+            {/* Toolbar */}
+            <div className="h-16 glass-card border-b border-border/50 flex items-center justify-between px-4">
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => setSelectedAttachment(null)}
+                  className="w-10 h-10 rounded-lg neu-button flex items-center justify-center"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <div>
+                  <h3 className="font-semibold text-sm">{selectedAttachment.name}</h3>
+                  <p className="text-xs text-muted-foreground">{zoomLevel}%</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <div className="hidden sm:flex items-center gap-1 glass-card p-1">
+                  <button
+                    onClick={handleZoomOut}
+                    className="w-8 h-8 rounded-lg hover:bg-white/10 flex items-center justify-center"
+                  >
+                    <ZoomOut className="w-4 h-4" />
+                  </button>
+                  <span className="text-sm w-14 text-center">{zoomLevel}%</span>
+                  <button
+                    onClick={handleZoomIn}
+                    className="w-8 h-8 rounded-lg hover:bg-white/10 flex items-center justify-center"
+                  >
+                    <ZoomIn className="w-4 h-4" />
+                  </button>
+                </div>
+                
+                <button
+                  className="w-10 h-10 rounded-lg glass-card flex items-center justify-center opacity-50 cursor-not-allowed"
+                  title="Download disabled"
+                >
+                  <Lock className="w-4 h-4" />
+                </button>
+                <button
+                  className="w-10 h-10 rounded-lg glass-card flex items-center justify-center opacity-50 cursor-not-allowed"
+                  title="Print disabled"
+                >
+                  <Lock className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+            
+            {/* Document Content */}
+            <div className="h-[calc(100vh-64px)] overflow-auto bg-[#1a1a1a] flex items-center justify-center p-8">
+              <div 
+                className="bg-white shadow-2xl transition-transform duration-200"
+                style={{ 
+                  transform: `scale(${zoomLevel / 100})`,
+                  transformOrigin: 'center top',
+                  width: '210mm',
+                  minHeight: '297mm',
+                  padding: '20mm'
+                }}
+              >
+                <div className="text-black">
+                  <h1 className="text-2xl font-bold mb-4">{selectedAttachment.name}</h1>
+                  <p className="text-gray-600 mb-8">File Size: {selectedAttachment.size}</p>
+                  
+                  <div className="prose max-w-none">
+                    <p className="mb-4">
+                      This is a preview of the attached document. The actual content would be displayed here 
+                      when connected to a real document storage system.
+                    </p>
+                    <p className="mb-4">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
+                      incididunt ut labore et dolore magna aliqua.
+                    </p>
+                  </div>
+                  
+                  <div className="mt-12 pt-8 border-t border-gray-300 text-center text-gray-500 text-sm">
+                    <p>This document is protected and cannot be downloaded or printed.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </div>
