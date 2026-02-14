@@ -47,37 +47,37 @@ const education = [
 
 const experience = [
   {
-    title: 'Senior Research Scientist',
-    company: 'CERN',
-    period: '2022 - Present',
-    description: 'Leading research projects in particle physics and developing computational models for data analysis.',
+    title: 'Calculus',
+    company: 'Mathematics',
+    period: '2020 - Present',
+    description: 'Working projects in *** physics and developing computational models for data analysis.',
   },
   {
-    title: 'Software Engineer',
-    company: 'Google Research',
-    period: '2020 - 2022',
-    description: 'Developed machine learning algorithms for scientific applications and data visualization tools.',
+    title: 'Rain Water Harvesting',
+    company: 'Hydro',
+    period: '2025 - present',
+    description: 'Working in to collects data, information and analysing.',
   },
   {
-    title: 'Research Assistant',
-    company: 'MIT Physics Lab',
-    period: '2018 - 2020',
-    description: 'Assisted in quantum computing research and published 5 papers in peer-reviewed journals.',
+    title: 'K-Os',
+    company: 'ANBHAE Lab',
+    period: '2018 - Present',
+    description: 'Working till',
   },
 ];
 
 const skills = [
-  { name: 'React & TypeScript', level: 95, icon: Code },
-  { name: 'Python & Data Science', level: 90, icon: Database },
-  { name: 'UI/UX Design', level: 85, icon: Palette },
-  { name: 'Quantum Computing', level: 88, icon: Cpu },
-  { name: 'Machine Learning', level: 82, icon: Globe },
-  { name: 'Physics Simulation', level: 92, icon: Award },
+  { name: 'Travel & Explorer', level: 10, icon: Code },
+  { name: 'Python & C++', level: 90, icon: Database },
+  { name: 'GUI/UX Design', level: 85, icon: Palette },
+  { name: 'Sketch & CAD', level: 88, icon: Cpu },
+  { name: 'Playing Chess', level: 20, icon: Globe },
+  { name: 'Physics Simulation', level: 72, icon: Award },
 ];
 
 const socialLinks = [
   { name: 'GitHub', url: 'https://github.com', color: 'hover:text-gray-400' },
-  { name: 'LinkedIn', url: 'https://linkedin.com', color: 'hover:text-blue-500' },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/shree-aman-shah', color: 'hover:text-blue-500' },
   { name: 'Twitter', url: 'https://twitter.com', color: 'hover:text-sky-400' },
   { name: 'ResearchGate', url: 'https://researchgate.net', color: 'hover:text-green-500' },
 ];
@@ -182,16 +182,11 @@ export default function About() {
                 
                 <h3 className="text-xl font-semibold mb-4">Bio</h3>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  I am a passionate physicist and software developer with over 5 years of experience 
-                  in both academic research and industry applications. My journey began with a fascination 
-                  for understanding the fundamental laws of the universe, which eventually led me to 
-                  explore the world of computational physics and software development.
+                  I am Aman Shah, a civil engineering student driven by an insatiable curiosity for the intersection of science, nature, and practical innovation. My academic journey is fueled by a deep passion for physics and research. My passion are always driven me to explore the unknown and dive deep into the fundamental workings of the universe. I'm especially fascinated by quantum physics, the laws of space and the cosmos, and the scientific theories that explain them.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  Currently, I work at CERN where I contribute to cutting-edge research in particle 
-                  physics while also developing software tools that help visualize and analyze complex 
-                  scientific data. I believe in the power of technology to make science more accessible 
-                  and engaging for everyone.
+                  I thrive on practical application projects that bridge theoretical science with real-world engineering solutions. Whether I'm coding complex systems, designing sustainable infrastructure, or studying celestial mechanics, I approach every challenge with analytical rigor and creative problem-solving.
+                  My mission is to contribute meaningfully to environmental conservation, scientific advancement, and innovative engineering—building a future where technology and nature coexist sustainably.
                 </p>
               </div>
             </motion.div>
