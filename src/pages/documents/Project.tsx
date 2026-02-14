@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import project1 from '../../assets/documents/project/game.pdf';
+import project1 from '../../assets/documents/project/game1.pdf';
 import ProtectedPdfViewer from '../../components/ProtectedPdfViewer';
 
 import { 
