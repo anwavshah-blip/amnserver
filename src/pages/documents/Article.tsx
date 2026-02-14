@@ -39,8 +39,8 @@ const articles: Article[] = [
   {
     id: 1,
     title: 'Quantum Entanglement in Modern Physics',
-    author: 'Dr. Alex Chen',
-    date: '2024-01-15',
+    author: 'Aman Shah',
+    date: '2021-01-15',
     tags: ['Quantum Physics', 'Research'],
     views: 1250,
     pdfUrl: article1,
@@ -49,7 +49,7 @@ const articles: Article[] = [
   {
     id: 2,
     title: 'Dark Matter Detection Methods',
-    author: 'Dr. Alex Chen',
+    author: 'Aman Shah',
     date: '2024-01-10',
     tags: ['Astrophysics', 'Dark Matter'],
     views: 980,
@@ -59,7 +59,7 @@ const articles: Article[] = [
   {
     id: 3,
     title: 'Machine Learning in Particle Physics',
-    author: 'Dr. Alex Chen',
+    author: 'Aman Shah',
     date: '2024-01-05',
     tags: ['AI', 'Particle Physics'],
     views: 1500,
@@ -69,7 +69,7 @@ const articles: Article[] = [
   {
     id: 4,
     title: 'The Future of Nuclear Fusion',
-    author: 'Dr. Alex Chen',
+    author: 'Aman Shah',
     date: '2023-12-28',
     tags: ['Nuclear Physics', 'Energy'],
     views: 2100,
@@ -79,7 +79,7 @@ const articles: Article[] = [
   {
     id: 5,
     title: 'Gravitational Waves: A New Window',
-    author: 'Dr. Alex Chen',
+    author: 'Aman Shah',
     date: '2023-12-20',
     tags: ['Astrophysics', 'Gravitational Waves'],
     views: 1800,

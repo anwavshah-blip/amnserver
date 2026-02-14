@@ -1,5 +1,8 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import report1 from '../../assets/documents/report/Hilly region Report.pdf';
+import ProtectedPdfViewer from '../../components/ProtectedPdfViewer';
+
 import { 
   Search, 
   FileBarChart, 
@@ -31,19 +34,19 @@ interface Report {
 const reports: Report[] = [
   {
     id: 1,
-    title: 'Annual Research Report 2023',
-    author: 'Dr. Alex Chen',
+    title: 'Hilly Region Research Report 2026',
+    author: 'Aman Shah',
     date: '2023-12-31',
     tags: ['Annual', 'Research'],
     views: 3200,
-    pdfUrl: '/sample.pdf',
-    description: 'Comprehensive overview of research activities and findings throughout 2023.',
+    pdfUrl: report1,
+    description: 'Comprehensive overview of research activities and findings throughout 2026.',
     type: 'Annual Report',
   },
   {
     id: 2,
     title: 'CERN Experiment Analysis Report',
-    author: 'Dr. Alex Chen',
+    author: 'Aman Shah',
     date: '2023-11-15',
     tags: ['CERN', 'Particle Physics'],
     views: 2100,
@@ -54,7 +57,7 @@ const reports: Report[] = [
   {
     id: 3,
     title: 'Quantum Computing Feasibility Study',
-    author: 'Dr. Alex Chen',
+    author: 'Aman Shah',
     date: '2023-10-20',
     tags: ['Quantum', 'Computing'],
     views: 1850,
@@ -65,7 +68,7 @@ const reports: Report[] = [
   {
     id: 4,
     title: 'Dark Matter Detection Progress Report',
-    author: 'Dr. Alex Chen',
+    author: 'Aman Shah',
     date: '2023-09-30',
     tags: ['Dark Matter', 'Research'],
     views: 1600,
@@ -76,7 +79,7 @@ const reports: Report[] = [
   {
     id: 5,
     title: 'Nuclear Fusion Safety Assessment',
-    author: 'Dr. Alex Chen',
+    author: 'Aman Shah',
     date: '2023-08-15',
     tags: ['Nuclear', 'Safety'],
     views: 2400,
@@ -232,163 +235,10 @@ export default function Report() {
 
       {/* PDF Viewer Modal */}
       {selectedReport && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm"
-        >
-          {/* Toolbar */}
-          <div className="h-16 glass-card border-b border-border/50 flex items-center justify-between px-4">
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => setSelectedReport(null)}
-                className="w-10 h-10 rounded-lg neu-button flex items-center justify-center"
-              >
-                <X className="w-5 h-5" />
-              </button>
-              <div>
-                <h3 className="font-semibold text-sm truncate max-w-[200px] sm:max-w-md">
-                  {selectedReport.title}
-                </h3>
-                <p className="text-xs text-muted-foreground">
-                  Page {currentPage} • {zoomLevel}%
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <div className="hidden sm:flex items-center gap-1 glass-card p-1">
-                <button
-                  onClick={handleZoomOut}
-                  className="w-8 h-8 rounded-lg hover:bg-white/10 flex items-center justify-center"
-                >
-                  <ZoomOut className="w-4 h-4" />
-                </button>
-                <span className="text-sm w-14 text-center">{zoomLevel}%</span>
-                <button
-                  onClick={handleZoomIn}
-                  className="w-8 h-8 rounded-lg hover:bg-white/10 flex items-center justify-center"
-                >
-                  <ZoomIn className="w-4 h-4" />
-                </button>
-              </div>
-              
-              <div className="hidden md:flex items-center gap-1 glass-card p-1">
-                <button
-                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                  className="w-8 h-8 rounded-lg hover:bg-white/10 flex items-center justify-center"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <span className="text-sm px-2">{currentPage}</span>
-                <button
-                  onClick={() => setCurrentPage(p => p + 1)}
-                  className="w-8 h-8 rounded-lg hover:bg-white/10 flex items-center justify-center"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-              
-              <div className="flex items-center gap-1">
-                <button
-                  className="w-10 h-10 rounded-lg glass-card flex items-center justify-center opacity-50 cursor-not-allowed"
-                  title="Download disabled"
-                >
-                  <Lock className="w-4 h-4" />
-                </button>
-                <button
-                  className="w-10 h-10 rounded-lg glass-card flex items-center justify-center opacity-50 cursor-not-allowed"
-                  title="Print disabled"
-                >
-                  <Lock className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-          
-          {/* PDF Content */}
-          <div 
-            ref={pdfContainerRef}
-            onWheel={handleWheel}
-            className="h-[calc(100vh-64px)] overflow-auto bg-[#1a1a1a] flex items-center justify-center p-8"
-          >
-            <div 
-              className="bg-white shadow-2xl transition-transform duration-200"
-              style={{ 
-                transform: `scale(${zoomLevel / 100})`,
-                transformOrigin: 'center top',
-                width: '210mm',
-                minHeight: '297mm',
-                padding: '20mm'
-              }}
-            >
-              <div className="text-black">
-                <div className="text-center mb-8">
-                  <span className="text-sm text-gray-500 uppercase tracking-wider">{selectedReport.type}</span>
-                  <h1 className="text-3xl font-bold mt-2">{selectedReport.title}</h1>
-                  <p className="text-gray-600 mt-2">
-                    Prepared by {selectedReport.author} • {selectedReport.date}
-                  </p>
-                </div>
-                
-                <div className="prose max-w-none">
-                  <h2 className="text-xl font-bold mt-8 mb-4">Executive Summary</h2>
-                  <p className="mb-4">
-                    {selectedReport.description}
-                  </p>
-                  <p className="mb-4">
-                    This report presents a comprehensive analysis of the subject matter, 
-                    including detailed findings, methodologies, and recommendations for future work.
-                  </p>
-                  
-                  <h2 className="text-xl font-bold mt-8 mb-4">Introduction</h2>
-                  <p className="mb-4">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-                  
-                  <h2 className="text-xl font-bold mt-8 mb-4">Methodology</h2>
-                  <p className="mb-4">
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
-                    culpa qui officia deserunt mollit anim id est laborum.
-                  </p>
-                  
-                  <h2 className="text-xl font-bold mt-8 mb-4">Findings</h2>
-                  <p className="mb-4">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque 
-                    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi 
-                    architecto beatae vitae dicta sunt explicabo.
-                  </p>
-                  
-                  <h2 className="text-xl font-bold mt-8 mb-4">Conclusions</h2>
-                  <p className="mb-4">
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia 
-                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                  </p>
-                  
-                  <h2 className="text-xl font-bold mt-8 mb-4">Recommendations</h2>
-                  <p className="mb-4">
-                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, 
-                    adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et 
-                    dolore magnam aliquam quaerat voluptatem.
-                  </p>
-                </div>
-                
-                <div className="mt-12 pt-8 border-t border-gray-300 text-center text-gray-500 text-sm">
-                  <p>© 2024 {selectedReport.author}. All rights reserved.</p>
-                  <p className="mt-2">CONFIDENTIAL - This document is protected and cannot be downloaded or printed.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 glass-card px-4 py-2 text-sm text-muted-foreground">
-            Use Ctrl + Scroll to zoom • Scroll to navigate
-          </div>
-        </motion.div>
+        <ProtectedPdfViewer 
+            article={selectedReport}
+            onClose={() => setSelectedReport(null)}
+          />
       )}
 
       <Footer />
