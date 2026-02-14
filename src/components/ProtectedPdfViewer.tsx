@@ -22,6 +22,7 @@ interface ProtectedPdfViewerProps {
 }
 
 export default function ProtectedPdfViewer({ article, onClose }: ProtectedPdfViewerProps) {
+  console.log('PDF URL:', article.pdfUrl);
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [scale, setScale] = useState<number>(1.2);
