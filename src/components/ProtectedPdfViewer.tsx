@@ -18,6 +18,10 @@ interface Article {
   description?: string;
   tags?: string[];
   views?: number;
+  volume?: string;
+  status?: string;
+  githubUrl?: string;
+  demoUrl?: string;
 }
 
 interface ProtectedPdfViewerProps {

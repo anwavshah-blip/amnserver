@@ -1,5 +1,8 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import project1 from '../../assets/documents/project/game.pdf';
+import ProtectedPdfViewer from '../../components/ProtectedPdfViewer';
+
 import { 
   Search, 
   FolderOpen, 
@@ -36,15 +39,15 @@ const projects: Project[] = [
   {
     id: 1,
     title: 'Quantum Simulator Web Application',
-    author: 'Dr. Alex Chen',
+    author: 'Aman Shah',
     date: '2024-01-15',
     tags: ['Quantum Computing', 'Web Development', 'React'],
     views: 3200,
-    pdfUrl: '/sample.pdf',
+    pdfUrl: project1,
     description: 'Interactive web-based quantum circuit simulator for educational purposes.',
     status: 'Completed',
     githubUrl: 'https://github.com',
-    demoUrl: 'https://demo.com',
+    demoUrl: 'https://www.aman-sah.com.np',
   },
   {
     id: 2,

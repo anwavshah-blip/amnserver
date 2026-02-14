@@ -1,5 +1,8 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import journal1 from '../../assets/documents/journal/Hilly region Report.pdf';
+import ProtectedPdfViewer from '../../components/ProtectedPdfViewer';
+
 import { 
   Search, 
   BookOpen, 
@@ -36,7 +39,7 @@ const journals: Journal[] = [
     date: '2024-01-20',
     tags: ['Quantum Field Theory', 'Condensed Matter'],
     views: 890,
-    pdfUrl: '/sample.pdf',
+    pdfUrl: journal1,
     description: 'Published in Journal of Theoretical Physics, exploring QFT applications.',
     volume: 'Vol. 45, Issue 3',
   },
