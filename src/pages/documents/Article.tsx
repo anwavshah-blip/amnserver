@@ -1,6 +1,10 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import article1 from '../../assets/documents/article/game.pdf';
+import article2 from '../../assets/documents/article/Hilly region Report.pdf';
+import article3 from '../../assets/documents/article/sample-journal.pdf';
+import article4 from '../../assets/documents/article/game.pdf';
+import article5 from '../../assets/documents/article/game.pdf';
 import ProtectedPdfViewer from '../../components/ProtectedPdfViewer';
 import { 
   Search, 
@@ -49,7 +53,7 @@ const articles: Article[] = [
     date: '2024-01-10',
     tags: ['Astrophysics', 'Dark Matter'],
     views: 980,
-    pdfUrl: '/sample.pdf',
+    pdfUrl: article2,
     description: 'A comprehensive review of current techniques used to detect dark matter particles.',
   },
   {
@@ -59,7 +63,7 @@ const articles: Article[] = [
     date: '2024-01-05',
     tags: ['AI', 'Particle Physics'],
     views: 1500,
-    pdfUrl: '/sample.pdf',
+    pdfUrl: article3,
     description: 'How machine learning algorithms are revolutionizing data analysis at CERN.',
   },
   {
@@ -69,7 +73,7 @@ const articles: Article[] = [
     date: '2023-12-28',
     tags: ['Nuclear Physics', 'Energy'],
     views: 2100,
-    pdfUrl: '/sample.pdf',
+    pdfUrl: article4,
     description: 'Examining recent breakthroughs in nuclear fusion research and their implications.',
   },
   {
@@ -79,7 +83,7 @@ const articles: Article[] = [
     date: '2023-12-20',
     tags: ['Astrophysics', 'Gravitational Waves'],
     views: 1800,
-    pdfUrl: '/sample.pdf',
+    pdfUrl: article5,
     description: 'Understanding how gravitational wave detection has opened new frontiers in astronomy.',
   },
 ];
