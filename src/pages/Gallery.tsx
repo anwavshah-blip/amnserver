@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, MapPin, Calendar, Info, ExternalLink } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
-
+import gal1 from '../assets/gallery/particle accelerator.jpg';
 interface GalleryItem {
   id: number;
   title: string;
@@ -19,7 +19,7 @@ const galleryItems: GalleryItem[] = [
   {
     id: 1,
     title: 'CERN Particle Accelerator',
-    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&h=600&fit=crop',
+    image: gal1,
     location: 'Geneva, Switzerland',
     date: 'March 2023',
     purpose: 'Research Visit',
