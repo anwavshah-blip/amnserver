@@ -9,13 +9,8 @@ import {
   FolderOpen, 
   Calendar, 
   Tag, 
-  Eye, 
-  ZoomIn, 
-  ZoomOut, 
-  ChevronLeft, 
+  Eye,  
   ChevronRight,
-  X,
-  Lock,
   Github,
   ExternalLink
 } from 'lucide-react';
@@ -105,33 +100,11 @@ const projects: Project[] = [
 export default function Project() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [zoomLevel, setZoomLevel] = useState(100);
-  const [currentPage, setCurrentPage] = useState(1);
-  const pdfContainerRef = useRef<HTMLDivElement>(null);
 
   const filteredProjects = projects.filter(project =>
     project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     project.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
   );
-
-  const handleZoomIn = () => {
-    setZoomLevel(prev => Math.min(prev + 25, 200));
-  };
-
-  const handleZoomOut = () => {
-    setZoomLevel(prev => Math.max(prev - 25, 50));
-  };
-
-  const handleWheel = (e: React.WheelEvent) => {
-    if (e.ctrlKey || e.metaKey) {
-      e.preventDefault();
-      if (e.deltaY < 0) {
-        handleZoomIn();
-      } else {
-        handleZoomOut();
-      }
-    }
-  };
 
   const getStatusColor = (status: string) => {
     switch (status) {

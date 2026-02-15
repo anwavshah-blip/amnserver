@@ -8,13 +8,8 @@ import {
   BookOpen, 
   Calendar, 
   Tag, 
-  Eye, 
-  ZoomIn, 
-  ZoomOut, 
-  ChevronLeft, 
-  ChevronRight,
-  X,
-  Lock
+  Eye,  
+  ChevronRight
 } from 'lucide-react';
 import Navigation from '../../components/Navigation';
 import Footer from '../../components/Footer';
@@ -92,33 +87,11 @@ const journals: Journal[] = [
 export default function Journal() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedJournal, setSelectedJournal] = useState<Journal | null>(null);
-  const [zoomLevel, setZoomLevel] = useState(100);
-  const [currentPage, setCurrentPage] = useState(1);
-  const pdfContainerRef = useRef<HTMLDivElement>(null);
 
   const filteredJournals = journals.filter(journal =>
     journal.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     journal.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
   );
-
-  const handleZoomIn = () => {
-    setZoomLevel(prev => Math.min(prev + 25, 200));
-  };
-
-  const handleZoomOut = () => {
-    setZoomLevel(prev => Math.max(prev - 25, 50));
-  };
-
-  const handleWheel = (e: React.WheelEvent) => {
-    if (e.ctrlKey || e.metaKey) {
-      e.preventDefault();
-      if (e.deltaY < 0) {
-        handleZoomIn();
-      } else {
-        handleZoomOut();
-      }
-    }
-  };
 
   return (
     <div className="min-h-screen">
