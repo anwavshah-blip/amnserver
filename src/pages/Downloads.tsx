@@ -18,7 +18,7 @@ import Footer from '../components/Footer';
 
 // Import all files from src/assets/downloads
 // Vite will handle these imports and include them in the build
-const fileModules = import.meta.glob('/src/assets/download/*', {
+const fileModules = import.meta.glob('/src/assets/downloads/*', {
   eager: true,
   as: 'url'
 });
@@ -46,7 +46,7 @@ const downloadFiles: DownloadFile[] = [
     description: 'Comprehensive handbook covering quantum mechanics fundamentals and applications.',
     downloads: 1250,
     category: 'Educational',
-    path: '/src/assets/download/sample journal.pdf',
+    path: '/src/assets/downloads/sample journal.pdf',
   },
   {
     id: 2,
