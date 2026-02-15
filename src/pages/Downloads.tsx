@@ -284,7 +284,7 @@ export default function Downloads() {
                   <p className="font-medium text-yellow-400">Missing Files Detected</p>
                   <p className="text-sm text-muted-foreground">
                     {missingFiles.length} file(s) not found in <code>Nepal Wild Research/</code>. 
-                    Be calm, we quickly fix.
+                    Be calm, we quickly fix its.
                   </p>
                 </div>
               </div>
@@ -355,126 +355,126 @@ export default function Downloads() {
           </motion.div>
 
           {/* Files List */}
-<motion.div
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ duration: 0.5, delay: 0.3 }}
-  className="glass-card overflow-hidden mx-4 sm:mx-6" // Added margin for breathing room
->
-  {/* Table Header */}
-  <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-4 border-b border-border/50 bg-white/5 font-medium text-sm">
-    <div className="col-span-5">File Name</div>
-    <div className="col-span-2">Category</div>
-    <div className="col-span-2">Size</div>
-    <div className="col-span-2">Date</div>
-    <div className="col-span-1">Action</div>
-  </div>
-  
-  {/* Table Body */}
-  <div className="divide-y divide-border/50">
-    {filteredFiles.map((file, index) => {
-      const FileIcon = getFileIcon(file.type);
-      const isDownloading = downloadingId === file.id;
-      const isDownloaded = downloadedIds.includes(file.id);
-      const isMissing = missingFiles.includes(file.id);
-      const isChecked = checkedFiles.has(file.id);
-      
-      return (
-        <motion.div
-          key={file.id}
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3, delay: index * 0.05 }}
-          className={`grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-4 items-center transition-colors ${
-            isMissing ? 'opacity-50 bg-red-500/5' : 'hover:bg-white/5'
-          }`}
-        >
-          {/* File Info */}
-          <div className="col-span-1 md:col-span-5 flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
-              isMissing ? 'bg-red-500/20' : 'glass-button'
-            }`}>
-              <FileIcon className={`w-5 h-5 ${isMissing ? 'text-red-400' : getFileColor(file.type)}`} />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="glass-card overflow-hidden"
+          >
+            {/* Table Header */}
+            <div className="hidden md:grid grid-cols-12 gap-4 p-4 border-b border-border/50 bg-white/5 font-medium text-sm">
+              <div className="col-span-5">File Name</div>
+              <div className="col-span-2">Category</div>
+              <div className="col-span-2">Size</div>
+              <div className="col-span-2">Date</div>
+              <div className="col-span-1">Action</div>
             </div>
-            <div className="min-w-0">
-              <p className="font-medium truncate flex items-center gap-2">
-                {file.name}
-                {isMissing && (
-                  <span className="text-xs text-red-400 bg-red-500/20 px-2 py-0.5 rounded">
-                    Missing
-                  </span>
-                )}
-                {!isChecked && !isMissing && (
-                  <span className="text-xs text-yellow-400 bg-yellow-500/20 px-2 py-0.5 rounded">
-                    Checking...
-                  </span>
-                )}
-              </p>
-              <p className="text-sm text-muted-foreground truncate md:hidden">{file.description}</p>
-              <p className="text-xs text-muted-foreground hidden md:block">{file.description}</p>
+            
+            {/* Table Body */}
+            <div className="divide-y divide-border/50">
+              {filteredFiles.map((file, index) => {
+                const FileIcon = getFileIcon(file.type);
+                const isDownloading = downloadingId === file.id;
+                const isDownloaded = downloadedIds.includes(file.id);
+                const isMissing = missingFiles.includes(file.id);
+                const isChecked = checkedFiles.has(file.id);
+                
+                return (
+                  <motion.div
+                    key={file.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    className={`grid grid-cols-1 md:grid-cols-12 gap-4 p-4 items-center transition-colors ${
+                      isMissing ? 'opacity-50 bg-red-500/5' : 'hover:bg-white/5'
+                    }`}
+                  >
+                    {/* File Info */}
+                    <div className="col-span-1 md:col-span-5 flex items-center gap-3">
+                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                        isMissing ? 'bg-red-500/20' : 'glass-button'
+                      }`}>
+                        <FileIcon className={`w-5 h-5 ${isMissing ? 'text-red-400' : getFileColor(file.type)}`} />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="font-medium truncate flex items-center gap-2">
+                          {file.name}
+                          {isMissing && (
+                            <span className="text-xs text-red-400 bg-red-500/20 px-2 py-0.5 rounded">
+                              Missing
+                            </span>
+                          )}
+                          {!isChecked && !isMissing && (
+                            <span className="text-xs text-yellow-400 bg-yellow-500/20 px-2 py-0.5 rounded">
+                              Checking...
+                            </span>
+                          )}
+                        </p>
+                        <p className="text-sm text-muted-foreground truncate md:hidden">{file.description}</p>
+                        <p className="text-xs text-muted-foreground hidden md:block">{file.description}</p>
+                      </div>
+                    </div>
+                    
+                    {/* Category */}
+                    <div className="col-span-1 md:col-span-2">
+                      <span className="tag-glass text-xs">{file.category}</span>
+                    </div>
+                    
+                    {/* Size */}
+                    <div className="col-span-1 md:col-span-2 flex items-center gap-2 text-sm text-muted-foreground">
+                      <HardDrive className="w-4 h-4 md:hidden" />
+                      <span>{file.size}</span>
+                    </div>
+                    
+                    {/* Date */}
+                    <div className="col-span-1 md:col-span-2 flex items-center gap-2 text-sm text-muted-foreground">
+                      <Calendar className="w-4 h-4 md:hidden" />
+                      <span>{file.date}</span>
+                    </div>
+                    
+                    {/* Action */}
+                    <div className="col-span-1 pr-2">
+                      <button
+                        onClick={() => handleDownload(file)}
+                        disabled={isDownloading || isDownloaded || isMissing}
+                        className={`w-full md:w-auto px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
+                          isDownloaded
+                            ? 'bg-green-500/20 text-green-400 cursor-default'
+                            : isMissing
+                            ? 'bg-red-500/20 text-red-400 cursor-not-allowed'
+                            : isDownloading
+                            ? 'glass-card cursor-wait'
+                            : 'glass-button hover:scale-105'
+                        }`}
+                      >
+                        {isDownloaded ? (
+                          <>
+                            <CheckCircle className="w-4 h-4" />
+                            <span className="hidden sm:inline">Done</span>
+                          </>
+                        ) : isMissing ? (
+                          <>
+                            <AlertCircle className="w-4 h-4" />
+                            <span className="hidden sm:inline">Missing</span>
+                          </>
+                        ) : isDownloading ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                            <span className="hidden sm:inline">...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Download className="w-4 h-4" />
+                            <span className="hidden sm:inline">Download</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
-          </div>
-          
-          {/* Category */}
-          <div className="col-span-1 md:col-span-2">
-            <span className="tag-glass text-xs">{file.category}</span>
-          </div>
-          
-          {/* Size */}
-          <div className="col-span-1 md:col-span-2 flex items-center gap-2 text-sm text-muted-foreground">
-            <HardDrive className="w-4 h-4 md:hidden" />
-            <span>{file.size}</span>
-          </div>
-          
-          {/* Date */}
-          <div className="col-span-1 md:col-span-2 flex items-center gap-2 text-sm text-muted-foreground">
-            <Calendar className="w-4 h-4 md:hidden" />
-            <span>{file.date}</span>
-          </div>
-          
-          {/* Action - Fixed with right padding and adjusted button */}
-          <div className="col-span-1 pr-2">
-            <button
-              onClick={() => handleDownload(file)}
-              disabled={isDownloading || isDownloaded || isMissing}
-              className={`w-full px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap ${
-                isDownloaded
-                  ? 'bg-green-500/20 text-green-400 cursor-default'
-                  : isMissing
-                  ? 'bg-red-500/20 text-red-400 cursor-not-allowed'
-                  : isDownloading
-                  ? 'glass-card cursor-wait'
-                  : 'glass-button hover:scale-105'
-              }`}
-            >
-              {isDownloaded ? (
-                <>
-                  <CheckCircle className="w-4 h-4" />
-                  <span className="hidden sm:inline">Done</span>
-                </>
-              ) : isMissing ? (
-                <>
-                  <AlertCircle className="w-4 h-4" />
-                  <span className="hidden sm:inline">Missing</span>
-                </>
-              ) : isDownloading ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                  <span className="hidden sm:inline">...</span>
-                </>
-              ) : (
-                <>
-                  <Download className="w-4 h-4" />
-                  <span className="hidden sm:inline">Download</span>
-                </>
-              )}
-            </button>
-          </div>
-        </motion.div>
-      );
-    })}
-  </div>
-</motion.div>
+          </motion.div>
 
           {/* Empty State */}
           {filteredFiles.length === 0 && (
