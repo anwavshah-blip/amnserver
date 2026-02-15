@@ -23,6 +23,7 @@ const navItems = [
   { path: '/about', label: 'About', icon: User },
   { path: '/gallery', label: 'Gallery', icon: Image },
   { path: '/physics', label: 'Physics', icon: Atom },
+  { path: '/news', label: 'News', icon: Newspaper },
   { 
     path: '/documents', 
     label: 'Documents', 
@@ -34,7 +35,6 @@ const navItems = [
       { path: '/documents/project', label: 'Project' },
     ]
   },
-  { path: '/news', label: 'News', icon: Newspaper },
   { path: '/downloads', label: 'Download', icon: Download },
 ];
 
