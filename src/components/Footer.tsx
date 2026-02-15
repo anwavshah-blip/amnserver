@@ -35,7 +35,7 @@ const quickLinks = [
 // ============================================
 // REPLACE WITH YOUR ACTUAL GOOGLE SCRIPT URL
 // ============================================
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw28e4EizQBbtMCC7Uqg3ZOboZzKD3QPkBaaFcYMzxHXvtsUkXtjJQ6IARGGmNwWCEtoA/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyXddmJX60EhYpWP_DUoU4ycg1L-KvWGWoE4HGyqtBMPrvrqHx3I0rN6zqIq2-hrWerWQ/exec';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -59,7 +59,6 @@ export default function Footer() {
     try {
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
-        // IMPORTANT: Use text/plain to avoid CORS issues
         headers: {
           'Content-Type': 'text/plain;charset=utf-8',
         },
@@ -75,6 +74,7 @@ export default function Footer() {
       } else if (result.status === 'duplicate') {
         setStatus('duplicate');
         setMessage('You are already subscribed!');
+        setEmail('');
       } else {
         setStatus('error');
         setMessage(result.message || 'Something went wrong');
