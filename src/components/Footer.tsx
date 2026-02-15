@@ -1,3 +1,4 @@
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import logoImage from '../assets/images/logo.png';
 import { 
@@ -8,7 +9,10 @@ import {
   Linkedin, 
   Twitter, 
   Instagram,
-  Heart
+  Heart,
+  CheckCircle,
+  AlertCircle,
+  Loader2
 } from 'lucide-react';
 
 const socialLinks = [
@@ -28,9 +32,107 @@ const quickLinks = [
   { label: 'Downloads', href: '#/downloads' },
 ];
 
+// ============================================
+// GOOGLE SHEETS WEB APP URL - REPLACE THIS!
+// ============================================
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNIopuOGB7nEk1DzaiOa1Z7yHH9hpMKKB01Fz6VDT66sWcquvXfjukANsGCLYENbwMnA/exec';
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  
+  const formRef = useRef<HTMLFormElement>(null);
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'duplicate'>('idle');
+  const [message, setMessage] = useState('');
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validate email
+    if (!email || !email.includes('@')) {
+      setStatus('error');
+      setMessage('Please enter a valid email address');
+      return;
+    }
+
+    setStatus('loading');
+    setMessage('');
+
+    try {
+      // Send to Google Sheets
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',  // Required for Google Apps Script
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email.trim() })
+      });
+
+      // Since mode is 'no-cors', we can't read the response
+      // So we assume success if no error is thrown
+      setStatus('success');
+      setMessage('Thanks for subscribing!');
+      setEmail('');
+      
+      // Reset form after 4 seconds
+      setTimeout(() => {
+        setStatus('idle');
+        setMessage('');
+      }, 4000);
+
+    } catch (error) {
+      console.error('Subscription error:', error);
+      setStatus('error');
+      setMessage('Failed to subscribe. Please try again.');
+    }
+  };
+
+  // Status styles configuration
+  const getStatusConfig = () => {
+    switch (status) {
+      case 'loading':
+        return {
+          buttonText: 'Subscribing...',
+          buttonClass: 'opacity-75 cursor-wait',
+          icon: <Loader2 className="w-4 h-4 animate-spin" />,
+          showMessage: false
+        };
+      case 'success':
+        return {
+          buttonText: 'Subscribed!',
+          buttonClass: 'bg-green-500/20 text-green-600 border-green-500/50',
+          icon: <CheckCircle className="w-4 h-4" />,
+          showMessage: true,
+          messageClass: 'text-green-500'
+        };
+      case 'error':
+        return {
+          buttonText: 'Try Again',
+          buttonClass: 'bg-red-500/20 text-red-600 border-red-500/50',
+          icon: <AlertCircle className="w-4 h-4" />,
+          showMessage: true,
+          messageClass: 'text-red-500'
+        };
+      case 'duplicate':
+        return {
+          buttonText: 'Already Subscribed',
+          buttonClass: 'bg-yellow-500/20 text-yellow-600 border-yellow-500/50',
+          icon: <AlertCircle className="w-4 h-4" />,
+          showMessage: true,
+          messageClass: 'text-yellow-500'
+        };
+      default:
+        return {
+          buttonText: 'Subscribe',
+          buttonClass: 'glass-button hover:bg-primary/20',
+          icon: null,
+          showMessage: false
+        };
+    }
+  };
+
+  const statusConfig = getStatusConfig();
+
   return (
     <footer className="relative mt-20">
       {/* Gradient Divider */}
@@ -49,17 +151,17 @@ export default function Footer() {
             <div className="flex items-center gap-2">
               <div className="w-12 h-12 rounded-xl glass-button flex items-center justify-center">
                 <img 
-              src={logoImage} 
-              alt="Logo" 
-              className="w-10 h-10 rounded-xl object-cover"
-              />
+                  src={logoImage} 
+                  alt="Logo" 
+                  className="w-10 h-10 rounded-xl object-cover"
+                />
               </div>
               <span className="text-2xl font-bold gradient-text">
                 Nepal Wild Research
               </span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Exploring Nepal’s forests and wildlife through science and research. Building digital experiences that turn knowledge into meaningful conservation action.
+              Exploring Nepal's forests and wildlife through science and research. Building digital experiences that turn knowledge into meaningful conservation action.
             </p>
             <div className="flex items-center gap-3">
               {socialLinks.map((social) => (
@@ -158,18 +260,41 @@ export default function Footer() {
             <p className="text-sm text-muted-foreground">
               Subscribe to get the latest updates and news.
             </p>
-            <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full px-4 py-3 glass-input text-sm"
-              />
+            
+            <form ref={formRef} className="space-y-3" onSubmit={handleSubscribe}>
+              <div className="relative">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  disabled={status === 'loading' || status === 'success'}
+                  className="w-full px-4 py-3 glass-input text-sm disabled:opacity-50 pr-10"
+                />
+                {status === 'success' && (
+                  <CheckCircle className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-green-500" />
+                )}
+              </div>
+              
               <button
                 type="submit"
-                className="w-full py-3 glass-button font-medium text-sm"
+                disabled={status === 'loading' || status === 'success'}
+                className={`w-full py-3 font-medium text-sm transition-all duration-300 flex items-center justify-center gap-2 border ${statusConfig.buttonClass}`}
               >
-                Subscribe
+                {statusConfig.icon}
+                {statusConfig.buttonText}
               </button>
+              
+              {statusConfig.showMessage && message && (
+                <motion.p 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`text-sm flex items-center gap-1 ${statusConfig.messageClass}`}
+                >
+                  {status === 'error' ? <AlertCircle className="w-4 h-4" /> : <CheckCircle className="w-4 h-4" />}
+                  {message}
+                </motion.p>
+              )}
             </form>
           </motion.div>
         </div>
