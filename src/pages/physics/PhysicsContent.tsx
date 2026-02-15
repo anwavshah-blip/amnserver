@@ -1,6 +1,7 @@
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Atom, BookOpen, Calculator, Share2, Bookmark } from 'lucide-react';
+import { ArrowLeft, Atom, BookOpen, Calculator, Share2, Bookmark, BookmarkCheck, Check } from 'lucide-react';
 import Navigation from '../../components/Navigation';
 import Footer from '../../components/Footer';
 
@@ -389,6 +390,57 @@ export default function PhysicsContent() {
   const { topicId } = useParams<{ topicId: string }>();
   const topic = topicId ? topicContents[topicId] : null;
 
+  // ===== ADD THIS SECTION START =====
+  const [isSaved, setIsSaved] = useState(false);
+  const [isShared, setIsShared] = useState(false);
+
+  // Check if topic is already saved on mount
+  useEffect(() => {
+    if (topicId) {
+      const savedTopics = JSON.parse(localStorage.getItem('savedTopics') || '[]');
+      setIsSaved(savedTopics.includes(topicId));
+    }
+  }, [topicId]);
+
+  // Share handler
+  const handleShare = async () => {
+    const shareData = {
+      title: topic?.title || 'Physics Topic',
+      text: topic?.subtitle || '',
+      url: window.location.href,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        setIsShared(true);
+        setTimeout(() => setIsShared(false), 2000);
+      }
+    } catch (err) {
+      console.error('Share failed:', err);
+    }
+  };
+
+  // Save handler
+  const handleSave = () => {
+    if (!topicId) return;
+    
+    const savedTopics = JSON.parse(localStorage.getItem('savedTopics') || '[]');
+    
+    if (isSaved) {
+      const updated = savedTopics.filter((id: string) => id !== topicId);
+      localStorage.setItem('savedTopics', JSON.stringify(updated));
+      setIsSaved(false);
+    } else {
+      savedTopics.push(topicId);
+      localStorage.setItem('savedTopics', JSON.stringify(savedTopics));
+      setIsSaved(true);
+    }
+  };
+  // ===== ADD THIS SECTION END =====
+
   if (!topic) {
     return (
       <div className="min-h-screen">
@@ -445,15 +497,23 @@ export default function PhysicsContent() {
             </div>
             
             <div className="flex gap-3">
-              <button className="flex items-center gap-2 px-4 py-2 glass-card text-sm hover:bg-white/5 transition-colors">
-                <Share2 className="w-4 h-4" />
-                Share
-              </button>
-              <button className="flex items-center gap-2 px-4 py-2 glass-card text-sm hover:bg-white/5 transition-colors">
-                <Bookmark className="w-4 h-4" />
-                Save
-              </button>
-            </div>
+  <button 
+    onClick={handleShare}
+    className="flex items-center gap-2 px-4 py-2 glass-card text-sm hover:bg-white/5 transition-colors"
+  >
+    {isShared ? <Check className="w-4 h-4 text-green-400" /> : <Share2 className="w-4 h-4" />}
+    {isShared ? 'Copied!' : 'Share'}
+  </button>
+  <button 
+    onClick={handleSave}
+    className={`flex items-center gap-2 px-4 py-2 glass-card text-sm transition-colors ${
+      isSaved ? 'bg-primary/20 text-primary' : 'hover:bg-white/5'
+    }`}
+  >
+    {isSaved ? <BookmarkCheck className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
+    {isSaved ? 'Saved' : 'Save'}
+  </button>
+</div>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
