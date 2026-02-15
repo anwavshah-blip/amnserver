@@ -433,11 +433,11 @@ export default function Downloads() {
                     </div>
                     
                     {/* Action */}
-                    <div className="col-span-1 pr-2">
+                    <div className="col-span-1 flex justify-end pr-4">
                       <button
                         onClick={() => handleDownload(file)}
                         disabled={isDownloading || isDownloaded || isMissing}
-                        className={`w-full md:w-auto px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
+                        className={`w-full md:w-auto px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
                           isDownloaded
                             ? 'bg-green-500/20 text-green-400 cursor-default'
                             : isMissing
