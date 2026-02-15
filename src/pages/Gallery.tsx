@@ -4,6 +4,20 @@ import { X, MapPin, Calendar, Info, ExternalLink } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import gal1 from '../assets/gallery/particle accelerator.jpg';
+import gal2 from '../assets/gallery/spiny-babler-bird-pic.jpg';
+import gal3 from '../assets/gallery/red_panda_names_web_2.webp';
+import gal4 from '../assets/gallery/snow leopard.webp';
+import gal5 from '../assets/gallery/IMG_20230616_132509.jpg';
+import gal6 from '../assets/gallery/IMG_20220903_160402.jpg';
+import gal7 from '../assets/gallery/IMG_20221124_144442.jpg';
+import gal8 from '../assets/gallery/IMG_14299.jpg';
+import gal9 from '../assets/gallery/IMG_20220903_163249.jpg';
+import gal10 from '../assets/gallery/IMG_14333.jpg';
+import gal11 from '../assets/gallery/IMG_20181105_103040.jpg';
+import gal12 from '../assets/gallery/Sunakhari.webp';
+import gal13 from '../assets/gallery/IMG_13355.jpg';
+import gal14 from '../assets/gallery/English-yew.webp';
+
 interface GalleryItem {
   id: number;
   title: string;
@@ -28,13 +42,13 @@ const galleryItems: GalleryItem[] = [
   },
   {
     id: 2,
-    title: 'Quantum Computing Lab',
-    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&h=600&fit=crop',
-    location: 'MIT, Cambridge',
+    title: 'Spiny Babbler(काँडे भ्याकुर)',
+    image: gal2,
+    location: 'Kathmandu, Bhaktapur, Lalitpur',
     date: 'June 2023',
-    purpose: 'Collaboration',
-    description: 'Working with quantum computing researchers to develop new algorithms for physics simulations.',
-    category: 'Technology',
+    purpose: 'Endemic Species',
+    description: 'The spiny babbler has a distinctive vocal repertoire — ranging from scratchy notes to varied warbles and mimic‑like calls.',
+    category: 'Research',
   },
   {
     id: 3,
@@ -68,32 +82,122 @@ const galleryItems: GalleryItem[] = [
   },
   {
     id: 6,
-    title: 'Particle Detector Assembly',
-    image: 'https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?w=800&h=600&fit=crop',
-    location: 'Fermilab, USA',
+    title: 'Habre (Red Panda)',
+    image: gal3,
+    location: 'Langtang National Park, Makalu Barun National Park, Rara National Park, & Kanchenjunga Conservation Area',
     date: 'November 2023',
-    purpose: 'Experiment',
-    description: 'Assisting in the assembly and calibration of particle detection equipment.',
+    purpose: 'Endangered Animal',
+    description: 'Red panda is a small mammal native to the eastern Himalayas and southwestern China. It has dense reddish-brown fur with a black belly and legs, white-lined ears, a mostly white muzzle and a ringed tail. Habitat loss due to deforestation, livestock grazing, and human encroachment, as well as poaching and climate change.',
     category: 'Research',
   },
   {
     id: 7,
-    title: '3D Physics Visualization',
-    image: 'https://images.unsplash.com/photo-1617791160505-6f00504e3519?w=800&h=600&fit=crop',
-    location: 'Virtual',
-    date: 'December 2023',
-    purpose: 'Education',
-    description: 'Creating interactive 3D visualizations of complex physics concepts for students.',
-    category: 'Education',
+    title: 'Hiun Chituwa (Snow Leopard)',
+    image: gal4,
+    location: 'Shey Phoksumdo National Park, Annapurna Conservation Area, & Kangchenjunga Conservation Area',
+    date: 'April 2026',
+    purpose: 'Endangered snow leopards',
+    description: 'Nepal is home to an estimated 397 snow leopards, representing approximately 10–12% of the global population. Known as the "ghost of the mountains," these elusive predators inhabit the high-altitude Himalayan regions across a potential habitat of over 30,000 km².',
+    category: 'Research',
   },
   {
     id: 8,
-    title: 'Dark Matter Research',
-    image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800&h=600&fit=crop',
-    location: 'Underground Lab',
+    title: 'Pratical Lab',
+    image: gal5,
+    location: 'Kalanki, Kathmandu',
+    date: 'January 2023',
+    purpose: 'Chemestry Lab',
+    description: 'Chemistry lab',
+    category: 'Technology',
+  },
+  {
+    id: 9,
+    title: 'Pashupati Aryaghat',
+    image: gal6,
+    location: 'Bank of Bgmati River',
+    date: 'June 2022',
+    purpose: 'Explorer',
+    description: 'Pashupati Aryaghat is a prominent cremation site located along the Bagmati River in Kathmandu, Nepal. It is situated near the Pashupatinath Temple.',
+    category: 'Research',
+  },
+  {
+    id: 10,
+    title: 'Pelton Turbine',
+    image: gal7,
+    location: 'Dhulikhel, Kathmandu',
+    date: 'August 2022',
+    purpose: 'Observation',
+    description: 'Pelton wheels Turbine, which are impulse-type water turbines, are widely used in Nepal for hydropower generation due to the country geography providing high water heads and low flow rates.',
+    category: 'Development',
+  },
+  {
+    id: 11,
+    title: 'Geology Camp',
+    image: gal8,
+    location: 'Malekhu',
+    date: '2023',
+    purpose: 'Fild Visit and Survey',
+    description: 'Conducting fieldwork involving geological mapping, rock/soil identification,, mass movement observation, retaining structure analysis, and route mapping.',
+    category: 'Development',
+  },
+  {
+    id: 12,
+    title: 'Pasupatinath Temple',
+    image: gal9,
+    location: 'Banks of the sacred Bagmati River, Kathmandu',
+    date: 'September 2023',
+    purpose: 'Visiting',
+    description: 'Pashupatinath Temple is a 5th-century, UNESCO-listed Hindu temple in Kathmandu, Nepal, dedicated to Lord Shiva as the "Lord of Animals." Situated on the Bagmati River bank, it features a gold-plated, pagoda-style roof, a unique four-faced Lingam, and is a major site for cremation (Arya Ghat).',
+    category: 'Education',
+  },
+  {
+    id: 13,
+    title: 'Geology Tour',
+    image: gal10,
+    location: 'Trisuli River',
+    date: 'November 2023',
+    purpose: 'Survey',
+    description: 'Conducting fieldwork involving geological mapping, rock/soil identification,, mass movement observation, retaining structure analysis, and route mapping.',
+    category: 'Research',
+  },
+  {
+    id: 14,
+    title: 'Award',
+    image: gal11,
+    location: 'Janakpur',
+    date: 'April 2018',
+    purpose: 'Technology',
+    description: 'Creating interactive 3D visualizations of complex physics concepts for students.',
+    category: 'Technology',
+  },
+  {
+    id: 15,
+    title: 'Sunakhari (Orchids)',
+    image: gal12,
+    location: 'Annapurna Conservation Area, Phulchoki Hill and Godavari Botanical Garden',
     date: 'January 2024',
-    purpose: 'Research',
-    description: 'Working in an underground laboratory to minimize background radiation for dark matter detection.',
+    purpose: 'Rare & Endemic',
+    description: 'There are 324 species of endemic flowering plants in Nepal. Among them, 20 are orchids. Popular species include Dendrobium densiflorum (Sungava), Coelogyne cristata (Chandigava), and Cypripedium himalaicum. Endemic Species are unique to the region, such as Bulbophyllum ambrosia and Pleione coronaria.',
+    category: 'Research',
+  },
+  {
+    id: 16,
+    title: 'Gelology Camp',
+    image: gal13,
+    location: 'Mlekhu, Dhading district',
+    date: 'December 2024',
+    purpose: 'Education',
+    description: 'These camp involve mapping, interpreting geological history, and studying rock formations. We focus on field-based studies to analyze mass movement, calculate Rock Mass Rating (RMR) values, examine retaining structures, and conduct route map surveys',
+    category: 'Education',
+  },
+  {
+    id: 14,
+    title: 'Himalayan yew (Taxus wallichiana)',
+    image: gal14,
+    location: 'Taplejung, Baglung, Panchthar, Tehrathum, Humla, Jumla, Dolpa, and Mugu',
+    date: 'January 2024',
+    purpose: 'Endangered',
+    description: 'In Nepal this species is commonly known as Loth salla or variants of salla (yew) in Nepali. The Himalayan yew occurs in temperate forests at high elevations — typically from about 2200 m to 3400 m above sea level.The bark and leaves contain taxol (paclitaxel), an important anti-cancer compound used in chemotherapy to treat: Breast cancer, Ovarian cancer & Lung cancer.',
     category: 'Research',
   },
 ];
