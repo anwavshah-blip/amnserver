@@ -39,7 +39,7 @@ const downloadFiles: DownloadFile[] = [
     description: 'Comprehensive handbook covering quantum mechanics fundamentals and applications.',
     downloads: 1250,
     category: 'Educational',
-    path: '/downloads/sample journal.pdf',
+    path: '/downloads/Quantum_Mechanics_Handbook.pdf',
   },
   {
     id: 2,
