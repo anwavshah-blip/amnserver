@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import logoImage from '../assets/images/logo.png';
 import { 
@@ -33,13 +33,12 @@ const quickLinks = [
 ];
 
 // ============================================
-// GOOGLE SHEETS WEB APP URL - REPLACE THIS!
+// REPLACE WITH YOUR ACTUAL GOOGLE SCRIPT URL
 // ============================================
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNIopuOGB7nEk1DzaiOa1Z7yHH9hpMKKB01Fz6VDT66sWcquvXfjukANsGCLYENbwMnA/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw28e4EizQBbtMCC7Uqg3ZOboZzKD3QPkBaaFcYMzxHXvtsUkXtjJQ6IARGGmNwWCEtoA/exec';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const formRef = useRef<HTMLFormElement>(null);
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'duplicate'>('idle');
   const [message, setMessage] = useState('');
@@ -47,10 +46,10 @@ export default function Footer() {
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate email
+    // Basic validation
     if (!email || !email.includes('@')) {
       setStatus('error');
-      setMessage('Please enter a valid email address');
+      setMessage('Please enter a valid email');
       return;
     }
 
@@ -58,80 +57,102 @@ export default function Footer() {
     setMessage('');
 
     try {
-      // Send to Google Sheets
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
-        mode: 'no-cors',  // Required for Google Apps Script
+        // IMPORTANT: Use text/plain to avoid CORS issues
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain;charset=utf-8',
         },
         body: JSON.stringify({ email: email.trim() })
       });
 
-      // Since mode is 'no-cors', we can't read the response
-      // So we assume success if no error is thrown
-      setStatus('success');
-      setMessage('Thanks for subscribing!');
-      setEmail('');
+      const result = await response.json();
       
-      // Reset form after 4 seconds
-      setTimeout(() => {
-        setStatus('idle');
-        setMessage('');
-      }, 4000);
+      if (result.status === 'success') {
+        setStatus('success');
+        setMessage('Thanks for subscribing!');
+        setEmail('');
+      } else if (result.status === 'duplicate') {
+        setStatus('duplicate');
+        setMessage('You are already subscribed!');
+      } else {
+        setStatus('error');
+        setMessage(result.message || 'Something went wrong');
+      }
 
     } catch (error) {
-      console.error('Subscription error:', error);
+      console.error('Error:', error);
       setStatus('error');
       setMessage('Failed to subscribe. Please try again.');
     }
+
+    // Clear message after 4 seconds
+    setTimeout(() => {
+      setStatus('idle');
+      setMessage('');
+    }, 4000);
   };
 
-  // Status styles configuration
-  const getStatusConfig = () => {
+  // Get button styles based on status
+  const getButtonStyles = () => {
     switch (status) {
       case 'loading':
-        return {
-          buttonText: 'Subscribing...',
-          buttonClass: 'opacity-75 cursor-wait',
-          icon: <Loader2 className="w-4 h-4 animate-spin" />,
-          showMessage: false
-        };
+        return 'opacity-75 cursor-wait bg-primary/50';
       case 'success':
-        return {
-          buttonText: 'Subscribed!',
-          buttonClass: 'bg-green-500/20 text-green-600 border-green-500/50',
-          icon: <CheckCircle className="w-4 h-4" />,
-          showMessage: true,
-          messageClass: 'text-green-500'
-        };
+        return 'bg-green-500/20 text-green-600 border border-green-500/50 hover:bg-green-500/30';
       case 'error':
-        return {
-          buttonText: 'Try Again',
-          buttonClass: 'bg-red-500/20 text-red-600 border-red-500/50',
-          icon: <AlertCircle className="w-4 h-4" />,
-          showMessage: true,
-          messageClass: 'text-red-500'
-        };
+        return 'bg-red-500/20 text-red-600 border border-red-500/50 hover:bg-red-500/30';
       case 'duplicate':
-        return {
-          buttonText: 'Already Subscribed',
-          buttonClass: 'bg-yellow-500/20 text-yellow-600 border-yellow-500/50',
-          icon: <AlertCircle className="w-4 h-4" />,
-          showMessage: true,
-          messageClass: 'text-yellow-500'
-        };
+        return 'bg-yellow-500/20 text-yellow-600 border border-yellow-500/50 hover:bg-yellow-500/30';
       default:
-        return {
-          buttonText: 'Subscribe',
-          buttonClass: 'glass-button hover:bg-primary/20',
-          icon: null,
-          showMessage: false
-        };
+        return 'glass-button hover:bg-primary/20';
     }
   };
 
-  const statusConfig = getStatusConfig();
+  // Get button text based on status
+  const getButtonText = () => {
+    switch (status) {
+      case 'loading':
+        return 'Subscribing...';
+      case 'success':
+        return 'Subscribed!';
+      case 'error':
+        return 'Try Again';
+      case 'duplicate':
+        return 'Already Subscribed';
+      default:
+        return 'Subscribe';
+    }
+  };
+
+  // Get button icon based on status
+  const getButtonIcon = () => {
+    switch (status) {
+      case 'loading':
+        return <Loader2 className="w-4 h-4 animate-spin" />;
+      case 'success':
+        return <CheckCircle className="w-4 h-4" />;
+      case 'error':
+      case 'duplicate':
+        return <AlertCircle className="w-4 h-4" />;
+      default:
+        return null;
+    }
+  };
+
+  // Get message color based on status
+  const getMessageColor = () => {
+    switch (status) {
+      case 'success':
+        return 'text-green-500';
+      case 'error':
+        return 'text-red-500';
+      case 'duplicate':
+        return 'text-yellow-500';
+      default:
+        return 'text-muted-foreground';
+    }
+  };
 
   return (
     <footer className="relative mt-20">
@@ -261,7 +282,7 @@ export default function Footer() {
               Subscribe to get the latest updates and news.
             </p>
             
-            <form ref={formRef} className="space-y-3" onSubmit={handleSubscribe}>
+            <form className="space-y-3" onSubmit={handleSubscribe}>
               <div className="relative">
                 <input
                   type="email"
@@ -279,19 +300,23 @@ export default function Footer() {
               <button
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
-                className={`w-full py-3 font-medium text-sm transition-all duration-300 flex items-center justify-center gap-2 border ${statusConfig.buttonClass}`}
+                className={`w-full py-3 font-medium text-sm transition-all duration-300 flex items-center justify-center gap-2 ${getButtonStyles()}`}
               >
-                {statusConfig.icon}
-                {statusConfig.buttonText}
+                {getButtonIcon()}
+                {getButtonText()}
               </button>
               
-              {statusConfig.showMessage && message && (
+              {message && status !== 'idle' && (
                 <motion.p 
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`text-sm flex items-center gap-1 ${statusConfig.messageClass}`}
+                  className={`text-sm flex items-center gap-1 ${getMessageColor()}`}
                 >
-                  {status === 'error' ? <AlertCircle className="w-4 h-4" /> : <CheckCircle className="w-4 h-4" />}
+                  {status === 'error' || status === 'duplicate' ? (
+                    <AlertCircle className="w-4 h-4" />
+                  ) : (
+                    <CheckCircle className="w-4 h-4" />
+                  )}
                   {message}
                 </motion.p>
               )}
