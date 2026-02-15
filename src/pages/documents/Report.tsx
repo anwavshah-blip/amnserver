@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import report1 from '../../assets/documents/report/Hilly region Report.pdf';
 import ProtectedPdfViewer from '../../components/ProtectedPdfViewer';

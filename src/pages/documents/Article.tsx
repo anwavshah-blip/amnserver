@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import article1 from '../../assets/documents/article/game.pdf';
 import article2 from '../../assets/documents/article/Hilly region Report.pdf';
