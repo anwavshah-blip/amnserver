@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Search, 
@@ -10,10 +10,18 @@ import {
   Calendar,
   HardDrive,
   Filter,
-  CheckCircle
+  CheckCircle,
+  AlertCircle
 } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+
+// Import all files from src/assets/downloads
+// Vite will handle these imports and include them in the build
+const fileModules = import.meta.glob('/src/assets/downloads/*', {
+  eager: true,
+  as: 'url'
+});
 
 interface DownloadFile {
   id: number;
@@ -24,8 +32,10 @@ interface DownloadFile {
   description: string;
   downloads: number;
   category: string;
+  path: string; // Actual file path for download
 }
 
+// File metadata - you'll update this array when adding new files
 const downloadFiles: DownloadFile[] = [
   {
     id: 1,
@@ -36,6 +46,7 @@ const downloadFiles: DownloadFile[] = [
     description: 'Comprehensive handbook covering quantum mechanics fundamentals and applications.',
     downloads: 1250,
     category: 'Educational',
+    path: '/src/assets/downloads/Quantum_Mechanics_Handbook.pdf',
   },
   {
     id: 2,
@@ -46,6 +57,7 @@ const downloadFiles: DownloadFile[] = [
     description: 'Python-based physics simulation toolkit with examples and documentation.',
     downloads: 890,
     category: 'Software',
+    path: '/src/assets/downloads/Physics_Simulation_Toolkit.zip',
   },
   {
     id: 3,
@@ -56,6 +68,7 @@ const downloadFiles: DownloadFile[] = [
     description: 'Collection of scripts for analyzing particle physics experimental data.',
     downloads: 650,
     category: 'Software',
+    path: '/src/assets/downloads/Particle_Data_Analysis_Scripts.zip',
   },
   {
     id: 4,
@@ -66,6 +79,7 @@ const downloadFiles: DownloadFile[] = [
     description: 'Professional template for writing physics research papers.',
     downloads: 2100,
     category: 'Templates',
+    path: '/src/assets/downloads/Research_Paper_Template.docx',
   },
   {
     id: 5,
@@ -76,6 +90,7 @@ const downloadFiles: DownloadFile[] = [
     description: 'High-resolution photos from the CERN facility visit.',
     downloads: 450,
     category: 'Media',
+    path: '/src/assets/downloads/CERN_Visit_Photos.zip',
   },
   {
     id: 6,
@@ -86,6 +101,7 @@ const downloadFiles: DownloadFile[] = [
     description: 'Presentation slides on dark matter detection methods and research.',
     downloads: 780,
     category: 'Presentations',
+    path: '/src/assets/downloads/Dark_Matter_Presentation.pptx',
   },
   {
     id: 7,
@@ -96,6 +112,7 @@ const downloadFiles: DownloadFile[] = [
     description: 'Windows application for nuclear physics calculations.',
     downloads: 920,
     category: 'Software',
+    path: '/src/assets/downloads/Nuclear_Physics_Calculator.exe',
   },
   {
     id: 8,
@@ -106,6 +123,7 @@ const downloadFiles: DownloadFile[] = [
     description: 'Detailed lecture notes on quantum field theory.',
     downloads: 1500,
     category: 'Educational',
+    path: '/src/assets/downloads/Quantum_Field_Theory_Notes.pdf',
   },
   {
     id: 9,
@@ -116,6 +134,7 @@ const downloadFiles: DownloadFile[] = [
     description: 'Standardized template for physics laboratory reports.',
     downloads: 1800,
     category: 'Templates',
+    path: '/src/assets/downloads/Lab_Report_Template.docx',
   },
   {
     id: 10,
@@ -126,6 +145,7 @@ const downloadFiles: DownloadFile[] = [
     description: 'Sample dataset from LIGO gravitational wave detection.',
     downloads: 320,
     category: 'Data',
+    path: '/src/assets/downloads/Gravitational_Wave_Dataset.csv',
   },
 ];
 
@@ -160,6 +180,31 @@ export default function Downloads() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [downloadingId, setDownloadingId] = useState<number | null>(null);
   const [downloadedIds, setDownloadedIds] = useState<number[]>([]);
+  const [fileUrls, setFileUrls] = useState<Record<number, string>>({});
+  const [missingFiles, setMissingFiles] = useState<number[]>([]);
+
+  // Process file URLs on component mount
+  useEffect(() => {
+    const urls: Record<number, string> = {};
+    const missing: number[] = [];
+
+    downloadFiles.forEach(file => {
+      // Check if file exists in the imported modules
+      const matchedPath = Object.keys(fileModules).find(path => 
+        path.toLowerCase().endsWith(file.name.toLowerCase())
+      );
+      
+      if (matchedPath) {
+        urls[file.id] = fileModules[matchedPath] as string;
+      } else {
+        missing.push(file.id);
+        console.warn(`File not found: ${file.name} at ${file.path}`);
+      }
+    });
+
+    setFileUrls(urls);
+    setMissingFiles(missing);
+  }, []);
 
   const filteredFiles = downloadFiles.filter(file => {
     const matchesSearch = file.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -169,24 +214,39 @@ export default function Downloads() {
   });
 
   const handleDownload = async (file: DownloadFile) => {
+    const fileUrl = fileUrls[file.id];
+    
+    if (!fileUrl || missingFiles.includes(file.id)) {
+      alert(`File "${file.name}" is not available. Please ensure it exists in src/assets/downloads/`);
+      return;
+    }
+
     setDownloadingId(file.id);
     
-    // Simulate download delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setDownloadingId(null);
-    setDownloadedIds(prev => [...prev, file.id]);
-    
-    // Create and trigger download
-    const blob = new Blob(['This is a sample file content for ' + file.name], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = file.name;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
+    try {
+      // Fetch the actual file
+      const response = await fetch(fileUrl);
+      if (!response.ok) throw new Error('File not found');
+      
+      const blob = await response.blob();
+      
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = file.name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+      
+      setDownloadedIds(prev => [...prev, file.id]);
+    } catch (error) {
+      console.error('Download failed:', error);
+      alert(`Failed to download ${file.name}. Please try again.`);
+    } finally {
+      setDownloadingId(null);
+    }
   };
 
   const totalSize = downloadFiles.reduce((acc, file) => {
@@ -215,6 +275,26 @@ export default function Downloads() {
               Access resources, software, templates, and educational materials for your learning journey.
             </p>
           </motion.div>
+
+          {/* Missing Files Warning */}
+          {missingFiles.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 glass-card p-4 border-l-4 border-yellow-500 bg-yellow-500/10"
+            >
+              <div className="flex items-center gap-3">
+                <AlertCircle className="w-5 h-5 text-yellow-500" />
+                <div>
+                  <p className="font-medium text-yellow-400">Missing Files Detected</p>
+                  <p className="text-sm text-muted-foreground">
+                    {missingFiles.length} file(s) not found in src/assets/downloads/. 
+                    Please add the missing files to enable downloads.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
 
           {/* Stats */}
           <motion.div
@@ -301,6 +381,7 @@ export default function Downloads() {
                 const FileIcon = getFileIcon(file.type);
                 const isDownloading = downloadingId === file.id;
                 const isDownloaded = downloadedIds.includes(file.id);
+                const isMissing = missingFiles.includes(file.id);
                 
                 return (
                   <motion.div
@@ -308,15 +389,26 @@ export default function Downloads() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 items-center hover:bg-white/5 transition-colors"
+                    className={`grid grid-cols-1 md:grid-cols-12 gap-4 p-4 items-center transition-colors ${
+                      isMissing ? 'opacity-50 bg-red-500/5' : 'hover:bg-white/5'
+                    }`}
                   >
                     {/* File Info */}
                     <div className="col-span-1 md:col-span-5 flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg glass-button flex items-center justify-center flex-shrink-0">
-                        <FileIcon className={`w-5 h-5 ${getFileColor(file.type)}`} />
+                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                        isMissing ? 'bg-red-500/20' : 'glass-button'
+                      }`}>
+                        <FileIcon className={`w-5 h-5 ${isMissing ? 'text-red-400' : getFileColor(file.type)}`} />
                       </div>
                       <div className="min-w-0">
-                        <p className="font-medium truncate">{file.name}</p>
+                        <p className="font-medium truncate flex items-center gap-2">
+                          {file.name}
+                          {isMissing && (
+                            <span className="text-xs text-red-400 bg-red-500/20 px-2 py-0.5 rounded">
+                              Missing
+                            </span>
+                          )}
+                        </p>
                         <p className="text-sm text-muted-foreground truncate md:hidden">{file.description}</p>
                         <p className="text-xs text-muted-foreground hidden md:block">{file.description}</p>
                       </div>
@@ -343,10 +435,12 @@ export default function Downloads() {
                     <div className="col-span-1">
                       <button
                         onClick={() => handleDownload(file)}
-                        disabled={isDownloading || isDownloaded}
+                        disabled={isDownloading || isDownloaded || isMissing}
                         className={`w-full md:w-auto px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
                           isDownloaded
                             ? 'bg-green-500/20 text-green-400 cursor-default'
+                            : isMissing
+                            ? 'bg-red-500/20 text-red-400 cursor-not-allowed'
                             : isDownloading
                             ? 'glass-card cursor-wait'
                             : 'glass-button hover:scale-105'
@@ -356,6 +450,11 @@ export default function Downloads() {
                           <>
                             <CheckCircle className="w-4 h-4" />
                             <span className="hidden sm:inline">Done</span>
+                          </>
+                        ) : isMissing ? (
+                          <>
+                            <AlertCircle className="w-4 h-4" />
+                            <span className="hidden sm:inline">Missing</span>
                           </>
                         ) : isDownloading ? (
                           <>
@@ -403,9 +502,9 @@ export default function Downloads() {
               Download Information
             </h3>
             <p className="text-sm text-muted-foreground">
-              All files are downloaded to your default downloads folder. Please ensure you have 
-              sufficient disk space before downloading large files. For software downloads, make sure 
-              to check system requirements before installation.
+              All files are stored locally and downloaded to your default downloads folder. 
+              Files are loaded from <code className="bg-white/10 px-1 rounded">src/assets/downloads/</code>. 
+              Please ensure you have sufficient disk space before downloading large files.
             </p>
           </motion.div>
         </div>
