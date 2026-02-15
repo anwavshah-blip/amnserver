@@ -8,13 +8,8 @@ import {
   FileBarChart, 
   Calendar, 
   Tag, 
-  Eye, 
-  ZoomIn, 
-  ZoomOut, 
-  ChevronLeft, 
-  ChevronRight,
-  X,
-  Lock
+  Eye,  
+  ChevronRight
 } from 'lucide-react';
 import Navigation from '../../components/Navigation';
 import Footer from '../../components/Footer';
@@ -92,33 +87,12 @@ const reports: Report[] = [
 export default function Report() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedReport, setSelectedReport] = useState<Report | null>(null);
-  const [zoomLevel, setZoomLevel] = useState(100);
-  const [currentPage, setCurrentPage] = useState(1);
-  const pdfContainerRef = useRef<HTMLDivElement>(null);
+  
 
   const filteredReports = reports.filter(report =>
     report.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     report.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
   );
-
-  const handleZoomIn = () => {
-    setZoomLevel(prev => Math.min(prev + 25, 200));
-  };
-
-  const handleZoomOut = () => {
-    setZoomLevel(prev => Math.max(prev - 25, 50));
-  };
-
-  const handleWheel = (e: React.WheelEvent) => {
-    if (e.ctrlKey || e.metaKey) {
-      e.preventDefault();
-      if (e.deltaY < 0) {
-        handleZoomIn();
-      } else {
-        handleZoomOut();
-      }
-    }
-  };
 
   return (
     <div className="min-h-screen">
