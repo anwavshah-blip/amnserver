@@ -7,7 +7,7 @@ import ParticleBackground from '../components/ParticleBackground';
 
 const features = [
   {
-    icon: Sparkles,
+    icon: '/assets/images/Spiny-Babbler-Kande-Vyakur.jpg',
     title: 'Kande Bhyakur',
     description: 'Shy, elusive, and ground-dwelling bird, usually detected by its loud, melodious, and thrush-like song.',
   },
