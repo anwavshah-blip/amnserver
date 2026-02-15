@@ -433,7 +433,7 @@ export default function Downloads() {
                     </div>
                     
                     {/* Action */}
-                    <div className="col-span-1 flex justify-end pr-2">
+                    <div className="col-span-1 flex justify-end pr-5">
                       <button
                         onClick={() => handleDownload(file)}
                         disabled={isDownloading || isDownloaded || isMissing}
