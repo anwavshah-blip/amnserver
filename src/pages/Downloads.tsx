@@ -109,14 +109,14 @@ const downloadFiles: DownloadFile[] = [
   },
   {
     id: 8,
-    name: 'Quantum_Field_Theory_Notes.pdf',
+    name: 'Hilly region Report.pdf',
     type: 'pdf',
-    size: '22.4 MB',
+    size: '498 KB',
     date: '2023-12-05',
-    description: 'Detailed lecture notes on quantum field theory.',
+    description: 'HILLY Region Report Nepal',
     downloads: 1500,
     category: 'Educational',
-    path: '/downloads/Quantum_Field_Theory_Notes.pdf',
+    path: '/downloads/Hilly region Report.pdf',
   },
   {
     id: 9,
